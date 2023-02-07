@@ -1,6 +1,2 @@
 # I'm a MacOS user
 .DS_Store
-
-# Do not include migrations until schema becomes stable
-dbschema/migrations/
-
