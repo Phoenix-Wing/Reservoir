@@ -1,2 +1,12 @@
+# NuxtJS
+node_modules
+*.log*
+.nuxt
+.nitro
+.cache
+.output
+.env
+dist
+
 # I'm a MacOS user
 .DS_Store
