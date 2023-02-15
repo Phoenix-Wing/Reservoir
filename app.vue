@@ -4,10 +4,20 @@
 
         <h2>Browse Countries</h2>
 
-        <ul>
-            <li>Country Name - Leader Name (IRL Name)</li>
-            <li>Country Name - Leader Name (IRL Name)</li>
-            <li>Country Name - Leader Name (IRL Name)</li>
+        <div v-if="pending">
+            <p>Loading countries...</p>
+        </div>
+        <ul v-else>
+            <li v-for="country in countries">
+                <NuxtLink :to="`/country/${country.id}`">
+                    {{ country.name }}
+                    {{ country.leader ? ` - ${country.leader.name} (${country.leader.irl_name})` : "" }}
+                </NuxtLink>
+            </li>
         </ul>
     </main>
 </template>
+
+<script setup lang="ts">
+const { pending, data: countries } = await useLazyFetch("/api/countries");
+</script>
