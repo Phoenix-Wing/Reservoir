@@ -14,7 +14,7 @@ select Country {
 order by .id
 limit 5;`;
 
-interface CountryRequest {
+interface CountriesRequest {
     id: string,
     name: string,
     leader?: {
@@ -25,5 +25,5 @@ interface CountryRequest {
 }
 
 export default defineEventHandler(async () => {
-    return await client.query<CountryRequest>(query);
+    return await client.query<CountriesRequest>(query);
 });
