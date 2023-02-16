@@ -1,5 +1,7 @@
 <template>
     <main v-if="country">
+        <Title>{{ country.name }}</Title>
+
         <h1>{{ country.name }}</h1>
         <p v-if="country.leader">
             Run by
