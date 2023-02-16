@@ -11,7 +11,8 @@
             <li v-for="country in countries">
                 <NuxtLink :to="`/country/${country.id}`">
                     {{ country.name }}
-                    {{ country.leader ? ` - ${country.leader.name} (${country.leader.ig_name})` : "" }}
+                    {{ country.leader ? ` - ${country.leader.name}` : "" }}
+                    {{ country.leader?.ig_name ? ` (${country.leader.ig_name})` : "" }}
                 </NuxtLink>
             </li>
         </ul>

@@ -1,7 +1,11 @@
 <template>
-    <main>
-        <h1>{{ country?.name }}</h1>
-        <p v-if="country?.leader !== null">Run by {{ country?.leader?.name }} ({{ country?.leader?.ig_name }})</p>
+    <main v-if="country">
+        <h1>{{ country.name }}</h1>
+        <p v-if="country.leader">
+            Run by
+            {{ country.leader.name }}
+            {{ country.leader.ig_name ? ` (${country.leader.ig_name})` : "" }}
+        </p>
 
         <h2>Gold</h2>
 
@@ -12,6 +16,10 @@
 
         <p>Income: {{ country?.material_income }}</p>
         <p>Total: {{ country?.material_store }}</p>
+    </main>
+
+    <main v-else>
+        <p>This country does not exist. :(</p>
     </main>
 </template>
 
