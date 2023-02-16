@@ -1,7 +1,7 @@
 <template>
     <main>
         <h1>{{ country?.name }}</h1>
-        <p v-if="country?.leader !== null">Run by {{ country?.leader?.name }} ({{ country?.leader?.irl_name }})</p>
+        <p v-if="country?.leader !== null">Run by {{ country?.leader?.name }} ({{ country?.leader?.ig_name }})</p>
 
         <h2>Gold</h2>
 

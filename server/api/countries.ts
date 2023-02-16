@@ -8,7 +8,7 @@ select Country {
     leader: {
         id,
         name,
-        irl_name,
+        ig_name,
     },
 }
 order by .id
@@ -20,7 +20,7 @@ interface CountriesRequest {
     leader?: {
         id: string,
         name: string,
-        irl_name: string,
+        ig_name?: string,
     },
 }
 

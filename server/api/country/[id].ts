@@ -8,7 +8,7 @@ select Country {
     leader: {
         id,
         name,
-        irl_name,
+        ig_name,
     },
     gold_store,
     gold_income,
@@ -23,7 +23,7 @@ interface CountryRequest {
     leader?: {
         id: string,
         name: string,
-        irl_name: string,
+        ig_name?: string,
     },
     gold_store: number,
     gold_income: number,

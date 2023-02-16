@@ -1,4 +1,4 @@
-CREATE MIGRATION m1csq4ahjyrbchgt2ubyuynjr2i7wshxwlt2eoy54z4poewslhhjqa
+CREATE MIGRATION m1mfutbli3s2qlyajkdfgpc5wtdxwkia2beuo55xyecvn4grqwldfa
     ONTO m16smqiffrfejvy3augh3t5gv6entzyigx3h46sbvcsmsajdtgc6cq
 {
   CREATE TYPE default::Country {
@@ -19,7 +19,7 @@ CREATE MIGRATION m1csq4ahjyrbchgt2ubyuynjr2i7wshxwlt2eoy54z4poewslhhjqa
       CREATE REQUIRED PROPERTY name -> std::str;
   };
   CREATE TYPE default::Member {
-      CREATE REQUIRED PROPERTY irl_name -> std::str;
+      CREATE PROPERTY ig_name -> std::str;
       CREATE REQUIRED PROPERTY name -> std::str;
   };
   ALTER TYPE default::Country {

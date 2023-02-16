@@ -28,7 +28,7 @@ module default {
 
     type Member {
         required property name -> str;
-        required property irl_name -> str;
+        property ig_name -> str;
 
         multi link countries := .<leader[is Country];
     }
