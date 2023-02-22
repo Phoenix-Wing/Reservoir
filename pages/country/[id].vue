@@ -19,12 +19,24 @@
 
         <div v-if="!editing">
             <p>Income: {{ country.gold_income }}</p>
-            <p>Bank: {{ country.gold_store }}</p>
+            <p>Store: {{ country.gold_store }}</p>
         </div>
 
         <div v-else>
             <SmartField label="Income" :placeholder="country.gold_income" @input="data => changes.gold_income = data" />
-            <SmartField label="Bank" :placeholder="country.gold_store" @input="data => changes.gold_store = data" />
+            <SmartField label="Store" :placeholder="country.gold_store" @input="data => changes.gold_store = data" />
+        </div>
+
+        <h2>Materials</h2>
+
+        <div v-if="!editing">
+            <p>Income: {{ country.material_income }}</p>
+            <p>Store: {{ country.material_store }}</p>
+        </div>
+
+        <div v-else>
+            <SmartField label="Income" :placeholder="country.material_income" @input="data => changes.material_income = data" />
+            <SmartField label="Store" :placeholder="country.material_store" @input="data => changes.material_store = data" />
         </div>
 
         <hr />
@@ -62,6 +74,8 @@ function emptyCountryMutation(): CountryMutation {
     return {
         gold_income: null,
         gold_store: null,
+        material_income: null,
+        material_store: null,
     };
 }
 
