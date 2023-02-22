@@ -57,7 +57,7 @@
 </template>
 
 <script setup lang="ts">
-import { CountryMutation } from "~/server/api/mutate/country/[id].post";
+import { CountryMutation } from "~/utils/mutations";
 
 const route = useRoute();
 

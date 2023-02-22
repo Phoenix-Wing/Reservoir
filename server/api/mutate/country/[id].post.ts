@@ -1,4 +1,5 @@
 import * as edgedb from "edgedb";
+import { CountryMutation, verifyCountryMutation } from "~/utils/mutations";
 
 const client = edgedb.createClient();
 
@@ -24,27 +25,16 @@ function createMutation(params: CountryMutation): string {
     return res;
 }
 
-export interface CountryMutation {
-    gold_income: number | null,
-    gold_store: number | null,
-    material_income: number | null,
-    material_store: number | null,
-}
-
 export default defineEventHandler(async (event) => {
     const body = await readBody<CountryMutation>(event);
 
-    if (body.gold_store != null && body.gold_store < 0) {
-        throw createError({
-            statusCode: 400,
-            statusMessage: "'gold_store' must be >= 0.",
-        });
-    }
+    const verified = verifyCountryMutation(body);
 
-    if (body.material_store != null && body.material_store < 0) {
+    if (verified != null) {
         throw createError({
             statusCode: 400,
-            statusMessage: "'material_store' must be >= 0.",
+            statusMessage: `Malformed '${verified.property}'${verified.reason ? " because '" + verified.reason + "'" : ""}.`,
+            data: verified,
         });
     }
 
