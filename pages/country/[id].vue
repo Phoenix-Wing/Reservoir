@@ -9,24 +9,56 @@
             {{ country.leader.ig_name ? ` (${country.leader.ig_name})` : "" }}
         </p>
 
+        <button v-if="!editing" @click="editing = true">Edit country</button>
+        <div v-else>
+            <button @click="async () => { editing = false; executeChanges() }">Save</button>
+            <button @click="editing = false; changes = emptyCountryMutation()">Discard changes</button>
+        </div>
+
         <h2>Gold</h2>
 
-        <p>Income: {{ country?.gold_income }}</p>
-        <p>Total: {{ country?.gold_store }}</p>
+        <div v-if="!editing">
+            <p>Income: {{ country.gold_income }}</p>
+            <p>Bank: {{ country.gold_store }}</p>
+        </div>
 
-        <h2>Materials</h2>
+        <div v-else>
+            <SmartField label="Income" :placeholder="country.gold_income" @input="data => changes.gold_income = data" />
+            <SmartField label="Bank" :placeholder="country.gold_store" @input="data => changes.gold_store = data" />
+        </div>
 
-        <p>Income: {{ country?.material_income }}</p>
-        <p>Total: {{ country?.material_store }}</p>
+        <hr />
+
+        <p><code>{{ country }}</code></p>
+        <p><code>{{ changes }}</code></p>
     </main>
 
     <main v-else>
         <p>This country does not exist. :(</p>
+        <p><NuxtLink to="/">Return home?</NuxtLink></p>
     </main>
 </template>
 
 <script setup lang="ts">
+import { CountryMutation } from "~/server/api/mutate/country/[id].post";
+
 const route = useRoute();
+
+const editing = useState("editingCountry", () => false);
+const changes: Ref<CountryMutation> = ref(emptyCountryMutation());
+
+async function executeChanges() {
+    // TODO: Send request
+
+    changes.value = emptyCountryMutation();
+}
+
+function emptyCountryMutation(): CountryMutation {
+    return {
+        gold_income: null,
+        gold_store: null,
+    };
+}
 
 const { data: country } = await useFetch(`/api/country/${route.params.id}`);
 </script>
