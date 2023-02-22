@@ -48,6 +48,11 @@
     <main v-else>
         <p>This country does not exist. :(</p>
         <p><NuxtLink to="/">Return home?</NuxtLink></p>
+
+        <details>
+            <summary>Error for nerds</summary>
+            <code>{{ error }}</code>
+        </details>
     </main>
 </template>
 
@@ -79,5 +84,5 @@ function emptyCountryMutation(): CountryMutation {
     };
 }
 
-const { data: country, refresh } = await useFetch(`/api/country/${route.params.id}`);
+const { data: country, refresh, error } = await useFetch(`/api/country/${route.params.id}`);
 </script>

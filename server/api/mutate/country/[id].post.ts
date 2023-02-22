@@ -58,4 +58,8 @@ set {
 };`, {
         id: event.context.params!.id,
     });
+
+    return {
+        status: "Ok",
+    };
 });
