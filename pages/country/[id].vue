@@ -65,10 +65,14 @@ const editing = useState("editingCountry", () => false);
 const changes: Ref<CountryMutation> = ref(emptyCountryMutation());
 
 async function executeChanges() {
-    await useFetch(`/api/country/${route.params.id}`, {
+    const { error } = await useFetch(`/api/country/${route.params.id}`, {
         method: "post",
         body: changes.value,
     });
+
+    if (error.value != null) {
+        showError(error.value);
+    }
 
     changes.value = emptyCountryMutation();
 
