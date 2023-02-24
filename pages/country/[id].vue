@@ -1,5 +1,9 @@
 <template>
     <main v-if="country">
+        <p><NuxtLink to="/">Return home?</NuxtLink></p>
+
+        <hr />
+
         <Title>{{ country.name }}</Title>
 
         <h1>{{ country.name }}</h1>
@@ -41,8 +45,10 @@
 
         <hr />
 
-        <p><code>{{ country }}</code></p>
-        <p><code>{{ changes }}</code></p>
+        <DevOnly>
+            <p><code>{{ country }}</code></p>
+            <p><code>{{ changes }}</code></p>
+        </DevOnly>
     </main>
 
     <main v-else>
