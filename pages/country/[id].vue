@@ -67,7 +67,7 @@ import { CountryMutation } from "~/utils/mutations";
 
 const route = useRoute();
 
-const editing = useState("editingCountry", () => false);
+const editing = ref(false);
 const changes: Ref<CountryMutation> = ref(emptyCountryMutation());
 
 async function executeChanges() {
