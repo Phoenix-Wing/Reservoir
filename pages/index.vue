@@ -14,7 +14,7 @@
             <p v-else>Distributed income to countries.</p>
         </div>
 
-        <h2>Browse Countries</h2>
+        <h2>Browse countries</h2>
 
         <div v-if="pending">
             <p>Loading countries...</p>
@@ -27,6 +27,13 @@
                     {{ country.leader?.ig_name ? ` (${country.leader.ig_name})` : "" }}
                 </NuxtLink>
             </li>
+        </ul>
+
+        <h2>Create new</h2>
+
+        <ul>
+            <li><NuxtLink to="/new/country">Country</NuxtLink></li>
+            <li><NuxtLink to="/new/faction-leader">Faction leader</NuxtLink></li>
         </ul>
     </main>
 </template>
