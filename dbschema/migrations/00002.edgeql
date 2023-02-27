@@ -1,4 +1,4 @@
-CREATE MIGRATION m1qppttqqtfbkkbtc65rhfiw6imgt6yqxgdavuw5bgpcj25my7nkkq
+CREATE MIGRATION m1jik5bi7a5yu7slvhkphhtndui2udzypytxvwpdcf5vqno75lqgmq
     ONTO m16smqiffrfejvy3augh3t5gv6entzyigx3h46sbvcsmsajdtgc6cq
 {
   CREATE TYPE default::Country {
@@ -16,15 +16,21 @@ CREATE MIGRATION m1qppttqqtfbkkbtc65rhfiw6imgt6yqxgdavuw5bgpcj25my7nkkq
           SET default := 0;
           CREATE CONSTRAINT std::min_value(0);
       };
-      CREATE REQUIRED PROPERTY name -> std::str;
+      CREATE REQUIRED PROPERTY name -> std::str {
+          CREATE CONSTRAINT std::min_len_value(1);
+      };
       CREATE REQUIRED PROPERTY population -> std::int32 {
           SET default := 0;
           CREATE CONSTRAINT std::min_value(0);
       };
   };
   CREATE TYPE default::Member {
-      CREATE PROPERTY ig_name -> std::str;
-      CREATE REQUIRED PROPERTY name -> std::str;
+      CREATE PROPERTY ig_name -> std::str {
+          CREATE CONSTRAINT std::min_len_value(1);
+      };
+      CREATE REQUIRED PROPERTY name -> std::str {
+          CREATE CONSTRAINT std::min_len_value(1);
+      };
   };
   ALTER TYPE default::Country {
       CREATE LINK leader -> default::Member;

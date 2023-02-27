@@ -1,6 +1,10 @@
 module default {
     type Country {
-        required property name -> str;
+        # Any non-empty string
+        required property name -> str {
+            constraint min_len_value(1);
+        }
+
         link leader -> Member;
 
         # Positive number >= 0 && <= 9,223,372,036,854,775,807
@@ -33,8 +37,15 @@ module default {
     }
 
     type Member {
-        required property name -> str;
-        property ig_name -> str;
+        # Any non-empty string
+        required property name -> str {
+            constraint min_len_value(1);
+        }
+
+        # Any non-empty string
+        property ig_name -> str {
+            constraint min_len_value(1);
+        }
 
         multi link countries := .<leader[is Country];
     }
