@@ -14,6 +14,7 @@ select Country {
     gold_income,
     material_store,
     material_income,
+    population,
 }
 filter .id = <uuid>$id;`;
 
@@ -29,6 +30,7 @@ interface CountryRequest {
     gold_income: number,
     material_store: number,
     material_income: number,
+    population: number,
 }
 
 export default defineEventHandler(async (event) => {

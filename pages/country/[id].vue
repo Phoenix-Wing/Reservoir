@@ -43,9 +43,19 @@
             <SmartField label="Store" :placeholder="country.material_store" @input="data => changes.material_store = data" />
         </div>
 
-        <hr />
+        <h2>Population</h2>
+
+        <div v-if="!editing">
+            <p>Total: {{ country.population }}</p>
+        </div>
+
+        <div v-else>
+            <SmartField label="Total" :placeholder="country.population" @input="data => changes.population = data" />
+        </div>
 
         <DevOnly>
+            <hr />
+
             <p><code>{{ country }}</code></p>
             <p><code>{{ changes }}</code></p>
         </DevOnly>
@@ -91,6 +101,7 @@ function emptyCountryMutation(): CountryMutation {
         gold_store: null,
         material_income: null,
         material_store: null,
+        population: null,
     };
 }
 

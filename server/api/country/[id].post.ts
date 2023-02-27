@@ -22,6 +22,10 @@ function createMutation(params: CountryMutation): string {
         res += `material_store := ${params.material_store},\n`;
     }
 
+    if (params.population != null) {
+        res += `population := ${params.population},\n`;
+    }
+
     return res;
 }
 

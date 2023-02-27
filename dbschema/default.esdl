@@ -25,6 +25,7 @@ module default {
             default := 0;
         }
 
+        # Positive number >= 0 && <= 2,147,483,648
         required property population -> int32 {
             default := 0;
             constraint min_value(0);

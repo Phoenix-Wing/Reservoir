@@ -27,6 +27,11 @@
 
         <br />
 
+        <label>Population</label>
+        <input type="number" placeholder="Population" v-model="country.population" />
+
+        <br /><br />
+
         <button @click="async () => { await executeCreation() }">Create!</button>
 
         <p v-if="creationError">Error: {{ creationError }}</p>
@@ -42,11 +47,13 @@
 interface NewCountry {
     name: string,
     leader: string | null,
+    population: number | null,
 }
 
 const country = reactive<NewCountry>({
     name: "",
     leader: null,
+    population: null,
 });
 
 const creationError = ref<string | null>(null);
