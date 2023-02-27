@@ -1,4 +1,4 @@
-CREATE MIGRATION m1mfutbli3s2qlyajkdfgpc5wtdxwkia2beuo55xyecvn4grqwldfa
+CREATE MIGRATION m1qppttqqtfbkkbtc65rhfiw6imgt6yqxgdavuw5bgpcj25my7nkkq
     ONTO m16smqiffrfejvy3augh3t5gv6entzyigx3h46sbvcsmsajdtgc6cq
 {
   CREATE TYPE default::Country {
@@ -17,6 +17,10 @@ CREATE MIGRATION m1mfutbli3s2qlyajkdfgpc5wtdxwkia2beuo55xyecvn4grqwldfa
           CREATE CONSTRAINT std::min_value(0);
       };
       CREATE REQUIRED PROPERTY name -> std::str;
+      CREATE REQUIRED PROPERTY population -> std::int32 {
+          SET default := 0;
+          CREATE CONSTRAINT std::min_value(0);
+      };
   };
   CREATE TYPE default::Member {
       CREATE PROPERTY ig_name -> std::str;

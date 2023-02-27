@@ -24,6 +24,11 @@ module default {
         required property material_income -> int32 {
             default := 0;
         }
+
+        required property population -> int32 {
+            default := 0;
+            constraint min_value(0);
+        }
     }
 
     type Member {
