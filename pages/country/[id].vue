@@ -13,10 +13,10 @@
             {{ country.leader.ig_name ? ` (${country.leader.ig_name})` : "" }}
         </p>
 
-        <button v-if="!editing" @click="editing = true">Edit country</button>
+        <button v-if="!editing" @click="async () => { await refresh(); editing = true }">Edit country</button>
         <div v-else>
             <button @click="async () => { editing = false; executeChanges() }">Save</button>
-            <button @click="editing = false; changes = emptyCountryMutation()">Discard changes</button>
+            <button @click="async () => { editing = false; changes = emptyCountryMutation(); await refresh() }">Discard changes</button>
         </div>
 
         <h2>Gold</h2>
