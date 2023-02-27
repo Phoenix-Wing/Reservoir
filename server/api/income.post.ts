@@ -1,29 +1,47 @@
 import * as edgedb from "edgedb";
 
 const client = edgedb.createClient();
-const query = `\
+const queryAll = queryWith(null);
+// const queryExclude = queryWith(".id not in array_unpack(<array<uuid>>$exclude)");
+// const queryInclude = queryWith(".id in array_unpack(<array<uuid>>$include)");
+
+interface IncomeConfirmation {
+    target: "all" | { exclude: string[] } | { include: string[] },
+}
+
+function queryWith(modifiers: string | null): string {
+    return `\
 update Country
 filter .gold_income > 0 or .material_income > 0
+${modifiers ? "and " + modifiers : ""}
 set {
   gold_store := .gold_store + .gold_income,
   material_store := .material_store + .material_income,
 };`;
-
-interface IncomeConfirmation {
-    confirm: boolean,
 }
 
 export default defineEventHandler(async (event) => {
     const confirmation = await readBody<IncomeConfirmation>(event);
 
-    if (!confirmation.confirm) {
+    if (confirmation.target === "all") {
+        await client.execute(queryAll);
+    } else if ("exclude" in confirmation.target) {
         throw createError({
             statusCode: 400,
-            statusMessage: "Malformed request. Please set 'confirm' to true to distribute the income.",
+            statusMessage: "Malformed 'target' property. 'target.exclude' is not yet supported.",
+        });
+    } else if ("include" in confirmation.target) {
+        throw createError({
+            statusCode: 400,
+            statusMessage: "Malformed 'target' property. 'target.exclude' is not yet supported.",
+        });
+    } else {
+        throw createError({
+            statusCode: 400,
+            statusMessage: "Malformed 'target' property. Please report this error with the given data!",
+            data: confirmation.target,
         });
     }
-
-    await client.execute(query);
 
     return {
         status: "Ok",

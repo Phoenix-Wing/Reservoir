@@ -38,8 +38,9 @@ const hasDistributedIncome = ref(false);
 async function distributeIncome() {
     const { error } = await useFetch("/api/income", {
         method: "post",
-        body: { confirm: true },
+        body: { target: "all" },
     });
+
 
     if (error.value != null) {
         showError(error.value);
