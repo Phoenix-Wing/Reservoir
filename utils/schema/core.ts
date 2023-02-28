@@ -1,4 +1,6 @@
-export interface Query {}
+export interface Query {
+    readonly id: string,
+}
 
 export interface Mutation {
     verify(): null | MutationVerifyError;
