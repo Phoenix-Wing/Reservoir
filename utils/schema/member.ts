@@ -10,13 +10,14 @@ export class MemberQuery implements Query, Member {
 
     readonly name: string;
     readonly ig_name: string | null;
-    readonly country: (Country & { id: string }) | null;
+
+    readonly countries: (Country & { id: string })[] | null;
 
     constructor(id: string, member: Member) {
         this.id = id;
         this.name = member.name;
         this.ig_name = member.ig_name ? member.ig_name : null;
-        this.country = null;
+        this.countries = null;
     }
 }
 

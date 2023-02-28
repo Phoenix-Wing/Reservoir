@@ -67,5 +67,5 @@ async function executeCreation() {
     // TODO
 }
 
-const { pending, data: factionLeaders } = await useLazyFetch("/api/faction-leaders");
+const { pending, data: factionLeaders } = await useLazyFetch("/api/members");
 </script>

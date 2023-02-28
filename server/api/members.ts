@@ -1,4 +1,5 @@
 import * as edgedb from "edgedb";
+import { MemberQuery } from "~/utils/schema";
 
 const client = edgedb.createClient();
 const query = `\
@@ -6,14 +7,9 @@ select Member {
     id,
     name,
     ig_name,
+    countries,
 };`;
 
-interface FactionLeadersRequest {
-    id: string,
-    name: string,
-    ig_name?: string,
-}
-
 export default defineEventHandler(async () => {
-    return await client.query<FactionLeadersRequest>(query);
+    return await client.query<MemberQuery>(query);
 });
