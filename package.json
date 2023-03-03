@@ -4,13 +4,13 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "generate:queryBuilder": "echo n | npx @edgedb/generate edgeql-js --target ts",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare && npm run generate:queryBuilder"
   },
   "devDependencies": {
+    "@edgedb/generate": "^0.0.8",
+    "edgedb": "^1.0.2",
     "nuxt": "^3.2.0"
-  },
-  "dependencies": {
-    "edgedb": "^1.0.2"
   }
 }

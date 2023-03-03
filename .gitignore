@@ -10,3 +10,6 @@ dist
 
 # I'm a MacOS user
 .DS_Store
+
+# EdgeDB Query Builder
+dbschema/edgeql-js/
