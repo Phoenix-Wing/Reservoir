@@ -1,40 +1,21 @@
 import * as edgedb from "edgedb";
+import e from "~/dbschema/edgeql-js";
 
 const client = edgedb.createClient();
-const query = `\
-select Country {
-    id,
-    name,
+const query = e.params({ id: e.uuid }, (params) => e.select(e.Country, () => ({
     leader: {
-        id,
-        name,
-        ig_name,
+        id: true,
+        name: true,
+        ig_name: true,
     },
-    gold_store,
-    gold_income,
-    material_store,
-    material_income,
-    population,
-}
-filter .id = <uuid>$id;`;
 
-interface CountryRequest {
-    id: string,
-    name: string,
-    leader?: {
-        id: string,
-        name: string,
-        ig_name?: string,
-    },
-    gold_store: number,
-    gold_income: number,
-    material_store: number,
-    material_income: number,
-    population: number,
-}
+    ...e.Country["*"],
+
+    filter_single: { id: params.id },
+})));
 
 export default defineEventHandler(async (event) => {
-    const res =  await client.querySingle<CountryRequest>(query, {
+    const res = await query.run(client, {
         id: event.context.params!.id,
     });
 

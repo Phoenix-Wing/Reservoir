@@ -1,15 +1,17 @@
 import * as edgedb from "edgedb";
-import { MemberQuery } from "~/utils/schema";
+import e from "~/dbschema/edgeql-js";
 
 const client = edgedb.createClient();
-const query = `\
-select Member {
-    id,
-    name,
-    ig_name,
-    countries,
-};`;
+const query = e.select(e.Member, () => ({
+    id: true,
+    name: true,
+    ig_name: true,
+    countries: {
+        id: true,
+        name: true,
+    },
+}));
 
 export default defineEventHandler(async () => {
-    return await client.query<MemberQuery>(query);
+    return await query.run(client);
 });

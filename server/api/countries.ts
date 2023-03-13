@@ -1,29 +1,15 @@
 import * as edgedb from "edgedb";
+import e from "~/dbschema/edgeql-js";
 
 const client = edgedb.createClient();
-const query = `\
-select Country {
-    id,
-    name,
+const query = e.select(e.Country, () => ({
+    id: true,
+    name: true,
     leader: {
-        id,
-        name,
-        ig_name,
+        ...e.Member['*']
     },
-}
-order by .id
-limit 5;`;
-
-interface CountriesRequest {
-    id: string,
-    name: string,
-    leader?: {
-        id: string,
-        name: string,
-        ig_name?: string,
-    },
-}
+}));
 
 export default defineEventHandler(async () => {
-    return await client.query<CountriesRequest>(query);
+    return await query.run(client);
 });

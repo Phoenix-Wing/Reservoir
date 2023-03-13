@@ -2,8 +2,6 @@ import * as edgedb from "edgedb";
 
 const client = edgedb.createClient();
 const queryAll = queryWith(null);
-// const queryExclude = queryWith(".id not in array_unpack(<array<uuid>>$exclude)");
-// const queryInclude = queryWith(".id in array_unpack(<array<uuid>>$include)");
 
 interface IncomeConfirmation {
     target: "all" | { exclude: string[] } | { include: string[] },
