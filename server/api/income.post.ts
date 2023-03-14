@@ -1,47 +1,52 @@
 import * as edgedb from "edgedb";
+import e from "~/dbschema/edgeql-js";
 
 const client = edgedb.createClient();
-const queryAll = queryWith(null);
+const query = e.update(e.Country, country => ({
+    // Select only countries whose values would change if income was distributed.
+    filter: e.op(
+        e.op(country.gold_income, ">", 0),
+        "or",
+        e.op(country.material_income, ">", 0),
+    ),
 
-interface IncomeConfirmation {
-    target: "all" | { exclude: string[] } | { include: string[] },
+    set: {
+        gold_store: e.op(country.gold_store, "+", country.gold_income),
+        material_store: e.op(country.material_store, "+", country.material_income),
+    },
+}));
+
+interface IncomeParameters {
+    // Specify which countries to target.
+    target: "all",
 }
 
-function queryWith(modifiers: string | null): string {
-    return `\
-update Country
-filter .gold_income > 0 or .material_income > 0
-${modifiers ? "and " + modifiers : ""}
-set {
-  gold_store := .gold_store + .gold_income,
-  material_store := .material_store + .material_income,
-};`;
+// List of ids (UUID) included and excluded from distribution.
+interface IncomeResponse {
+    included: string[],
+    excluded: string[],
 }
 
-export default defineEventHandler(async (event) => {
-    const confirmation = await readBody<IncomeConfirmation>(event);
+export default defineEventHandler<IncomeResponse>(async (event) => {
+    const params = await readBody<IncomeParameters>(event);
 
-    if (confirmation.target === "all") {
-        await client.execute(queryAll);
-    } else if ("exclude" in confirmation.target) {
-        throw createError({
-            statusCode: 400,
-            statusMessage: "Malformed 'target' property. 'target.exclude' is not yet supported.",
-        });
-    } else if ("include" in confirmation.target) {
-        throw createError({
-            statusCode: 400,
-            statusMessage: "Malformed 'target' property. 'target.exclude' is not yet supported.",
-        });
+    if (params.target == "all") {
+        // Extract { id: string[] } to string[].
+        const included = await (await query.run(client)).map(x => x.id);
+
+        return {
+            included,
+            excluded: [],
+        };
     } else {
+        const errorData = { target: params.target };
+
+        console.error("Malformed 'target' property.", errorData);
+
         throw createError({
             statusCode: 400,
-            statusMessage: "Malformed 'target' property. Please report this error with the given data!",
-            data: confirmation.target,
+            statusMessage: "Malformed 'target' property.",
+            data: errorData,
         });
     }
-
-    return {
-        status: "Ok",
-    };
 });
