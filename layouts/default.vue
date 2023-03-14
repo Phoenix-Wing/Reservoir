@@ -1,5 +1,5 @@
 <template>
-    <div style="margin: 10rem">
+    <NLayout style="padding: 6rem 10rem">
         <slot />
-    </div>
+    </NLayout>
 </template>

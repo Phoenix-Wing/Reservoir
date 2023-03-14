@@ -1,9 +1,5 @@
 <template>
     <main>
-        <NSpace justify="center">
-            <NH1>Reservoir</NH1>
-        </NSpace>
-
         <NCard title="Quick actions" embedded>
             <NSpace>
                 <IncomeDistributor />
@@ -15,3 +11,9 @@
         <CountryList />
     </main>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+    layout: "home",
+});
+</script>
