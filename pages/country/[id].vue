@@ -55,14 +55,7 @@
                 </NCard>
             </NPageHeader>
 
-            <NResult v-else status="error" title="Error" description="Error fetching country data.">
-                <template #footer>
-                    <NButton @click="viewErrorDetails = !viewErrorDetails" type="error" ghost>
-                        {{ viewErrorDetails ? "Hide error details" : "View error details" }}
-                    </NButton>
-                    <pre v-if="viewErrorDetails"><code>{{ error }}</code></pre>
-                </template>
-            </NResult>
+            <ErrorDisplay v-else description="Error fetching country data." :details="error" />
         </NSpin>
     </main>
 </template>
@@ -70,8 +63,6 @@
 <script setup lang="ts">
 // Setup composables and functions
 const route = useRoute();
-
-const viewErrorDetails = ref(false);
 
 function formatLeaderName(): string {
     if (country.value?.leader) {

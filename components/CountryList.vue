@@ -15,14 +15,7 @@
         </template>
 
         <!-- If error fetching data -->
-        <NResult v-if="error" status="error" title="Error" description="Error fetching countries." style="margin-top: 1rem; margin-bottom: 1rem">
-            <template #footer>
-                <NButton @click="viewErrorDetails = !viewErrorDetails" type="error" ghost>
-                    {{ viewErrorDetails ? "Hide error details" : "View error details" }}
-                </NButton>
-                <pre v-if="viewErrorDetails"><code>{{ error }}</code></pre>
-            </template>
-        </NResult>
+        <ErrorDisplay v-if="error" description="Error fetching countries." :details="error" style="margin: 1rem 0" />
 
         <!-- Else if more than 0 countries -->
         <NListItem v-else-if="data!.length > 0" v-for="country in data">
@@ -48,7 +41,5 @@
 </template>
 
 <script setup lang="ts">
-const viewErrorDetails = ref(false);
-
 const { data, pending, error } = await useFetch("/api/countries");
 </script>
