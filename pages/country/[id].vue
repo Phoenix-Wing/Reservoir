@@ -1,0 +1,95 @@
+<template>
+    <main>
+        <Title v-if="pending">Fetching country</Title>
+        <Title v-else-if="error">Error fetching country</Title>
+        <Title v-else>{{ country?.name }}</Title>
+
+        <NSpin :show="pending" description="Fetching country data..." size="large">
+            <NPageHeader v-if="!error" @back="navigateTo('/')" :subtitle="formatLeaderName()">
+                <template #title>
+                    <NText type="primary">{{ country?.name }}</NText>
+                </template>
+
+                <template #header>
+                    <SmartBreadcrumb :routes="breadcrumbRoute" />
+                </template>
+
+                <template #extra>
+                    <NButton disabled>Edit</NButton>
+                </template>
+
+                <NCard>
+                    <NGrid :cols="5">
+                        <NGi>
+                            <NStatistic label="Total Gold">
+                                <NNumberAnimation :to="country?.gold_store" />
+                            </NStatistic>
+                        </NGi>
+
+                        <NGi>
+                            <NStatistic label="Gold Income">
+                                <template #prefix>+</template>
+                                <NNumberAnimation :to="country?.gold_income" />
+                            </NStatistic>
+                        </NGi>
+
+                        <NGi>
+                            <NStatistic label="Total Materials">
+                                <NNumberAnimation :to="country?.material_store" />
+                            </NStatistic>
+                        </NGi>
+
+                        <NGi>
+                            <NStatistic label="Material Income">
+                                <template #prefix>+</template>
+                                <NNumberAnimation :to="country?.material_income" />
+                            </NStatistic>
+                        </NGi>
+
+                        <NGi>
+                            <NStatistic label="Population">
+                                <NNumberAnimation :to="country?.population" />
+                            </NStatistic>
+                        </NGi>
+                    </NGrid>
+                </NCard>
+            </NPageHeader>
+
+            <NResult v-else status="error" title="Error" description="Error fetching country data.">
+                <template #footer>
+                    <NButton @click="viewErrorDetails = !viewErrorDetails" type="error" ghost>
+                        {{ viewErrorDetails ? "Hide error details" : "View error details" }}
+                    </NButton>
+                    <pre v-if="viewErrorDetails"><code>{{ error }}</code></pre>
+                </template>
+            </NResult>
+        </NSpin>
+    </main>
+</template>
+
+<script setup lang="ts">
+// Setup composables and functions
+const route = useRoute();
+
+const viewErrorDetails = ref(false);
+
+function formatLeaderName(): string {
+    if (country.value?.leader) {
+        // "Lead by <NAME>"
+        // "Lead by <NAME> ([IG_NAME])"
+        return `Lead by ${country.value.leader.name}` + (country.value.leader.ig_name ? ` (${country.value.leader.ig_name})` : "");
+    } else {
+        return "No current leader";
+    }
+}
+
+// Fetch country data
+const { data: country, pending, error } = await useFetch(`/api/country/${route.params.id}`);
+
+// Due to its use of country, this needs to be after useFetch
+const breadcrumbRoute: [string, string][] = [
+    ["Reservoir", "/"],
+    ["Country", ""],
+    [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
+];
+</script>
