@@ -1,8 +1,14 @@
 <template>
     <main>
-        <Title v-if="pending">Fetching country</Title>
-        <Title v-else-if="error">Error fetching country</Title>
-        <Title v-else>{{ country?.name }}</Title>
+        <Title>
+            {{ pending ? "Fetching country" : (error ? "Error fetching country" : country!.name) }}
+            <!--
+                If pending or error, so say, else, say country name.
+
+                This comment is below the tag due to an issue with Nuxt.
+                https://github.com/nuxt/nuxt/issues/19716
+            -->
+        </Title>
 
         <NSpin :show="pending" description="Fetching country data..." size="large">
             <NPageHeader v-if="!error" @back="navigateTo('/')" :subtitle="formatLeaderName()">
