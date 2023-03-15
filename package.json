@@ -4,7 +4,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "generate:queryBuilder": "echo n | npx @edgedb/generate edgeql-js --target ts",
+    "generate:queryBuilder": "echo n | npx @edgedb/generate edgeql-js --target esm",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare && npm run generate:queryBuilder"
   },
