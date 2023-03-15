@@ -1,11 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "build": "nuxt build",
+    "build": "npm run generate:queryBuilder:release && nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "generate:queryBuilder": "echo n | npx @edgedb/generate edgeql-js --target esm",
-    "preview": "nuxt preview",
+    "generate:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target ts",
+    "generate:queryBuilder:release": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target esm",
+    "preview": "npm run generate:queryBuilder:release && nuxt preview",
     "postinstall": "nuxt prepare && npm run generate:queryBuilder"
   },
   "devDependencies": {
