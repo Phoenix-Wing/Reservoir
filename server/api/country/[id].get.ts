@@ -13,8 +13,14 @@ const query = e.params({ id: e.uuid }, (params) => e.select(e.Country, () => ({
 
     gold_store: true,
     gold_income: true,
+    gold_upkeep: true,
+    gold_profit: true,
+
     material_store: true,
     material_income: true,
+    material_upkeep: true,
+    material_profit: true,
+
     population: true,
 
     filter_single: { id: params.id },
