@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "npm run build:queryBuilder && nuxt build",
-    "builder:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target esm",
+    "build:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target esm",
     "clean": "rm -rf .output/ .nuxt/ dbschema/edgeql-js/",
     "dev": "nuxt dev",
     "dev:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target ts",
