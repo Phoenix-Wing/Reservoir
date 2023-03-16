@@ -13,10 +13,20 @@ module default {
             constraint min_value(0);
         }
 
-        # Any number >= -2,147,483,648 && <= 2,147,483,648
+        # Any number >= 0 && <= 2,147,483,648
         required property gold_income -> int32 {
             default := 0;
+            constraint min_value(0);
         }
+
+        # Any number >= 0 && <= 2,147,483,648
+        required property gold_upkeep -> int32 {
+            default := 0;
+            constraint min_value(0);
+        }
+
+        # Any number >= -2,147,483,648 && <= 2,147,483,648
+        required property gold_profit := .gold_income - .gold_upkeep;
 
         # Positive number >= 0 && <= 9,223,372,036,854,775,807
         required property material_store -> int64 {
@@ -24,10 +34,20 @@ module default {
             constraint min_value(0);
         }
 
-        # Any number >= -2,147,483,648 && <= 2,147,483,648
+        # Any number >= 0 && <= 2,147,483,648
         required property material_income -> int32 {
             default := 0;
+            constraint min_value(0);
         }
+
+        # Any number >= 0 && <= 2,147,483,648
+        required property material_upkeep -> int32 {
+            default := 0;
+            constraint min_value(0);
+        }
+
+        # Any number >= -2,147,483,648 && <= 2,147,483,648
+        required property material_profit := .material_income - .material_upkeep;
 
         # Positive number >= 0 && <= 2,147,483,648
         required property population -> int32 {
