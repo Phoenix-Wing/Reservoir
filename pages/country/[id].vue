@@ -1,15 +1,5 @@
 <template>
     <main>
-        <Title>
-            {{ pending ? "Fetching country" : (error ? "Error fetching country" : country!.name) }}
-            <!--
-                If pending or error, so say, else, say country name.
-
-                This comment is below the tag due to an issue with Nuxt.
-                https://github.com/nuxt/nuxt/issues/19716
-            -->
-        </Title>
-
         <NSpin :show="pending" description="Fetching country data..." size="large">
             <ErrorDisplay v-if="error" description="Error fetching country data." :details="error" />
 
@@ -34,11 +24,9 @@
                             <NGi>
                                 <FancyStatistic :to="country.gold_profit" label="Gold Profit" suffix="g" type="info" />
                             </NGi>
-
                             <NGi>
                                 <FancyStatistic :to="country.material_profit" label="Material Profit" suffix="mat" type="info" />
                             </NGi>
-
                             <NGi>
                                 <FancyStatistic :to="country.population" label="Population" suffix="people" type="info" />
                             </NGi>
@@ -151,6 +139,11 @@ const leaderNameDisplay = computed(() => {
 
 // Fetch country data
 const { data: country, pending, error } = await useFetch(`/api/country/${route.params.id}`);
+
+// Sets page title
+useHead({
+    title: pending.value ? "Fetching country" : (error.value ? "Error fetching country" : country.value!.name),
+});
 
 // Due to its use of country, this needs to be after useFetch
 const breadcrumbRoute: [string, string][] = [
