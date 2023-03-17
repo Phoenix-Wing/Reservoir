@@ -16,7 +16,7 @@
                     </template>
 
                     <template #extra>
-                        <NButton disabled>Edit</NButton>
+                        <NButton @click="navigateTo(`/country/${$route.params.id}/edit`)">Edit</NButton>
                     </template>
 
                     <NCard title="Quick facts">
