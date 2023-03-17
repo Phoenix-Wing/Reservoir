@@ -16,7 +16,7 @@
             <NEmpty v-else-if="!country" />
 
             <template v-else>
-                <NPageHeader @back="navigateTo('/')" :subtitle="formatLeaderName()">
+                <NPageHeader @back="navigateTo('/')" :subtitle="leaderNameDisplay">
                     <template #title>
                         <NText type="primary">{{ country.name }}</NText>
                     </template>
@@ -32,21 +32,15 @@
                     <NCard title="Quick facts">
                         <NGrid :cols="3">
                             <NGi>
-                                <NStatistic label="Gold Profit">
-                                    <NText type="info"><NNumberAnimation :to="country.gold_profit" /></NText>
-                                </NStatistic>
+                                <FancyStatistic :to="country.gold_profit" label="Gold Profit" suffix="g" type="info" />
                             </NGi>
 
                             <NGi>
-                                <NStatistic label="Material Profit">
-                                    <NText type="info"><NNumberAnimation :to="country.material_profit" /></NText>
-                                </NStatistic>
+                                <FancyStatistic :to="country.material_profit" label="Material Profit" suffix="mat" type="info" />
                             </NGi>
 
                             <NGi>
-                                <NStatistic label="Population">
-                                    <NText type="info"><NNumberAnimation :to="country.population" /></NText>
-                                </NStatistic>
+                                <FancyStatistic :to="country.population" label="Population" suffix="people" type="info" />
                             </NGi>
                         </NGrid>
                     </NCard>
@@ -54,7 +48,7 @@
 
                 <NDivider dashed />
 
-                <NGrid :cols="3" :x-gap="12" :y-gap="12">
+                <NGrid :cols="2" :x-gap="12" :y-gap="12">
                     <!-- Gold card -->
                     <NGi>
                         <CountryStats title="Gold">
@@ -83,24 +77,24 @@
 
                     <!-- Material card -->
                     <NGi>
-                        <CountryStats title="Material">
+                        <CountryStats title="Materials">
                             <NGi>
-                                <FancyStatistic :to="country.material_store" label="Total" suffix="materials" type="primary" />
+                                <FancyStatistic :to="country.material_store" label="Total" suffix="mat" type="primary" />
                             </NGi>
                             <NGi>
                                 <NPopover trigger="hover">
                                     <template #trigger>
-                                        <FancyStatistic :to="country.material_profit" label="Profit" suffix="materials" />
+                                        <FancyStatistic :to="country.material_profit" label="Profit" suffix="mat" />
                                     </template>
 
                                     <span>Calculated with <code>income - upkeep</code></span>
                                 </NPopover>
                             </NGi>
                             <NGi>
-                                <FancyStatistic :to="country.material_income" label="Income" suffix="materials" />
+                                <FancyStatistic :to="country.material_income" label="Income" suffix="mat" />
                             </NGi>
                             <NGi>
-                                <FancyStatistic :to="country.material_upkeep" label="Upkeep" suffix="materials" />
+                                <FancyStatistic :to="country.material_upkeep" label="Upkeep" suffix="mat" />
                             </NGi>
 
                             <template #description>
@@ -116,7 +110,7 @@
                             </NSpace>
 
                             <template #action>
-                                <NText italic depth="3">Population affects how many men you can draft in your military.</NText>
+                                <NText italic depth="3">Population affects how many people you can draft in your military.</NText>
                             </template>
                         </NCard>
                     </NGi>
@@ -127,10 +121,25 @@
 </template>
 
 <script setup lang="ts">
-// Setup composables and functions
 const route = useRoute();
 
-function formatLeaderName(): string {
+definePageMeta({
+    // Asset :id is valid uuid
+    validate: async (route) => {
+        let id = "";
+
+        if (Array.isArray(route.params.id)) {
+            id = route.params.id[0];
+        } else {
+            id = route.params.id;
+        }
+
+        // https://ihateregex.io/expr/uuid/
+        return /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/.test(id);
+    },
+});
+
+const leaderNameDisplay = computed(() => {
     if (country.value?.leader) {
         // "Lead by <NAME>"
         // "Lead by <NAME> ([IG_NAME])"
@@ -138,7 +147,7 @@ function formatLeaderName(): string {
     } else {
         return "No current leader";
     }
-}
+});
 
 // Fetch country data
 const { data: country, pending, error } = await useFetch(`/api/country/${route.params.id}`);
