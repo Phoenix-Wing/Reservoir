@@ -31,7 +31,7 @@
             </NText>
 
             <template #suffix>
-                <NButton @click="navigateTo(`/country/${country.id}`)" type="info" secondary>View</NButton>
+                <NButton @click="navigateTo(`/country/${country.id}`)">View</NButton>
             </template>
         </NListItem>
 

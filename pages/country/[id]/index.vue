@@ -20,17 +20,11 @@
                     </template>
 
                     <NCard title="Quick facts">
-                        <NGrid :cols="3">
-                            <NGi>
-                                <FancyStatistic :to="country.gold_profit" label="Gold Profit" suffix="g" type="info" />
-                            </NGi>
-                            <NGi>
-                                <FancyStatistic :to="country.material_profit" label="Material Profit" suffix="mat" type="info" />
-                            </NGi>
-                            <NGi>
-                                <FancyStatistic :to="country.population" label="Population" suffix="people" type="info" />
-                            </NGi>
-                        </NGrid>
+                        <NSpace justify="space-around">
+                                <FancyStatistic :to="country.gold_store" label="Total Gold" suffix="g" />
+                                <FancyStatistic :to="country.material_store" label="Total Materials" suffix="mat" />
+                                <FancyStatistic :to="country.population" label="Population" suffix="people" />
+                        </NSpace>
                     </NCard>
                 </NPageHeader>
 
@@ -41,7 +35,7 @@
                     <NGi>
                         <CountryStats title="Gold">
                             <NGi>
-                                <FancyStatistic :to="country.gold_store" label="Total" suffix="g" type="primary" />
+                                <FancyStatistic :to="country.gold_store" label="Total" suffix="g" />
                             </NGi>
                             <NGi>
                                 <NPopover trigger="hover">
@@ -67,7 +61,7 @@
                     <NGi>
                         <CountryStats title="Materials">
                             <NGi>
-                                <FancyStatistic :to="country.material_store" label="Total" suffix="mat" type="primary" />
+                                <FancyStatistic :to="country.material_store" label="Total" suffix="mat" />
                             </NGi>
                             <NGi>
                                 <NPopover trigger="hover">
@@ -94,7 +88,7 @@
                     <NGi>
                         <NCard title="Population">
                             <NSpace justify="center">
-                                <FancyStatistic :to="country.population" label="Total" suffix="people" type="primary" />
+                                <FancyStatistic :to="country.population" label="Total" suffix="people" />
                             </NSpace>
 
                             <template #action>

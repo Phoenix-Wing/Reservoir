@@ -1,5 +1,5 @@
 <template>
-    <NButton v-if="!confirmIncome" @click="confirmIncome = true" type="primary" secondary>
+    <NButton v-if="!confirmIncome" @click="confirmIncome = true">
         Distribute income
     </NButton>
     <NCard v-else title="Are you sure?">
