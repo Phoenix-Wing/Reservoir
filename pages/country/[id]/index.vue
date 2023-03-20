@@ -105,6 +105,21 @@
                                 <NForm inline>
                                     <FormNumberField @update="x => editArgs.gold_store = x" :default="country.gold_store" label="Total" />
                                     <FormNumberField @update="x => editArgs.gold_income = x" :default="country.gold_income" label="Income" />
+                                    <FormNumberField @update="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep" label="Upkeep" />
+                                </NForm>
+                            </NCard>
+
+                            <NCard title="Materials">
+                                <NForm inline>
+                                    <FormNumberField @update="x => editArgs.material_store = x" :default="country.material_store" label="Total" />
+                                    <FormNumberField @update="x => editArgs.material_income = x" :default="country.material_income" label="Income" />
+                                    <FormNumberField @update="x => editArgs.material_upkeep = x" :default="country.material_upkeep" label="Upkeep" />
+                                </NForm>
+                            </NCard>
+
+                            <NCard title="Population">
+                                <NForm inline>
+                                    <FormNumberField @update="x => editArgs.population = x" :default="country.population" label="Total" />
                                 </NForm>
                             </NCard>
                         </NSpace>
