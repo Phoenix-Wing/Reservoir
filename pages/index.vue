@@ -1,14 +1,15 @@
 <template>
     <main>
-        <NCard title="Quick actions" embedded>
-            <NSpace>
-                <IncomeDistributor />
-            </NSpace>
-        </NCard>
+        <NSpace :size="24" vertical>
+            <NCard title="Quick actions" embedded>
+                <NSpace>
+                    <IncomeDistributor />
+                    <NButton @click="navigateTo('/new')">Create new...</NButton>
+                </NSpace>
+            </NCard>
 
-        <NDivider dashed />
-
-        <CountryList />
+            <CountryList />
+        </NSpace>
     </main>
 </template>
 
