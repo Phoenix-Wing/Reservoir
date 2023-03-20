@@ -8,6 +8,13 @@ function createMutation(args: UpdateCountryArgs): string {
 
     if (args.gold_store != null) mutations += `gold_store := ${args.gold_store},\n`;
     if (args.gold_income != null) mutations += `gold_income := ${args.gold_income},\n`;
+    if (args.gold_upkeep != null) mutations += `gold_upkeep := ${args.gold_upkeep},\n`;
+
+    if (args.material_store != null) mutations += `material_store := ${args.material_store},\n`;
+    if (args.material_income != null) mutations += `material_income := ${args.material_income},\n`;
+    if (args.material_upkeep != null) mutations += `material_upkeep := ${args.material_upkeep},\n`;
+
+    if (args.population != null) mutations += `population := ${args.population},\n`;
 
     return `\
 update Country
@@ -20,6 +27,13 @@ set {
 export interface UpdateCountryArgs {
     gold_store?: number | null,
     gold_income?: number | null,
+    gold_upkeep?: number | null,
+
+    material_store?: number | null,
+    material_income?: number | null,
+    material_upkeep?: number | null,
+
+    population?: number | null,
 }
 
 export default defineEventHandler(async (event) => {
