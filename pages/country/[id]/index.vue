@@ -124,10 +124,6 @@
                             </NCard>
                         </NSpace>
 
-                        <NDivider dashed />
-
-                        <code>{{ editArgs }}</code>
-
                         <template #footer>
                             <NSpace>
                                 <NButton @click="async () => { await updateCountry(); editing = false }" :loading="updateCountryPending" type="success" ghost>Save</NButton>
