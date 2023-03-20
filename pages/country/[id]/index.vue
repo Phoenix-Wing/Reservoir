@@ -16,7 +16,7 @@
                     </template>
 
                     <template #extra>
-                        <NButton @click="navigateTo(`/country/${$route.params.id}/edit`)">Edit</NButton>
+                        <NButton @click="editing = true">Edit</NButton>
                     </template>
 
                     <NCard title="Quick facts">
@@ -97,16 +97,62 @@
                         </NCard>
                     </NGi>
                 </NGrid>
+
+                <NDrawer v-model:show="editing" :default-width="502" resizable>
+                    <NDrawerContent title="Editing" closable>
+                        <NSpace vertical :size="24">
+                            <NCard title="Gold">
+                                <NForm inline>
+                                    <FormNumberField @update="x => editArgs.gold_store = x" :default="country.gold_store" label="Total" />
+                                    <FormNumberField @update="x => editArgs.gold_income = x" :default="country.gold_income" label="Income" />
+                                </NForm>
+                            </NCard>
+                        </NSpace>
+
+                        <NDivider dashed />
+
+                        <code>{{ editArgs }}</code>
+
+                        <template #footer>
+                            <NSpace>
+                                <NButton @click="async () => { await updateCountry(); editing = false }" :loading="updateCountryPending" type="success" ghost>Save</NButton>
+                                <NButton @click="editing = false" type="error" ghost>Discard</NButton>
+                            </NSpace>
+                        </template>
+                    </NDrawerContent>
+                </NDrawer>
             </template>
         </NSpin>
     </main>
 </template>
 
 <script setup lang="ts">
+import { UpdateCountryArgs } from "~/server/api/country/[id].post";
+
 const route = useRoute();
 
+// Fetch country data
+const { data: country, pending, refresh, error } = await useFetch(`/api/country/${route.params.id}`);
+
+/*
+ * VIEWING
+ */
+
+// Sets page title
+useHead({
+    title: () => {
+        if (pending.value) {
+            return "Fetching country";
+        } else if (error.value) {
+            return "Error fetching country";
+        } else {
+            return country.value!.name;
+        }
+    },
+});
+
 definePageMeta({
-    // Asset :id is valid uuid
+    // Assert :id is valid uuid
     validate: async (route) => {
         let id = "";
 
@@ -131,18 +177,31 @@ const leaderNameDisplay = computed(() => {
     }
 });
 
-// Fetch country data
-const { data: country, pending, error } = await useFetch(`/api/country/${route.params.id}`);
-
-// Sets page title
-useHead({
-    title: pending.value ? "Fetching country" : (error.value ? "Error fetching country" : country.value!.name),
-});
-
 // Due to its use of country, this needs to be after useFetch
 const breadcrumbRoute: [string, string][] = [
     ["Reservoir", "/"],
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
 ];
+
+/*
+ * EDITING
+ */
+
+const editing = ref(false);
+const editArgs = reactive<UpdateCountryArgs>({});
+const updateCountryPending = ref(false);
+
+async function updateCountry() {
+    updateCountryPending.value = true;
+
+    await useFetch(`/api/country/${route.params.id}`, {
+        method: "post",
+        body: editArgs,
+    });
+
+    await refresh();
+
+    updateCountryPending.value = false;
+}
 </script>
