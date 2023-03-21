@@ -89,16 +89,16 @@ async function createCountry() {
         return;
     }
 
-    const { data, error } = await useFetch("/api/new/country", {
-        method: "post",
-        body: countryForm,
-        pick: ["res"],
-    });
+    try {
+        const data = await $fetch("/api/new/country", {
+            method: "post",
+            body: countryForm,
+            pick: ["res"],
+        });
 
-    if (error.value) {
-        message.error("Error creating country. Please see console for more information.")
-    } else {
-        await navigateTo(`/country/${data.value!.res.id}`);
+        await navigateTo(`/country/${data.res.id}`)
+    } catch {
+        message.error("Error creating country. Please see console for more information.");
     }
 
     countryFormLoading.value = false;
@@ -127,19 +127,18 @@ async function createMember() {
     // Replace empty string with undefined
     if (!memberForm.ig_name) memberForm.ig_name = undefined;
 
-    const { error } = await useFetch("/api/new/member", {
-        method: "post",
-        body: memberForm,
-    });
+    try {
+        await $fetch("/api/new/member", {
+            method: "post",
+            body: memberForm,
+        });
 
-    if (error.value) {
-        message.error("Error creating member. Please see console for more information.")
-    } else {
         message.info("Member created successfully!");
+    } catch {
+        message.error("Error creating member. Please see console for more information.")
     }
 
     await membersRefresh();
-
     memberFormLoading.value = false;
 }
 </script>
