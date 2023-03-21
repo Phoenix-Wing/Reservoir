@@ -2,19 +2,13 @@ import * as edgedb from "edgedb";
 import e from "~/dbschema/edgeql-js";
 
 const client = edgedb.createClient();
-const query = e.update(e.Country, country => ({
-    // Select only countries whose values would change if income was distributed.
-    filter: e.op(
-        e.op(country.gold_income, ">", 0),
-        "or",
-        e.op(country.material_income, ">", 0),
-    ),
-
-    set: {
-        gold_store: e.op(country.gold_store, "+", country.gold_income),
-        material_store: e.op(country.material_store, "+", country.material_income),
-    },
-}));
+const query = `\
+update Country
+filter .gold_profit != 0 or .material_profit != 0
+set {
+  gold_store := max({.gold_store + .gold_profit, 0}),
+  material_store := max({.material_store + .material_profit, 0}),
+};`;
 
 interface IncomeParameters {
     // Specify which countries to target.
@@ -24,19 +18,17 @@ interface IncomeParameters {
 // List of ids (UUID) included and excluded from distribution.
 interface IncomeResponse {
     included: string[],
-    excluded: string[],
 }
 
 export default defineEventHandler<IncomeResponse>(async (event) => {
     const params = await readBody<IncomeParameters>(event);
 
     if (params.target == "all") {
-        // Extract { id: string[] } to string[].
-        const included = await (await query.run(client)).map(x => x.id);
+        const included: { id: string }[] = await client.query(query);
 
         return {
-            included,
-            excluded: [],
+            // Extract { id: string[] } to string[].
+            included: await included.map(x => x.id),
         };
     } else {
         const errorData = { target: params.target };
