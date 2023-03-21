@@ -17,7 +17,7 @@
                 <NCard title="Country">
                     <NForm>
                         <NFormItem label="Name" required>
-                            <NInput v-model:value="countryForm.name" />
+                            <NInput v-model:value="countryForm.name" clearable />
                         </NFormItem>
 
                         <NFormItem label="Leader" required>
@@ -39,14 +39,14 @@
                 <NCard title="Member">
                     <NForm>
                         <NFormItem label="Name" required>
-                            <NInput v-model:value="memberForm.name" />
+                            <NInput v-model:value="memberForm.name" clearable />
                         </NFormItem>
 
                         <NFormItem label="In-game name">
-                            <NInput v-model:value="memberForm.ig_name" />
+                            <NInput v-model:value="memberForm.ig_name" clearable />
                         </NFormItem>
 
-                        <NButton disabled @click="async () => await createMember()" :loading="memberFormLoading">Create</NButton>
+                        <NButton @click="async () => await createMember()" :loading="memberFormLoading">Create</NButton>
                     </NForm>
                 </NCard>
             </NGi>
@@ -66,7 +66,7 @@ const breadcrumbRoutes: [string, string][] = [
  * Country Form
  */
 
-const { data: members, pending: membersPending, error: membersError } = await useLazyFetch("/api/members");
+const { data: members, pending: membersPending, refresh: membersRefresh, error: membersError } = await useLazyFetch("/api/members");
 
 const membersOptions = computed(() => members.value ? members.value.map(x => ({
     label: x.name,
@@ -123,6 +123,22 @@ async function createMember() {
         memberFormLoading.value = false;
         return;
     }
+
+    // Replace empty string with undefined
+    if (!memberForm.ig_name) memberForm.ig_name = undefined;
+
+    const { error } = await useFetch("/api/new/member", {
+        method: "post",
+        body: memberForm,
+    });
+
+    if (error.value) {
+        message.error("Error creating member. Please see console for more information.")
+    } else {
+        message.info("Member created successfully!");
+    }
+
+    await membersRefresh();
 
     memberFormLoading.value = false;
 }
