@@ -2,6 +2,7 @@ module default {
     type Country {
         # Any non-empty string
         required property name -> str {
+            constraint exclusive;
             constraint min_len_value(1);
         }
 
@@ -59,6 +60,7 @@ module default {
     type Member {
         # Any non-empty string
         required property name -> str {
+            constraint exclusive;
             constraint min_len_value(1);
         }
 
