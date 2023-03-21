@@ -141,6 +141,7 @@
 import { UpdateCountryArgs } from "~/server/api/country/[id].post";
 
 const route = useRoute();
+const message = useMessage();
 
 // Fetch country data
 const { data: country, pending, refresh, error } = await useFetch(`/api/country/${route.params.id}`);
@@ -206,10 +207,14 @@ const updateCountryPending = ref(false);
 async function updateCountry() {
     updateCountryPending.value = true;
 
-    await useFetch(`/api/country/${route.params.id}`, {
-        method: "post",
-        body: editArgs,
-    });
+    try {
+        await $fetch(`/api/country/${route.params.id}`, {
+            method: "post",
+            body: editArgs,
+        });
+    } catch {
+        message.error("There was an error updating country information. Please check console for more information.");
+    }
 
     await refresh();
 
