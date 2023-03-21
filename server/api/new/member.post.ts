@@ -5,23 +5,21 @@ const client = edgedb.createClient();
 const mutation = e.params(
     {
         name: e.str,
-        leader: e.uuid,
+        ig_name: e.optional(e.str),
     },
-    params => e.insert(e.Country, {
+    params => e.insert(e.Member, {
         name: params.name,
-        leader: e.select(e.Member, _ => ({
-            filter_single: { id: params.leader },
-        })),
+        ig_name: params.ig_name,
     }),
 );
 
-interface NewCountryArgs {
+interface NewMemberArgs {
     name: string,
-    leader: string,
+    ig_name?: string | null,
 }
 
 export default defineEventHandler(async (event) => {
-    const body = await readBody<NewCountryArgs>(event);
+    const body = await readBody<NewMemberArgs>(event);
 
     const res = await mutation.run(client, body);
 
