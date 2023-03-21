@@ -39,14 +39,14 @@
                 <NCard title="Member">
                     <NForm>
                         <NFormItem label="Name" required>
-                            <NInput />
+                            <NInput v-model:value="memberForm.name" />
                         </NFormItem>
 
                         <NFormItem label="In-game name">
-                            <NInput />
+                            <NInput v-model:value="memberForm.ig_name" />
                         </NFormItem>
 
-                        <NButton disabled>Create</NButton>
+                        <NButton disabled @click="async () => await createMember()" :loading="memberFormLoading">Create</NButton>
                     </NForm>
                 </NCard>
             </NGi>
@@ -83,6 +83,12 @@ const countryFormLoading = ref(false);
 async function createCountry() {
     countryFormLoading.value = true;
 
+    if (!countryForm.leader || !countryForm.name) {
+        message.warning("Please ensure that the country's name and leader are not empty!");
+        countryFormLoading.value = false;
+        return;
+    }
+
     const { data, error } = await useFetch("/api/new/country", {
         method: "post",
         body: countryForm,
@@ -96,5 +102,28 @@ async function createCountry() {
     }
 
     countryFormLoading.value = false;
+}
+
+/*
+ * Member Form
+ */
+
+const memberForm = reactive<{
+    name?: string,
+    ig_name?: string,
+}>({});
+
+const memberFormLoading = ref(false);
+
+async function createMember() {
+    memberFormLoading.value = true;
+
+    if (!memberForm.name) {
+        message.warning("Please ensure that the member's name is not empty!");
+        memberFormLoading.value = false;
+        return;
+    }
+
+    memberFormLoading.value = false;
 }
 </script>
