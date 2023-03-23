@@ -3,7 +3,7 @@
   "scripts": {
     "build": "npm run build:queryBuilder && nuxt build",
     "build:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target esm",
-    "clean": "rm -rf .output/ .nuxt/ dbschema/edgeql-js/",
+    "clean": "rm -rf .output/ .nuxt/ dbschema/edgeql-js/ reservoir.tar.gz",
     "dev": "nuxt dev",
     "dev:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target ts",
     "generate": "nuxt generate",

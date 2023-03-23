@@ -13,3 +13,6 @@ dist
 
 # EdgeDB Query Builder
 dbschema/edgeql-js/
+
+# Deployment build
+reservoir.tar.gz
