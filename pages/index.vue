@@ -5,6 +5,7 @@
                 <NSpace>
                     <IncomeDistributor />
                     <NButton @click="navigateTo('/new')">Create new...</NButton>
+                    <NButton @click="navigateTo('/backups')">View backups</NButton>
                 </NSpace>
             </NCard>
 
