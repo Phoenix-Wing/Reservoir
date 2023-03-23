@@ -1,7 +1,7 @@
 <template>
     <main>
         <NSpace :size="24" vertical>
-            <NCard title="Quick actions" embedded>
+            <NCard title="Quick actions">
                 <NSpace>
                     <IncomeDistributor />
                     <NButton @click="navigateTo('/new')">Create new...</NButton>

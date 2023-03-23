@@ -2,7 +2,7 @@
     <NButton v-if="!confirmIncome" @click="confirmIncome = true">
         Distribute income
     </NButton>
-    <NCard v-else title="Are you sure?">
+    <NCard v-else title="Are you sure?" embedded>
         <NButtonGroup vertical>
             <NButton @click="async () => distributeIncome()" type="success" ghost :loading="pendingDistribution">Yes, distribute income</NButton>
             <NButton @click="confirmIncome = false; pendingDistribution = false" type="error" ghost>No, don't do it</NButton>
