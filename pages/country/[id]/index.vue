@@ -6,7 +6,7 @@
             <NEmpty v-else-if="!country" />
 
             <template v-else>
-                <NPageHeader @back="navigateTo('/')" :subtitle="leaderNameDisplay">
+                <NPageHeader @back="navigateTo('/')">
                     <template #title>
                         <NText type="primary">{{ country.name }}</NText>
                     </template>
@@ -17,6 +17,15 @@
 
                     <template #extra>
                         <NButton @click="editing = true">Edit</NButton>
+                    </template>
+
+                    <template #subtitle>
+                        <span v-if="country.leader">
+                            <NText depth="1">Lead by {{ country.leader.name }}</NText>
+                            <span v-if="country.leader.ig_name"> ({{ country.leader.ig_name }})</span>
+                        </span>
+
+                        <span v-else>No current leader</span>
                     </template>
 
                     <NCard title="Quick facts">

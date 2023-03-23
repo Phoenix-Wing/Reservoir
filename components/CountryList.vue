@@ -24,7 +24,8 @@
             </template>
 
             <div v-if="country.leader">
-                Lead by {{ country.leader.name }} {{ country.leader.ig_name ? `(${country.leader.ig_name})` : "" }}
+                Lead by {{ country.leader.name }}
+                <NText v-if="country.leader.ig_name" depth="3">({{ country.leader.ig_name }})</NText>
             </div>
             <NText v-else italic>
                 No current leader
