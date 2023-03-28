@@ -54,7 +54,32 @@ x_first_install() {
 }
 
 x_update() {
-    echo "TODO: update"
+    echo "Updating instance from archive $1."
+
+    echo "Deleting .previous/ directory."
+    rm -rf .previous/
+
+    echo "Extracting archive to .temp/."
+    rm -rf .temp/
+    mkdir -p .temp/
+
+    cp $1 .temp/reservoir.tar.gz
+    cd .temp/
+    tar -xf reservoir.tar.gz
+    cd ..
+
+    mv .temp/.output/* .temp/
+    rm -d .temp/.output/ .temp/reservoir.tar.gz
+
+    echo "Backing up current instance to .previous/."
+    mkdir -p .previous/
+    mv * .previous/
+
+    echo "Move new instance into current directory."
+    mv .temp/* .
+    rm -d .temp/
+
+    echo "Finished updating instance."
 }
 
 #######
@@ -71,5 +96,5 @@ elif [[ $1 == "help" || $1 == "--help" || $1 == "-h" ]]; then
 elif [[ $1 == "first-install" ]]; then
     x_first_install
 elif [[ $1 == "update" ]]; then
-    x_update
+    x_update $2
 fi
