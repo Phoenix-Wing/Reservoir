@@ -25,7 +25,7 @@ $ node ./server/index.mjs
 Listening http://[::]:3000
 ```
 
-You can also manage your installation with `xr.sh`.
+You can visit the deployed website at [localhost:3000](http://localhost:3000). You can also manage your installation with `xr.sh`.
 
 ```shell
 $ ./xr.sh --help

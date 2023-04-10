@@ -1,5 +1,6 @@
 {
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "build": "npm run build:queryBuilder && nuxt build",
     "build:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target esm",

@@ -46,6 +46,9 @@ x_release() {
     # Copy over xr.sh utiltiy script
     cp bins/xr.sh .output/xr.sh
 
+    # Copy over README
+    cp README.md .output/README.md
+
     # Create archive with .output folder
     tar -cf reservoir.tar .output/*
     gzip reservoir.tar
