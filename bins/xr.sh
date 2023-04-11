@@ -79,6 +79,9 @@ x_update() {
     mv .temp/* .
     rm -d .temp/
 
+    echo "Migrating database."
+    edgedb migrate
+
     echo "Finished updating instance."
 }
 
