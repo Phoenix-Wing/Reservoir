@@ -109,7 +109,7 @@
                     <NGi>
                         <NCard title="Notes">
                             <!-- pre-line makes HTML respect newlines -->
-                            <NText style="white-space: pre-line">{{ country.notes || "No current notes..." }}</NText>
+                            <NText :depth="2" style="white-space: pre-line">{{ country.notes || "No current notes..." }}</NText>
 
                             <template #action>
                                 <NText italic depth="3">Notes can be anything that you need to remember for a while.</NText>
