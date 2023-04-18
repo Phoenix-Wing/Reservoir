@@ -4,7 +4,7 @@
   "scripts": {
     "build": "npm run build:queryBuilder && nuxt build",
     "build:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target esm",
-    "clean": "rm -rf .output/ .nuxt/ dbschema/edgeql-js/ reservoir.tar.gz",
+    "clean": "nuxi clean && rm -rf dbschema/edgeql-js/ reservoir.tar.gz",
     "dev": "nuxt dev",
     "dev:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target ts",
     "generate": "nuxt generate",
@@ -14,7 +14,7 @@
   "devDependencies": {
     "@edgedb/generate": "^0.0.8",
     "@huntersofbook/naive-ui-nuxt": "^0.7.1",
-    "edgedb": "^1.0.2",
-    "nuxt": "3.2.3"
+    "edgedb": "^1.1.0",
+    "nuxt": "^3.4.1"
   }
 }
