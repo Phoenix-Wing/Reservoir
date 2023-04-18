@@ -16,6 +16,8 @@ function createMutation(args: UpdateCountryArgs): string {
 
     if (args.population != null) mutations += `population := ${args.population},\n`;
 
+    if (args.notes != null) mutations += `notes := "${args.notes}",\n`;
+
     return `\
 update Country
 filter .id = <uuid>$id
@@ -34,6 +36,8 @@ export interface UpdateCountryArgs {
     material_upkeep?: number | null,
 
     population?: number | null,
+
+    notes?: string | null,
 }
 
 export default defineEventHandler(async (event) => {

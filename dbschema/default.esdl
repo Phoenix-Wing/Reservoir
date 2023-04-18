@@ -55,6 +55,12 @@ module default {
             default := 0;
             constraint min_value(0);
         }
+
+        # Country notes for dungeon masters
+        required property notes -> str {
+            default := "";
+            constraint max_len_value(500);
+        }
     }
 
     type Member {
