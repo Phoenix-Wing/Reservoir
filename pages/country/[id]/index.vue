@@ -105,6 +105,16 @@
                             </template>
                         </NCard>
                     </NGi>
+
+                    <NGi>
+                        <NCard title="Notes">
+                            <NText style="white-space: pre-line">{{ country.notes || "No current notes..." }}</NText>
+
+                            <template #action>
+                                <NText italic depth="3">Notes can be anything that you need to remember for a while.</NText>
+                            </template>
+                        </NCard>
+                    </NGi>
                 </NGrid>
 
                 <NDrawer v-model:show="editing" :default-width="502" resizable>
@@ -129,6 +139,12 @@
                             <NCard title="Population">
                                 <NForm inline>
                                     <ReNumField @update="x => editArgs.population = x" :default="country.population" label="Total" />
+                                </NForm>
+                            </NCard>
+
+                            <NCard title="Notes">
+                                <NForm>
+                                    <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes" :maxlength="500" />
                                 </NForm>
                             </NCard>
                         </NSpace>
