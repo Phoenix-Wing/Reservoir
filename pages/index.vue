@@ -5,11 +5,17 @@
                 <NSpace>
                     <IncomeDistributor />
                     <NButton @click="navigateTo('/new')">Create new...</NButton>
-                    <NButton @click="navigateTo('/backups')">View backups</NButton>
+                    <NButton @click="navigateTo('/backups')" disabled>View backups</NButton>
                 </NSpace>
             </NCard>
 
             <CountryList />
+            
+            <NGrid :cols="2" :x-gap="12">
+                <NGi>
+                    <MemberList />
+                </NGi>
+            </NGrid>
         </NSpace>
     </main>
 </template>
