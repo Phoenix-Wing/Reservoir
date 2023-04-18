@@ -108,6 +108,7 @@
 
                     <NGi>
                         <NCard title="Notes">
+                            <!-- pre-line makes HTML respect newlines -->
                             <NText style="white-space: pre-line">{{ country.notes || "No current notes..." }}</NText>
 
                             <template #action>
