@@ -8,8 +8,8 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-    label: string,
     default: number,
+    label?: string,
     suffix?: string,
     precision?: number,
 }>();
