@@ -2,10 +2,13 @@ import * as edgedb from "edgedb";
 import e from "~/dbschema/edgeql-js";
 
 const client = edgedb.createClient();
-const query = e.params({ id: e.uuid }, (params) => e.select(e.Member, () => ({
+const query = e.params({ id: e.uuid }, (params) => e.select(e.Member, member => ({
     id: true,
     name: true,
     ig_name: true,
+
+    sum_gold: e.sum(member.countries.gold_store),
+    sum_materials: e.sum(member.countries.material_store),
 
     countries: {
         id: true,

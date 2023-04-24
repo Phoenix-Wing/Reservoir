@@ -15,7 +15,7 @@
             </NText>
 
             <template #suffix>
-                <NButton disabled>View</NButton>
+                <NButton @click="navigateTo(`/member/${member.id}`)">View</NButton>
             </template>
         </NListItem>
 
