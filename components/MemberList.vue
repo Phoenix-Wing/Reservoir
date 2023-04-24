@@ -4,7 +4,7 @@
             <NH2>Browse members</NH2>
         </template>
 
-        <NListItem v-for="member in data">
+        <NListItem v-for="member in data?.members">
             <template #prefix>
                 {{ member.name }}
             </template>
@@ -15,17 +15,25 @@
             </NText>
 
             <template #suffix>
-                <NButton disabled>View</NButton>
+                <NButton @click="navigateTo(`/member/${member.id}`)">View</NButton>
             </template>
         </NListItem>
 
         <template #footer>
             <!-- Technically disabled, but it looks better without the property -->
-            <NPagination />
+            <NPagination v-model:page="page" :page-count="data?.pages" />
         </template>
     </NList>
 </template>
 
 <script setup lang="ts">
-const { data } = await useFetch("/api/members");
+const page = ref(1);
+
+const memberQuery = computed(() => ({
+    page: page.value - 1,
+}));
+
+const { data } = await useFetch("/api/members", {
+    query: memberQuery,
+});
 </script>
