@@ -190,19 +190,7 @@ useHead({
 });
 
 definePageMeta({
-    // Assert :id is valid uuid
-    validate: async (route) => {
-        let id = "";
-
-        if (Array.isArray(route.params.id)) {
-            id = route.params.id[0];
-        } else {
-            id = route.params.id;
-        }
-
-        // https://ihateregex.io/expr/uuid/
-        return /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/.test(id);
-    },
+    validate: async (route) => validateUuid(route.params.id),
 });
 
 const leaderNameDisplay = computed(() => {
