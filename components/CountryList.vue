@@ -37,7 +37,7 @@
         </NListItem>
 
         <!-- Else, countries.length must be 0 -->
-        <NEmpty v-else size="huge" description="No countries yet..." style="margin-top: 1rem; margin-bottom: 1rem" />
+        <NEmpty v-else size="huge" description="No countries yet..." style="margin: 1rem 0" />
     </NList>
 </template>
 
