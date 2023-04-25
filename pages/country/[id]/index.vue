@@ -20,10 +20,11 @@
                     </template>
 
                     <template #subtitle>
-                        <span v-if="country.leader">
+                        <!-- style undos default link styling -->
+                        <NuxtLink v-if="country.leader" :to="`/member/${country.leader.id}`" style="color: rgba(255, 255, 255, 0.52); text-decoration: none">
                             <NText depth="1">Lead by {{ country.leader.name }}</NText>
                             <span v-if="country.leader.ig_name"> ({{ country.leader.ig_name }})</span>
-                        </span>
+                        </NuxtLink>
 
                         <span v-else>No current leader</span>
                     </template>
