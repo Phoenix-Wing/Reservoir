@@ -20,17 +20,19 @@
         </NListItem>
 
         <template #footer>
-            <!-- Technically disabled, but it looks better without the property -->
-            <NPagination v-model:page="page" :page-count="data?.pages" />
+            <NPagination v-model:page="page" :item-count="data?.total" :page-size="PAGE_SIZE" />
         </template>
     </NList>
 </template>
 
 <script setup lang="ts">
+const PAGE_SIZE = 5;
+
 const page = ref(1);
 
 const memberQuery = computed(() => ({
-    page: page.value - 1,
+    limit: PAGE_SIZE,
+    offset: (page.value - 1) * PAGE_SIZE,
 }));
 
 const { data } = await useFetch("/api/members", {

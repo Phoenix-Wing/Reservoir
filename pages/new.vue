@@ -66,9 +66,11 @@ const breadcrumbRoutes: [string, string][] = [
  * Country Form
  */
 
-const { data: members, pending: membersPending, refresh: membersRefresh, error: membersError } = await useLazyFetch("/api/members");
+const { data: members, pending: membersPending, refresh: membersRefresh, error: membersError } = await useLazyFetch("/api/members", {
+    pick: ["members"],
+});
 
-const membersOptions = computed(() => members.value ? members.value.map(x => ({
+const membersOptions = computed(() => members.value ? members.value.members.map(x => ({
     label: x.name,
     value: x.id,
 })) : []);

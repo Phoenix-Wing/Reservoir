@@ -1,35 +1,43 @@
 import * as edgedb from "edgedb";
 import e from "~/dbschema/edgeql-js";
 
-const PAGE_SIZE = 5;
-
 const client = edgedb.createClient();
-const query = e.params({ page: e.int64 }, (params) => e.select({
-    pages: e.math.ceil(e.op(e.count(e.select(e.Member)), "/", PAGE_SIZE)),
-    members: e.select(e.Member, member => ({
-        id: true,
-        name: true,
-        ig_name: true,
-        countries: true,
+const query = e.params(
+    {
+        offset: e.optional(e.int64),
+        limit: e.optional(e.int64),
+    },
+    (params) => e.select({
+        total: e.count(e.select(e.Member)),
+        members: e.select(e.Member, member => ({
+            id: true,
+            name: true,
+            ig_name: true,
+            countries: true,
 
-        order_by: member.name,
-        limit: PAGE_SIZE,
-        offset: e.op(params.page, "*", PAGE_SIZE),
-    })),
-}));
+            order_by: member.name,
+            offset: params.offset,
+            limit: params.limit,
+        })),
+    }),
+);
 
 export default defineEventHandler(async (event) => {
     const args = getQuery(event);
 
-    let page = 0;
+    let offset = null;
+    let limit = null;
 
-    if (typeof args.page == "string") {
-        page = parseInt(args.page);
-    } else if (typeof args.page == "number") {
-        page = args.page;
+    if (typeof args.offset == "string") {
+        offset = parseInt(args.offset);
+    }
+
+    if (typeof args.limit == "string") {
+        limit = parseInt(args.limit);
     }
 
     return await query.run(client, {
-        page,
+        offset,
+        limit,
     });
 });
