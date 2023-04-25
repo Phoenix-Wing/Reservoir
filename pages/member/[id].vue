@@ -12,7 +12,7 @@
                     </template>
 
                     <template #header>
-                        <SmartBreadcrumb :routes="breadcrumpRoute" />
+                        <SmartBreadcrumb :routes="breadcrumbRoute" />
                     </template>
 
                     <template #extra>
@@ -33,7 +33,17 @@
                     <NDivider dashed />
 
                     <NGrid :cols="2" :x-gap="12" :y-gap="12">
-                        <NGi v-for="country in member.countries">
+                        <NGi v-if="member.countries.length == 0">
+                            <NCard>
+                                <NEmpty description="This member does not have any countries." size="large">
+                                    <template #extra>
+                                        <NButton @click="navigateTo('/new')">Create a new country</NButton>
+                                    </template>
+                                </NEmpty>
+                            </NCard>
+                        </NGi>
+
+                        <NGi v-else v-for="country in member.countries">
                             <NCard :title="country.name">
                                 <template #header-extra>
                                     <NButton @click="navigateTo(`/country/${country.id}`)">View</NButton>
@@ -73,7 +83,7 @@ definePageMeta({
     validate: async (route) => validateUuid(route.params.id),
 });
 
-const breadcrumpRoute: [string, string][] = [
+const breadcrumbRoute: [string, string][] = [
     ["Reservoir", "/"],
     ["Member", ""],
     [member.value ? member.value.name : "Loading...", `member/${route.params.id}`],
