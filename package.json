@@ -15,6 +15,6 @@
     "@edgedb/generate": "^0.0.8",
     "@huntersofbook/naive-ui-nuxt": "^0.7.1",
     "edgedb": "^1.1.0",
-    "nuxt": "^3.4.1"
+    "nuxt": "^3.4.2"
   }
 }
