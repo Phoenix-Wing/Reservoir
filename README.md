@@ -44,10 +44,10 @@ $ cd Reservoir
 
 # Install dependencies and setup database
 $ edgedb project init
-$ npm i
+$ pnpm i
 
 # Begin development server
-$ npm run dev
+$ pnpm dev
 ```
 
 You can learn more about developing Nuxt websites with their [guide](https://nuxt.com/docs/getting-started/introduction).
@@ -66,9 +66,9 @@ $ ./bins/xd.sh release
 > If you want to continue developing after building for production, you will need to do the following:
 >
 > ```shell
-> $ npm run clean
-> $ npm run dev:queryBuilder
-> $ npm run dev
+> $ pnpm clean
+> $ pnpm dev:queryBuilder
+> $ pnpm dev
 > ```
 >
 > This is due to incompatibilities with [EdgeDB's generator](https://www.edgedb.com/docs/clients/js/generation) using different JS flavors and build variants.
