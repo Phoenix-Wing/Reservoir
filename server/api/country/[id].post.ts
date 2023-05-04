@@ -23,7 +23,7 @@ update Country
 filter .id = <uuid>$id
 set {
     ${mutations}
-}`;
+};`;
 }
 
 export interface UpdateCountryArgs {
