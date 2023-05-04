@@ -1,5 +1,5 @@
 <template>
-    <NFormItem>
+    <NFormItem :label="label">
         <NInput type="textarea" @update:value="emitUpdate" :defaultValue="default" :maxlength="maxlength"
             :autosize="{ minRows: 3, maxRows: 10 }" showCount clearable />
     </NFormItem>
