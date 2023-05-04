@@ -35,8 +35,8 @@ Commands:
 
 x_release() {
     # Build production server
-    npm run clean
-    npm run build
+    pnpm run clean
+    pnpm run build
 
     # Copy over EdgeDB project and migrations
     cp edgedb.toml .output/edgedb.toml
