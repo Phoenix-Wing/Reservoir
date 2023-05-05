@@ -36,19 +36,7 @@
             </NGi>
 
             <NGi>
-                <NCard title="Member">
-                    <NForm>
-                        <NFormItem label="Name" required>
-                            <NInput v-model:value="memberForm.name" clearable />
-                        </NFormItem>
-
-                        <NFormItem label="In-game name">
-                            <NInput v-model:value="memberForm.ig_name" clearable />
-                        </NFormItem>
-
-                        <NButton @click="async () => await createMember()" :loading="memberFormLoading">Create</NButton>
-                    </NForm>
-                </NCard>
+                <NewMemberForm @member-created="async () => await membersRefresh()" />
             </NGi>
         </NGrid>
     </main>
@@ -104,43 +92,5 @@ async function createCountry() {
     }
 
     countryFormLoading.value = false;
-}
-
-/*
- * Member Form
- */
-
-const memberForm = reactive<{
-    name?: string,
-    ig_name?: string,
-}>({});
-
-const memberFormLoading = ref(false);
-
-async function createMember() {
-    memberFormLoading.value = true;
-
-    if (!memberForm.name) {
-        message.warning("Please ensure that the member's name is not empty!");
-        memberFormLoading.value = false;
-        return;
-    }
-
-    // Replace empty string with undefined
-    if (!memberForm.ig_name) memberForm.ig_name = undefined;
-
-    try {
-        await $fetch("/api/new/member", {
-            method: "post",
-            body: memberForm,
-        });
-
-        message.info("Member created successfully!");
-    } catch {
-        message.error("Error creating member. Please see console for more information.")
-    }
-
-    await membersRefresh();
-    memberFormLoading.value = false;
 }
 </script>
