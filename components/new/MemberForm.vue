@@ -15,11 +15,11 @@
 </template>
 
 <script setup lang="ts">
+const message = useMessage();
+
 const emit = defineEmits<{
     (e: "memberCreated"): void,
 }>();
-
-const message = useMessage();
 
 const form = reactive<{
     name?: string,
