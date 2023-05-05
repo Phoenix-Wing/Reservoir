@@ -18,7 +18,7 @@
                 </NText>
 
                 <template #suffix>
-                    <NButton @click="navigateTo(`/member/${member.id}`)">View</NButton>
+                    <UButtonLink :to="`/member/${member.id}`">View</UButtonLink>
                 </template>
             </NListItem>
 

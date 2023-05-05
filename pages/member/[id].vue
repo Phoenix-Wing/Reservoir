@@ -38,7 +38,7 @@
                         <NCard>
                             <NEmpty description="This member does not have any countries." size="large">
                                 <template #extra>
-                                    <NButton @click="navigateTo('/new')">Create a new country</NButton>
+                                    <UButtonLink to="/new">Create a new country</UButtonLink>
                                 </template>
                             </NEmpty>
                         </NCard>
@@ -47,7 +47,7 @@
                     <NGi v-else v-for="country in member.countries">
                         <NCard :title="country.name">
                             <template #header-extra>
-                                <NButton @click="navigateTo(`/country/${country.id}`)">View</NButton>
+                                <UButtonLink :to="`/country/${country.id}`">View</UButtonLink>
                             </template>
                             <NGrid :cols="2">
                                 <NGi><ReStat label="Total Gold" suffix="g" :to="country.gold_store" /></NGi>
