@@ -6,6 +6,7 @@ const query = e.select(e.Country, country => ({
     id: true,
     name: true,
     leader: {
+        id: true,
         name: true,
         ig_name: true,
     },

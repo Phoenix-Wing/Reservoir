@@ -16,7 +16,7 @@
                     </template>
 
                     <template #extra>
-                        <NButton disabled>Edit</NButton>
+                        <NButton @click="editing = true">Edit</NButton>
                     </template>
 
                     <template #subtitle v-if="member.ig_name">
@@ -29,43 +29,82 @@
                             <ReStat :to="member.sum_materials" label="Available Materials" suffix="mat" />
                         </NSpace>
                     </NCard>
-
-                    <NDivider dashed />
-
-                    <NGrid :cols="2" :x-gap="12" :y-gap="12">
-                        <NGi v-if="member.countries.length == 0">
-                            <NCard>
-                                <NEmpty description="This member does not have any countries." size="large">
-                                    <template #extra>
-                                        <NButton @click="navigateTo('/new')">Create a new country</NButton>
-                                    </template>
-                                </NEmpty>
-                            </NCard>
-                        </NGi>
-
-                        <NGi v-else v-for="country in member.countries">
-                            <NCard :title="country.name">
-                                <template #header-extra>
-                                    <NButton @click="navigateTo(`/country/${country.id}`)">View</NButton>
-                                </template>
-
-                                <NGrid :cols="2">
-                                    <NGi><ReStat label="Total Gold" suffix="g" :to="country.gold_store" /></NGi>
-                                    <NGi><ReStat label="Total Materials" suffix="mat" :to="country.material_store" /></NGi>
-                                </NGrid>
-                            </NCard>
-                        </NGi>
-                    </NGrid>
                 </NPageHeader>
+                
+                <NDivider dashed />
+
+                <NGrid :cols="2" :x-gap="12" :y-gap="12">
+                    <NGi v-if="member.countries.length == 0">
+                        <NCard>
+                            <NEmpty description="This member does not have any countries." size="large">
+                                <template #extra>
+                                    <NButton @click="navigateTo('/new')">Create a new country</NButton>
+                                </template>
+                            </NEmpty>
+                        </NCard>
+                    </NGi>
+
+                    <NGi v-else v-for="country in member.countries">
+                        <NCard :title="country.name">
+                            <template #header-extra>
+                                <NButton @click="navigateTo(`/country/${country.id}`)">View</NButton>
+                            </template>
+                            <NGrid :cols="2">
+                                <NGi><ReStat label="Total Gold" suffix="g" :to="country.gold_store" /></NGi>
+                                <NGi><ReStat label="Total Materials" suffix="mat" :to="country.material_store" /></NGi>
+                            </NGrid>
+                        </NCard>
+                    </NGi>
+                </NGrid>
+
+                <NDrawer v-model:show="editing" :default-width="502" resizable>
+                    <NDrawerContent title="Editing" closable>
+                        <NSpace vertical :size="24">
+                            <NCard title="Character">
+                                <NForm>
+                                    <ReTextField @update="x => editArgs.name = x" :default="member.name" label="Name" />
+                                    
+                                    <NPopover trigger="hover" :delay="500">
+                                        <template #trigger>
+                                            <NFormItem label="In-Game Name">
+                                                <NInput type="text" :defaultValue="member.ig_name" disabled />
+                                            </NFormItem>
+                                        </template>
+
+                                        <span>Not yet implemented. Please see <NuxtLink to="https://github.com/Phoenix-Wing/Reservoir/issues/8" target="_blank">#8</NuxtLink>.</span>
+                                    </NPopover>
+                                </NForm>
+                            </NCard>
+
+                            <NCard title="Countries">
+                                <NTransfer v-model:value="selectedCountries" :options="countriesTransferOptions" source-filterable disabled />
+                            </NCard>
+                        </NSpace>
+
+                        <template #footer>
+                            <NSpace>
+                                <NButton @click="async () => { await updateMember(); editing = false }" :loading="updateMemberPending" type="success" ghost>Save</NButton>
+                                <NButton @click="editing = false" type="error" ghost>Discard</NButton>
+                            </NSpace>
+                        </template>
+                    </NDrawerContent>
+                </NDrawer>
             </template>
         </NSpin>
     </main>
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
+import { UpdateMemberArgs } from "~/server/api/member/[id].post";
 
-const { data: member, pending, error } = await useFetch(`/api/member/${route.params.id}`);
+const route = useRoute();
+const message = useMessage();
+
+const { data: member, pending, refresh, error } = await useFetch(`/api/member/${route.params.id}`);
+
+/*
+ * VIEWING
+ */
 
 useHead({
     title: () => {
@@ -88,4 +127,40 @@ const breadcrumbRoute: [string, string][] = [
     ["Member", ""],
     [member.value ? member.value.name : "Loading...", `member/${route.params.id}`],
 ];
+
+/*
+ * EDITING
+ */
+
+const editing = ref(false);
+const editArgs = reactive<UpdateMemberArgs>({});
+const updateMemberPending = ref(false);
+
+const { data: countries } = await useFetch("/api/countries");
+
+const countriesTransferOptions = computed(() => countries.value?.map(x => ({
+    label: x.name,
+    value: x.id,
+    disabled: x.leader ? x.leader.id != route.params.id : false,
+})));
+
+const selectedCountries = ref(member.value ? member.value.countries.map(x => x.id) : []);
+
+async function updateMember() {
+    updateMemberPending.value = true;
+
+    // TODO: $fetch
+    try {
+        await $fetch(`/api/member/${route.params.id}`, {
+            method: "post",
+            body: editArgs,
+        });
+    } catch {
+        message.error("There was an error updating member information. Please check console for more information.");
+    }
+
+    await refresh();
+
+    updateMemberPending.value = false;
+}
 </script>

@@ -1,15 +1,15 @@
 <template>
     <NFormItem :label="label">
-        <NInput type="textarea" @update:value="emitUpdate" :defaultValue="default" :maxlength="maxlength"
-            :autosize="{ minRows: 3, maxRows: 10 }" showCount clearable />
+        <NInput type="text" @update:value=" emitUpdate " :defaultValue="default" :maxlength=" maxlength " :showCount=" showCount "
+            clearable />
     </NFormItem>
-</template>
+</template> 
 
 <script setup lang="ts">
 const props = defineProps<{
     default: string,
     label?: string,
-    maxlength?: number,
+    maxlength?: string,
 }>();
 
 const emit = defineEmits<{
@@ -17,11 +17,14 @@ const emit = defineEmits<{
 }>();
 
 function emitUpdate(val: string | null) {
-    // Emit null if value is the same as default
     if (val != props.default) {
         emit("update", val);
     } else {
         emit("update", null);
     }
 }
+
+const showCount = computed(() => {
+    return props.maxlength ? true : false;
+});
 </script>
