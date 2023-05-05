@@ -45,15 +45,7 @@
                     </NGi>
 
                     <NGi v-else v-for="country in member.countries">
-                        <NCard :title="country.name">
-                            <template #header-extra>
-                                <UButtonLink :to="`/country/${country.id}`">View</UButtonLink>
-                            </template>
-                            <NGrid :cols="2">
-                                <NGi><ViewStat label="Total Gold" suffix="g" :to="country.gold_store" /></NGi>
-                                <NGi><ViewStat label="Total Materials" suffix="mat" :to="country.material_store" /></NGi>
-                            </NGrid>
-                        </NCard>
+                        <ViewCountryCard :name="country.name" :id="country.id" :gold="country.gold_store" :materials="country.material_store" />
                     </NGi>
                 </NGrid>
 
