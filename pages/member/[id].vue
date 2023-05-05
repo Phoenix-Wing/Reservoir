@@ -75,6 +75,10 @@
                                     </NPopover>
                                 </NForm>
                             </NCard>
+
+                            <NCard title="Countries">
+                                <NTransfer v-model:value="selectedCountries" :options="countriesTransferOptions" source-filterable disabled />
+                            </NCard>
                         </NSpace>
 
                         <template #footer>
@@ -131,6 +135,16 @@ const breadcrumbRoute: [string, string][] = [
 const editing = ref(false);
 const editArgs = reactive<UpdateMemberArgs>({});
 const updateMemberPending = ref(false);
+
+const { data: countries } = await useFetch("/api/countries");
+
+const countriesTransferOptions = computed(() => countries.value?.map(x => ({
+    label: x.name,
+    value: x.id,
+    disabled: x.leader ? x.leader.id != route.params.id : false,
+})));
+
+const selectedCountries = ref(member.value ? member.value.countries.map(x => x.id) : []);
 
 async function updateMember() {
     updateMemberPending.value = true;
