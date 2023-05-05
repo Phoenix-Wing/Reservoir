@@ -31,10 +31,10 @@
 defineProps<{
     title: string,
     data: {
-        store: number,
-        profit: number,
-        income: number,
-        upkeep: number,
+        store?: number,
+        profit?: number,
+        income?: number,
+        upkeep?: number,
     },
     suffix?: string,
 }>();

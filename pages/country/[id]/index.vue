@@ -43,9 +43,7 @@
 
                 <NGrid :cols="2" :x-gap="12" :y-gap="12">
                     <NGi>
-                        <ViewCurrencyCard title="Gold"
-                            :data="{ store: country.gold_store, profit: country.gold_profit, income: country.gold_income, upkeep: country.gold_upkeep }"
-                            suffix="g">
+                        <ViewCurrencyCard title="Gold" :data="goldData" suffix="g">
                             <template #description>
                                 Gold is the universal currency in Phoenix Wing.
                             </template>
@@ -53,9 +51,7 @@
                     </NGi>
 
                     <NGi>
-                        <ViewCurrencyCard title="Materials"
-                            :data="{ store: country.material_store, profit: country.material_profit, income: country.material_income, upkeep: country.material_upkeep }"
-                            suffix="mat">
+                        <ViewCurrencyCard title="Materials" :data="materialData" suffix="mat">
                             <template #description>
                                 Materials are used to build new structures.
                             </template>
@@ -174,22 +170,26 @@ definePageMeta({
     validate: async (route) => validateUuid(route.params.id),
 });
 
-const leaderNameDisplay = computed(() => {
-    if (country.value?.leader) {
-        // "Lead by <NAME>"
-        // "Lead by <NAME> ([IG_NAME])"
-        return `Lead by ${country.value.leader.name}` + (country.value.leader.ig_name ? ` (${country.value.leader.ig_name})` : "");
-    } else {
-        return "No current leader";
-    }
-});
-
 // Due to its use of country, this needs to be after useFetch
 const breadcrumbRoute: [string, string][] = [
     ["Reservoir", "/"],
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
 ];
+
+const goldData = computed(() => ({
+    store: country.value?.gold_store,
+    profit: country.value?.gold_profit,
+    income: country.value?.gold_income,
+    upkeep: country.value?.gold_upkeep,
+}));
+
+const materialData = computed(() => ({
+    store: country.value?.material_store,
+    profit: country.value?.material_profit,
+    income: country.value?.material_income,
+    upkeep: country.value?.material_upkeep,
+}));
 
 /*
  * EDITING
