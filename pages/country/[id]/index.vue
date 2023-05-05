@@ -88,41 +88,25 @@
 
                 <EditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
-                        <NCard title="Gold">
-                            <NForm inline>
-                                <ReNumField @update="x => editArgs.gold_store = x" :default="country.gold_store"
-                                    label="Total" />
-                                <ReNumField @update="x => editArgs.gold_income = x" :default="country.gold_income"
-                                    label="Income" />
-                                <ReNumField @update="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep"
-                                    label="Upkeep" />
-                            </NForm>
-                        </NCard>
+                        <EditCard title="Gold" inline>
+                            <ReNumField @update="x => editArgs.gold_store = x" :default="country.gold_store" label="Total" />
+                            <ReNumField @update="x => editArgs.gold_income = x" :default="country.gold_income" label="Income" />
+                            <ReNumField @update="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep" label="Upkeep" />
+                        </EditCard>
 
-                        <NCard title="Materials">
-                            <NForm inline>
-                                <ReNumField @update="x => editArgs.material_store = x" :default="country.material_store"
-                                    label="Total" />
-                                <ReNumField @update="x => editArgs.material_income = x"
-                                    :default="country.material_income" label="Income" />
-                                <ReNumField @update="x => editArgs.material_upkeep = x"
-                                    :default="country.material_upkeep" label="Upkeep" />
-                            </NForm>
-                        </NCard>
+                        <EditCard title="Materials" inline>
+                                <ReNumField @update="x => editArgs.material_store = x" :default="country.material_store" label="Total" />
+                                <ReNumField @update="x => editArgs.material_income = x" :default="country.material_income" label="Income" />
+                                <ReNumField @update="x => editArgs.material_upkeep = x" :default="country.material_upkeep" label="Upkeep" />
+                        </EditCard>
 
-                        <NCard title="Population">
-                            <NForm inline>
-                                <ReNumField @update="x => editArgs.population = x" :default="country.population"
-                                    label="Total" />
-                            </NForm>
-                        </NCard>
+                        <EditCard title="Population" inline>
+                                <ReNumField @update="x => editArgs.population = x" :default="country.population" label="Total" />
+                        </EditCard>
 
-                        <NCard title="Notes">
-                            <NForm>
-                                <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes"
-                                    :maxlength="500" />
-                            </NForm>
-                        </NCard>
+                        <EditCard title="Notes">
+                                <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes" :maxlength="500" />
+                        </EditCard>
                     </NSpace>
 
                     <template #footer>

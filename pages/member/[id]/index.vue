@@ -59,20 +59,18 @@
 
                 <EditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
-                        <NCard title="Character">
-                            <NForm>
-                                <ReTextField @update="x => editArgs.name = x" :default="member.name" label="Name" />
-                                
-                                <NPopover trigger="hover" :delay="500">
-                                    <template #trigger>
-                                        <NFormItem label="In-Game Name">
-                                            <NInput type="text" :defaultValue="member.ig_name" disabled />
-                                        </NFormItem>
-                                    </template>
-                                    <span>Not yet implemented. Please see <NuxtLink to="https://github.com/Phoenix-Wing/Reservoir/issues/8" target="_blank">#8</NuxtLink>.</span>
-                                </NPopover>
-                            </NForm>
-                        </NCard>
+                        <EditCard title="Character">
+                            <ReTextField @update="x => editArgs.name = x" :default="member.name" label="Name" />
+
+                            <NPopover trigger="hover" :delay="500">
+                                <template #trigger>
+                                    <NFormItem label="In-Game Name">
+                                        <NInput type="text" :defaultValue="member.ig_name" disabled />
+                                    </NFormItem>
+                                </template>
+                                <span>Not yet implemented. Please see <NuxtLink to="https://github.com/Phoenix-Wing/Reservoir/issues/8" target="_blank">#8</NuxtLink>.</span>
+                            </NPopover>
+                        </EditCard>
 
                         <NCard title="Countries">
                             <NTransfer v-model:value="selectedCountries" :options="countriesTransferOptions" source-filterable disabled />
