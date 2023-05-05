@@ -25,8 +25,8 @@
 
                     <NCard title="Quick facts">
                         <NSpace justify="space-around">
-                            <ReStat :to="member.sum_gold" label="Available Gold" suffix="g" />
-                            <ReStat :to="member.sum_materials" label="Available Materials" suffix="mat" />
+                            <ViewStat :to="member.sum_gold" label="Available Gold" suffix="g" />
+                            <ViewStat :to="member.sum_materials" label="Available Materials" suffix="mat" />
                         </NSpace>
                     </NCard>
                 </NPageHeader>
@@ -50,8 +50,8 @@
                                 <UButtonLink :to="`/country/${country.id}`">View</UButtonLink>
                             </template>
                             <NGrid :cols="2">
-                                <NGi><ReStat label="Total Gold" suffix="g" :to="country.gold_store" /></NGi>
-                                <NGi><ReStat label="Total Materials" suffix="mat" :to="country.material_store" /></NGi>
+                                <NGi><ViewStat label="Total Gold" suffix="g" :to="country.gold_store" /></NGi>
+                                <NGi><ViewStat label="Total Materials" suffix="mat" :to="country.material_store" /></NGi>
                             </NGrid>
                         </NCard>
                     </NGi>

@@ -1,29 +1,3 @@
 <template>
-    <NStatistic :label="label">
-        <template #prefix v-if="prefix">{{ prefix }}</template>
-
-        <!-- Wrap animation in NText if type is defined -->
-        <NText v-if="type" :type="type">
-            <NNumberAnimation :to="to" :from="from ? from : 0" :duration="DURATION" showSeparator />
-        </NText>
-
-        <NNumberAnimation v-else :to="to" :from="from ? from : 0" :duration="DURATION" showSeparator />
-
-        <template #suffix v-if="suffix">{{ suffix }}</template>
-    </NStatistic>
+    ReStat
 </template>
-
-<script setup lang="ts">
-const DURATION = 1000;
-
-defineProps<{
-    label?: string,
-    type?: "default" | "primary" | "success" | "info" | "warning" | "error",
-
-    prefix?: string,
-    suffix?: string,
-
-    to: number,
-    from?: number,
-}>();
-</script>

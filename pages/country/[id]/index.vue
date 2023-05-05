@@ -21,7 +21,8 @@
 
                     <template #subtitle>
                         <!-- style undos default link styling -->
-                        <NuxtLink v-if="country.leader" :to="`/member/${country.leader.id}`" style="color: rgba(255, 255, 255, 0.52); text-decoration: none">
+                        <NuxtLink v-if="country.leader" :to="`/member/${country.leader.id}`"
+                            style="color: rgba(255, 255, 255, 0.52); text-decoration: none">
                             <NText depth="1">Lead by {{ country.leader.name }}</NText>
                             <span v-if="country.leader.ig_name"> ({{ country.leader.ig_name }})</span>
                         </NuxtLink>
@@ -31,9 +32,9 @@
 
                     <NCard title="Quick facts">
                         <NSpace justify="space-around">
-                                <ReStat :to="country.gold_store" label="Total Gold" suffix="g" />
-                                <ReStat :to="country.material_store" label="Total Materials" suffix="mat" />
-                                <ReStat :to="country.population" label="Population" suffix="people" />
+                            <ViewStat :to="country.gold_store" label="Total Gold" suffix="g" />
+                            <ViewStat :to="country.material_store" label="Total Materials" suffix="mat" />
+                            <ViewStat :to="country.population" label="Population" suffix="people" />
                         </NSpace>
                     </NCard>
                 </NPageHeader>
@@ -41,68 +42,36 @@
                 <NDivider dashed />
 
                 <NGrid :cols="2" :x-gap="12" :y-gap="12">
-                    <!-- Gold card -->
                     <NGi>
-                        <ReStatCard title="Gold">
-                            <NGi>
-                                <ReStat :to="country.gold_store" label="Total" suffix="g" />
-                            </NGi>
-                            <NGi>
-                                <NPopover trigger="hover">
-                                    <template #trigger>
-                                        <ReStat :to="country.gold_profit" label="Profit" suffix="g" />
-                                    </template>
-
-                                    <span>Calculated with <code>income - upkeep</code></span>
-                                </NPopover>
-                            </NGi>
-                            <NGi>
-                                <ReStat :to="country.gold_income" label="Income" suffix="g" />
-                            </NGi>
-                            <NGi>
-                                <ReStat :to="country.gold_upkeep" label="Upkeep" suffix="g" />
-                            </NGi>
-
-                            <template #description>Gold is the universal currency in Phoenix Wing.</template>
-                        </ReStatCard>
+                        <ViewCurrencyCard title="Gold"
+                            :data="{ store: country.gold_store, profit: country.gold_profit, income: country.gold_income, upkeep: country.gold_upkeep }"
+                            suffix="g">
+                            <template #description>
+                                Gold is the universal currency in Phoenix Wing.
+                            </template>
+                        </ViewCurrencyCard>
                     </NGi>
 
-                    <!-- Material card -->
                     <NGi>
-                        <ReStatCard title="Materials">
-                            <NGi>
-                                <ReStat :to="country.material_store" label="Total" suffix="mat" />
-                            </NGi>
-                            <NGi>
-                                <NPopover trigger="hover">
-                                    <template #trigger>
-                                        <ReStat :to="country.material_profit" label="Profit" suffix="mat" />
-                                    </template>
-
-                                    <span>Calculated with <code>income - upkeep</code></span>
-                                </NPopover>
-                            </NGi>
-                            <NGi>
-                                <ReStat :to="country.material_income" label="Income" suffix="mat" />
-                            </NGi>
-                            <NGi>
-                                <ReStat :to="country.material_upkeep" label="Upkeep" suffix="mat" />
-                            </NGi>
-
+                        <ViewCurrencyCard title="Materials"
+                            :data="{ store: country.material_store, profit: country.material_profit, income: country.material_income, upkeep: country.material_upkeep }"
+                            suffix="mat">
                             <template #description>
                                 Materials are used to build new structures.
                             </template>
-                        </ReStatCard>
+                        </ViewCurrencyCard>
                     </NGi>
 
                     <NGi>
                         <NCard title="Population">
                             <NSpace justify="center">
-                                <ReStat :to="country.population" label="Total" suffix="people" />
+                                <ViewStat :to="country.population" label="Total" suffix="people" />
                             </NSpace>
 
                             <template #action>
-                                <NText italic depth="3">Population affects how many people you can draft in your military.</NText>
+                                <NText italic depth="3">
+                                    Population affects how many people you can draft in your military.
+                                </NText>
                             </template>
                         </NCard>
                     </NGi>
@@ -110,7 +79,9 @@
                     <NGi>
                         <NCard title="Notes">
                             <!-- pre-line makes HTML respect newlines -->
-                            <NText :depth="2" style="white-space: pre-line">{{ country.notes || "No current notes..." }}</NText>
+                            <NText :depth="2" style="white-space: pre-line">
+                                {{ country.notes || "No current notes..." }}
+                            </NText>
 
                             <template #action>
                                 <NText italic depth="3">Notes can be anything that you need to remember for a while.</NText>
@@ -124,36 +95,45 @@
                         <NSpace vertical :size="24">
                             <NCard title="Gold">
                                 <NForm inline>
-                                    <ReNumField @update="x => editArgs.gold_store = x" :default="country.gold_store" label="Total" />
-                                    <ReNumField @update="x => editArgs.gold_income = x" :default="country.gold_income" label="Income" />
-                                    <ReNumField @update="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep" label="Upkeep" />
+                                    <ReNumField @update="x => editArgs.gold_store = x" :default="country.gold_store"
+                                        label="Total" />
+                                    <ReNumField @update="x => editArgs.gold_income = x" :default="country.gold_income"
+                                        label="Income" />
+                                    <ReNumField @update="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep"
+                                        label="Upkeep" />
                                 </NForm>
                             </NCard>
 
                             <NCard title="Materials">
                                 <NForm inline>
-                                    <ReNumField @update="x => editArgs.material_store = x" :default="country.material_store" label="Total" />
-                                    <ReNumField @update="x => editArgs.material_income = x" :default="country.material_income" label="Income" />
-                                    <ReNumField @update="x => editArgs.material_upkeep = x" :default="country.material_upkeep" label="Upkeep" />
+                                    <ReNumField @update="x => editArgs.material_store = x" :default="country.material_store"
+                                        label="Total" />
+                                    <ReNumField @update="x => editArgs.material_income = x"
+                                        :default="country.material_income" label="Income" />
+                                    <ReNumField @update="x => editArgs.material_upkeep = x"
+                                        :default="country.material_upkeep" label="Upkeep" />
                                 </NForm>
                             </NCard>
 
                             <NCard title="Population">
                                 <NForm inline>
-                                    <ReNumField @update="x => editArgs.population = x" :default="country.population" label="Total" />
+                                    <ReNumField @update="x => editArgs.population = x" :default="country.population"
+                                        label="Total" />
                                 </NForm>
                             </NCard>
 
                             <NCard title="Notes">
                                 <NForm>
-                                    <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes" :maxlength="500" />
+                                    <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes"
+                                        :maxlength="500" />
                                 </NForm>
                             </NCard>
                         </NSpace>
 
                         <template #footer>
                             <NSpace>
-                                <NButton @click="async () => { await updateCountry(); editing = false }" :loading="updateCountryPending" type="success" ghost>Save</NButton>
+                                <NButton @click="async () => { await updateCountry(); editing = false }"
+                                    :loading="updateCountryPending" type="success" ghost>Save</NButton>
                                 <NButton @click="editing = false" type="error" ghost>Discard</NButton>
                             </NSpace>
                         </template>
