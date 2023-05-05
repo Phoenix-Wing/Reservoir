@@ -86,55 +86,53 @@
                     </NGi>
                 </NGrid>
 
-                <NDrawer v-model:show="editing" :default-width="502" resizable>
-                    <NDrawerContent title="Editing" closable>
-                        <NSpace vertical :size="24">
-                            <NCard title="Gold">
-                                <NForm inline>
-                                    <ReNumField @update="x => editArgs.gold_store = x" :default="country.gold_store"
-                                        label="Total" />
-                                    <ReNumField @update="x => editArgs.gold_income = x" :default="country.gold_income"
-                                        label="Income" />
-                                    <ReNumField @update="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep"
-                                        label="Upkeep" />
-                                </NForm>
-                            </NCard>
+                <EditDrawer v-model:show="editing" title="Editing">
+                    <NSpace vertical :size="24">
+                        <NCard title="Gold">
+                            <NForm inline>
+                                <ReNumField @update="x => editArgs.gold_store = x" :default="country.gold_store"
+                                    label="Total" />
+                                <ReNumField @update="x => editArgs.gold_income = x" :default="country.gold_income"
+                                    label="Income" />
+                                <ReNumField @update="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep"
+                                    label="Upkeep" />
+                            </NForm>
+                        </NCard>
 
-                            <NCard title="Materials">
-                                <NForm inline>
-                                    <ReNumField @update="x => editArgs.material_store = x" :default="country.material_store"
-                                        label="Total" />
-                                    <ReNumField @update="x => editArgs.material_income = x"
-                                        :default="country.material_income" label="Income" />
-                                    <ReNumField @update="x => editArgs.material_upkeep = x"
-                                        :default="country.material_upkeep" label="Upkeep" />
-                                </NForm>
-                            </NCard>
+                        <NCard title="Materials">
+                            <NForm inline>
+                                <ReNumField @update="x => editArgs.material_store = x" :default="country.material_store"
+                                    label="Total" />
+                                <ReNumField @update="x => editArgs.material_income = x"
+                                    :default="country.material_income" label="Income" />
+                                <ReNumField @update="x => editArgs.material_upkeep = x"
+                                    :default="country.material_upkeep" label="Upkeep" />
+                            </NForm>
+                        </NCard>
 
-                            <NCard title="Population">
-                                <NForm inline>
-                                    <ReNumField @update="x => editArgs.population = x" :default="country.population"
-                                        label="Total" />
-                                </NForm>
-                            </NCard>
+                        <NCard title="Population">
+                            <NForm inline>
+                                <ReNumField @update="x => editArgs.population = x" :default="country.population"
+                                    label="Total" />
+                            </NForm>
+                        </NCard>
 
-                            <NCard title="Notes">
-                                <NForm>
-                                    <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes"
-                                        :maxlength="500" />
-                                </NForm>
-                            </NCard>
+                        <NCard title="Notes">
+                            <NForm>
+                                <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes"
+                                    :maxlength="500" />
+                            </NForm>
+                        </NCard>
+                    </NSpace>
+
+                    <template #footer>
+                        <NSpace>
+                            <NButton @click="async () => { await updateCountry(); editing = false }"
+                                :loading="updateCountryPending" type="success" ghost>Save</NButton>
+                            <NButton @click="editing = false" type="error" ghost>Discard</NButton>
                         </NSpace>
-
-                        <template #footer>
-                            <NSpace>
-                                <NButton @click="async () => { await updateCountry(); editing = false }"
-                                    :loading="updateCountryPending" type="success" ghost>Save</NButton>
-                                <NButton @click="editing = false" type="error" ghost>Discard</NButton>
-                            </NSpace>
-                        </template>
-                    </NDrawerContent>
-                </NDrawer>
+                    </template>
+                </EditDrawer>
             </template>
         </NSpin>
     </main>
