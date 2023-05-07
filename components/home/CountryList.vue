@@ -32,7 +32,7 @@
             </NText>
 
             <template #suffix>
-                <NButton @click="navigateTo(`/country/${country.id}`)">View</NButton>
+                <UButtonLink :to="`/country/${country.id}`">View</UButtonLink>
             </template>
         </NListItem>
 

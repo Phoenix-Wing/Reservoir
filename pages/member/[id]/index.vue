@@ -25,8 +25,8 @@
 
                     <NCard title="Quick facts">
                         <NSpace justify="space-around">
-                            <ReStat :to="member.sum_gold" label="Available Gold" suffix="g" />
-                            <ReStat :to="member.sum_materials" label="Available Materials" suffix="mat" />
+                            <ViewStat :to="member.sum_gold" label="Available Gold" suffix="g" />
+                            <ViewStat :to="member.sum_materials" label="Available Materials" suffix="mat" />
                         </NSpace>
                     </NCard>
                 </NPageHeader>
@@ -38,57 +38,44 @@
                         <NCard>
                             <NEmpty description="This member does not have any countries." size="large">
                                 <template #extra>
-                                    <NButton @click="navigateTo('/new')">Create a new country</NButton>
+                                    <UButtonLink to="/new">Create a new country</UButtonLink>
                                 </template>
                             </NEmpty>
                         </NCard>
                     </NGi>
 
                     <NGi v-else v-for="country in member.countries">
-                        <NCard :title="country.name">
-                            <template #header-extra>
-                                <NButton @click="navigateTo(`/country/${country.id}`)">View</NButton>
-                            </template>
-                            <NGrid :cols="2">
-                                <NGi><ReStat label="Total Gold" suffix="g" :to="country.gold_store" /></NGi>
-                                <NGi><ReStat label="Total Materials" suffix="mat" :to="country.material_store" /></NGi>
-                            </NGrid>
-                        </NCard>
+                        <ViewCountryCard :name="country.name" :id="country.id" :gold="country.gold_store" :materials="country.material_store" />
                     </NGi>
                 </NGrid>
 
-                <NDrawer v-model:show="editing" :default-width="502" resizable>
-                    <NDrawerContent title="Editing" closable>
-                        <NSpace vertical :size="24">
-                            <NCard title="Character">
-                                <NForm>
-                                    <ReTextField @update="x => editArgs.name = x" :default="member.name" label="Name" />
-                                    
-                                    <NPopover trigger="hover" :delay="500">
-                                        <template #trigger>
-                                            <NFormItem label="In-Game Name">
-                                                <NInput type="text" :defaultValue="member.ig_name" disabled />
-                                            </NFormItem>
-                                        </template>
+                <EditDrawer v-model:show="editing" title="Editing">
+                    <NSpace vertical :size="24">
+                        <EditCard title="Character">
+                            <ReTextField @update="x => editArgs.name = x" :default="member.name" label="Name" />
 
-                                        <span>Not yet implemented. Please see <NuxtLink to="https://github.com/Phoenix-Wing/Reservoir/issues/8" target="_blank">#8</NuxtLink>.</span>
-                                    </NPopover>
-                                </NForm>
-                            </NCard>
+                            <NPopover trigger="hover" :delay="500">
+                                <template #trigger>
+                                    <NFormItem label="In-Game Name">
+                                        <NInput type="text" :defaultValue="member.ig_name" disabled />
+                                    </NFormItem>
+                                </template>
+                                <span>Not yet implemented. Please see <NuxtLink to="https://github.com/Phoenix-Wing/Reservoir/issues/8" target="_blank">#8</NuxtLink>.</span>
+                            </NPopover>
+                        </EditCard>
 
-                            <NCard title="Countries">
-                                <NTransfer v-model:value="selectedCountries" :options="countriesTransferOptions" source-filterable disabled />
-                            </NCard>
+                        <NCard title="Countries">
+                            <NTransfer v-model:value="selectedCountries" :options="countriesTransferOptions" source-filterable disabled />
+                        </NCard>
+                    </NSpace>
+
+                    <template #footer>
+                        <NSpace>
+                            <NButton @click="async () => { await updateMember(); editing = false }" :loading="updateMemberPending" type="success" ghost>Save</NButton>
+                            <NButton @click="editing = false" type="error" ghost>Discard</NButton>
                         </NSpace>
-
-                        <template #footer>
-                            <NSpace>
-                                <NButton @click="async () => { await updateMember(); editing = false }" :loading="updateMemberPending" type="success" ghost>Save</NButton>
-                                <NButton @click="editing = false" type="error" ghost>Discard</NButton>
-                            </NSpace>
-                        </template>
-                    </NDrawerContent>
-                </NDrawer>
+                    </template>
+                </EditDrawer>
             </template>
         </NSpin>
     </main>

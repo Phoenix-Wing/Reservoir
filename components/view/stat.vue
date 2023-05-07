@@ -4,10 +4,10 @@
 
         <!-- Wrap animation in NText if type is defined -->
         <NText v-if="type" :type="type">
-            <NNumberAnimation :to="to" :from="from ? from : 0" :duration="DURATION" showSeparator />
+            <NNumberAnimation :to="to" :duration="DURATION" showSeparator />
         </NText>
 
-        <NNumberAnimation v-else :to="to" :from="from ? from : 0" :duration="DURATION" showSeparator />
+        <NNumberAnimation v-else :to="to" :duration="DURATION" showSeparator />
 
         <template #suffix v-if="suffix">{{ suffix }}</template>
     </NStatistic>
@@ -23,7 +23,6 @@ defineProps<{
     prefix?: string,
     suffix?: string,
 
-    to: number,
-    from?: number,
+    to?: number,
 }>();
 </script>
