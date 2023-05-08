@@ -52,16 +52,8 @@
                 <EditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
                         <EditCard title="Character">
-                            <ReTextField @update="x => editArgs.name = x" :default="member.name" label="Name" />
-
-                            <NPopover trigger="hover" :delay="500">
-                                <template #trigger>
-                                    <NFormItem label="In-Game Name">
-                                        <NInput type="text" :defaultValue="member.ig_name" disabled />
-                                    </NFormItem>
-                                </template>
-                                <span>Not yet implemented. Please see <NuxtLink to="https://github.com/Phoenix-Wing/Reservoir/issues/8" target="_blank">#8</NuxtLink>.</span>
-                            </NPopover>
+                            <EditFieldText @input:required="x => editArgs.name = x" :default="member.name" label="Name" />
+                            <EditFieldText @input:optional="x => editArgs.ig_name = x" :default="member.ig_name" label="In-Game Name" optional />
                         </EditCard>
 
                         <NCard title="Countries">
