@@ -5,8 +5,8 @@ const client = edgedb.createClient();
 function createMutation(args: UpdateMemberArgs): string {
     let mutations = "";
 
-    if (args.name != null) mutations += `name := "${args.name}",\n`;
-    if (args.ig_name != null) mutations += `ig_name := "${args.ig_name}",\n`;
+    if (args.name !== undefined) mutations += "name := <str>$name,\n";
+    if (args.ig_name !== undefined) mutations += "ig_name := <optional str>$ig_name,\n";
 
     return `\
 update Member
@@ -17,7 +17,7 @@ set {
 }
 
 export interface UpdateMemberArgs {
-    name?: string | null,
+    name?: string,
     ig_name?: string | null,
 }
 
@@ -28,6 +28,7 @@ export default defineEventHandler(async (event) => {
 
     await client.execute(mutation, {
         id: event.context.params!.id,
+        ...body,
     });
 
     return {
