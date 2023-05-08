@@ -105,7 +105,7 @@
                         </EditCard>
 
                         <EditCard title="Notes">
-                                <ReTextBoxField @update="x => editArgs.notes = x" :default="country.notes" :maxlength="500" />
+                            <EditFieldText @input:required="x => editArgs.notes = x" :default="country.notes" type="textarea" :maxlength="500" />
                         </EditCard>
                     </NSpace>
 
