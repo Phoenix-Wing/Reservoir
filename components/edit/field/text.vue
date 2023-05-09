@@ -1,6 +1,6 @@
 <template>
     <NFormItem :label="label" :show-label="label != undefined" :required="!optional">
-        <NSwitch v-if="optional" v-model:value="enabled" @update:value="emitInput" />
+        <NSwitch v-if="optional" v-model:value="enabled" @update:value="emitInput" style="margin-right: 1rem" />
         <NInput @input="emitInput" v-model:value="value" :default-value="default" :disabled="!enabled" :type="type" :maxlength="maxlength" :show-count="maxlength !== undefined" clearable />
     </NFormItem>
 </template>
@@ -22,16 +22,15 @@ const emit = defineEmits<{
 // Coerce null to empty string
 const value = ref(props.default ? props.default : "");
 
-// Coerce undefined to false
-const optional = computed(() => props.optional === true);
 // If optional, enable if default is not null, else always be enabled 
-const enabled = ref(optional.value ? props.default !== null : true);
+const enabled = ref(props.optional ? props.default !== null : true);
 
+// Default type to "text"
 const type = computed(() => props.type ? props.type : "text");
 
 function emitInput() {
     // If this is an optional field
-    if (optional.value) {
+    if (props.optional) {
         // If the switch is enabled
         if (enabled.value) {
             // If the value is different from the default
