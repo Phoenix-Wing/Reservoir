@@ -6,17 +6,17 @@ const client = edgedb.createClient();
 function createMutation(args: UpdateCountryArgs): string {
     let mutations = "";
 
-    if (args.gold_store != null) mutations += `gold_store := ${args.gold_store},\n`;
-    if (args.gold_income != null) mutations += `gold_income := ${args.gold_income},\n`;
-    if (args.gold_upkeep != null) mutations += `gold_upkeep := ${args.gold_upkeep},\n`;
+    if (args.gold_store !== undefined) mutations += "gold_store := <int64>$gold_store,\n";
+    if (args.gold_income !== undefined) mutations += "gold_income := <int32>$gold_income,\n";
+    if (args.gold_upkeep !== undefined) mutations += "gold_upkeep := <int32>$gold_upkeep,\n";
 
-    if (args.material_store != null) mutations += `material_store := ${args.material_store},\n`;
-    if (args.material_income != null) mutations += `material_income := ${args.material_income},\n`;
-    if (args.material_upkeep != null) mutations += `material_upkeep := ${args.material_upkeep},\n`;
+    if (args.material_store !== undefined) mutations += "material_store := <int64>$material_store,\n";
+    if (args.material_income !== undefined) mutations += "material_income := <int32>$material_income,\n";
+    if (args.material_upkeep !== undefined) mutations += "material_upkeep := <int32>$material_upkeep,\n";
 
-    if (args.population != null) mutations += `population := ${args.population},\n`;
+    if (args.population !== undefined) mutations += "population := <int32>$population,\n";
 
-    if (args.notes != null) mutations += `notes := "${args.notes}",\n`;
+    if (args.notes !== undefined) mutations += "notes := <str>$notes,\n";
 
     return `\
 update Country
@@ -27,17 +27,17 @@ set {
 }
 
 export interface UpdateCountryArgs {
-    gold_store?: number | null,
-    gold_income?: number | null,
-    gold_upkeep?: number | null,
+    gold_store?: number,
+    gold_income?: number,
+    gold_upkeep?: number,
 
-    material_store?: number | null,
-    material_income?: number | null,
-    material_upkeep?: number | null,
+    material_store?: number,
+    material_income?: number,
+    material_upkeep?: number,
 
-    population?: number | null,
+    population?: number,
 
-    notes?: string | null,
+    notes?: string,
 }
 
 export default defineEventHandler(async (event) => {
@@ -47,6 +47,7 @@ export default defineEventHandler(async (event) => {
 
     await client.execute(mutation, {
         id: event.context.params!.id,
+        ...body,
     });
 
     return {
