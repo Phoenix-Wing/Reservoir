@@ -21,7 +21,7 @@
 
                     <template #subtitle>
                         <span v-if="country.leaders">
-                            Lead by <ULeadersDisplay :leaders="country.leaders" color="rgba(255, 255, 255, 0.82)" />
+                            <ULeadersDisplay :leaders="country.leaders" color="rgba(255, 255, 255, 0.82)" />
                         </span>
                         <span v-else>
                             No current leaders

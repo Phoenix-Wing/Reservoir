@@ -24,7 +24,7 @@
             </template>
 
             <div v-if="country.leaders">
-                Lead by <ULeadersDisplay :leaders="country.leaders" color="rgba(255, 255, 255, 0.9)" />
+                <ULeadersDisplay :leaders="country.leaders" color="rgba(255, 255, 255, 0.9)" />
             </div>
             <NText v-else italic>
                 No current leaders
