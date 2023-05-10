@@ -155,12 +155,11 @@ definePageMeta({
     validate: async (route) => validateUuid(route.params.id),
 });
 
-// Due to its use of country, this needs to be after useFetch
-const breadcrumbRoute: [string, string][] = [
+const breadcrumbRoute = computed<[string, string][]>(() => [
     ["Reservoir", "/"],
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
-];
+]);
 
 const goldData = computed(() => ({
     store: country.value?.gold_store,
