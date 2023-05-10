@@ -9,7 +9,8 @@ const mutation = e.params(
     },
     params => e.insert(e.Country, {
         name: params.name,
-        leader: e.select(e.Member, _ => ({
+        // Only support setting one member at creation for now
+        leaders: e.select(e.Member, _ => ({
             filter_single: { id: params.leader },
         })),
     }),

@@ -6,7 +6,7 @@ const query = e.params({ id: e.uuid }, (params) => e.select(e.Country, () => ({
     id: true,
     name: true,
 
-    leader: {
+    leaders: {
         id: true,
         name: true,
         ig_name: true,
