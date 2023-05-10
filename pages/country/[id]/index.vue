@@ -20,14 +20,12 @@
                     </template>
 
                     <template #subtitle>
-                        <!-- style undos default link styling -->
-                        <NuxtLink v-if="country.leader" :to="`/member/${country.leader.id}`"
-                            style="color: rgba(255, 255, 255, 0.52); text-decoration: none">
-                            <NText depth="1">Lead by {{ country.leader.name }}</NText>
-                            <span v-if="country.leader.ig_name"> ({{ country.leader.ig_name }})</span>
-                        </NuxtLink>
-
-                        <span v-else>No current leader</span>
+                        <span v-if="country.leaders">
+                            <ULeadersDisplay :leaders="country.leaders" color="rgba(255, 255, 255, 0.82)" />
+                        </span>
+                        <span v-else>
+                            No current leaders
+                        </span>
                     </template>
 
                     <NCard title="Quick facts">
@@ -88,6 +86,12 @@
 
                 <EditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
+                        <!-- TODO: Consider different title? -->
+                        <EditCard title="Country">
+                            <EditFieldText @input:required="x => editArgs.name = x" :default="country.name" label="Name" />
+                            <EditFieldCountryLeaders @input="x => editArgs.leaders = x" :default="country.leaders" label="Leaders" />
+                        </EditCard>
+
                         <EditCard title="Gold" inline>
                             <EditFieldNum @input:required="x => editArgs.gold_store = x" :default="country.gold_store" label="Total" />
                             <EditFieldNum @input:required="x => editArgs.gold_income = x" :default="country.gold_income" label="Income" />
@@ -152,12 +156,11 @@ definePageMeta({
     validate: async (route) => validateUuid(route.params.id),
 });
 
-// Due to its use of country, this needs to be after useFetch
-const breadcrumbRoute: [string, string][] = [
+const breadcrumbRoute = computed<[string, string][]>(() => [
     ["Reservoir", "/"],
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
-];
+]);
 
 const goldData = computed(() => ({
     store: country.value?.gold_store,

@@ -6,6 +6,12 @@ const client = edgedb.createClient();
 function createMutation(args: UpdateCountryArgs): string {
     let mutations = "";
 
+    if (args.name !== undefined) mutations += "name := <str>$name,\n";
+    if (args.leaders !== undefined) mutations +=
+        `leaders := (
+            select Member filter .id in array_unpack(<array<uuid>>$leaders)
+        ),\n`;
+
     if (args.gold_store !== undefined) mutations += "gold_store := <int64>$gold_store,\n";
     if (args.gold_income !== undefined) mutations += "gold_income := <int32>$gold_income,\n";
     if (args.gold_upkeep !== undefined) mutations += "gold_upkeep := <int32>$gold_upkeep,\n";
@@ -27,6 +33,9 @@ set {
 }
 
 export interface UpdateCountryArgs {
+    name?: string,
+    leaders?: string[],
+
     gold_store?: number,
     gold_income?: number,
     gold_upkeep?: number,

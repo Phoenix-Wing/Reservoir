@@ -6,7 +6,7 @@ module default {
             constraint min_len_value(1);
         }
 
-        link leader -> Member;
+        multi link leaders -> Member;
 
         # Positive number >= 0 && <= 9,223,372,036,854,775,807
         required property gold_store -> int64 {
@@ -75,6 +75,6 @@ module default {
             constraint min_len_value(1);
         }
 
-        multi link countries := .<leader[is Country];
+        multi link countries := .<leaders[is Country];
     }
 }

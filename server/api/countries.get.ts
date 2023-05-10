@@ -5,7 +5,7 @@ const client = edgedb.createClient();
 const query = e.select(e.Country, country => ({
     id: true,
     name: true,
-    leader: {
+    leaders: {
         id: true,
         name: true,
         ig_name: true,
