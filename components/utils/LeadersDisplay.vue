@@ -23,7 +23,6 @@ const props = defineProps<{
 // Set color, remove default underline, and make italic
 const style = computed(() => `\
 color: ${props.color ? props.color : "rgba(255, 255, 255, 0.82)"}; \
-text-decoration: none; \
-font-style: italic \
+text-decoration: none
 `);
 </script>
