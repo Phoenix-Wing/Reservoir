@@ -23,12 +23,12 @@
                 <NText type="success" strong>{{ country.name }}</NText>
             </template>
 
-            <div v-if="country.leader">
-                Lead by {{ country.leader.name }}
-                <NText v-if="country.leader.ig_name" depth="3">({{ country.leader.ig_name }})</NText>
+            <div v-if="country.leaders">
+                <!-- TODO: Consider making each leader name a link? -->
+                Lead by {{ country.leaders.map(x => x.name).join(", ") }}
             </div>
             <NText v-else italic>
-                No current leader
+                No current leaders
             </NText>
 
             <template #suffix>

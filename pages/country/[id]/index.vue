@@ -20,14 +20,13 @@
                     </template>
 
                     <template #subtitle>
-                        <!-- style undos default link styling -->
-                        <NuxtLink v-if="country.leader" :to="`/member/${country.leader.id}`"
-                            style="color: rgba(255, 255, 255, 0.52); text-decoration: none">
-                            <NText depth="1">Lead by {{ country.leader.name }}</NText>
-                            <span v-if="country.leader.ig_name"> ({{ country.leader.ig_name }})</span>
-                        </NuxtLink>
-
-                        <span v-else>No current leader</span>
+                        <span v-if="country.leaders">
+                            <!-- TODO: Link each name to member page? -->
+                            Lead by {{ country.leaders.map(x => x.name).join(", ") }}
+                        </span>
+                        <span v-else>
+                            No current leaders
+                        </span>
                     </template>
 
                     <NCard title="Quick facts">
