@@ -89,6 +89,7 @@
                         <!-- TODO: Consider different title? -->
                         <EditCard title="Country">
                             <EditFieldText @input:required="x => editArgs.name = x" :default="country.name" label="Name" />
+                            <EditFieldCountryLeaders @input="x => editArgs.leaders = x" :default="country.leaders" label="Leaders" />
                         </EditCard>
 
                         <EditCard title="Gold" inline>
