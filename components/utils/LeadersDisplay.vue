@@ -5,15 +5,25 @@
     -->
     <template v-for="(_, i) in leaders">
         <!-- Output name, concated with a comma if not the last item -->
-        {{ leaders[i].name }}{{ i < leaders.length - 1 ? ", " : "" }}
+        <NuxtLink :to="`/member/${leaders[i].id}`" :style="style">
+            {{ leaders[i].name }}
+        </NuxtLink>{{ i < leaders.length - 1 ? ", " : "" }}
     </template>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
     leaders: {
         id: string,
         name: string,
     }[],
+    color?: string,
 }>();
+
+// Set color, remove default underline, and make italic
+const style = computed(() => `\
+color: ${props.color ? props.color : "rgba(255, 255, 255, 0.82)"}; \
+text-decoration: none; \
+font-style: italic \
+`);
 </script>
