@@ -21,8 +21,7 @@
 
                     <template #subtitle>
                         <span v-if="country.leaders">
-                            <!-- TODO: Link each name to member page? -->
-                            Lead by {{ country.leaders.map(x => x.name).join(", ") }}
+                            Lead by <ULeadersDisplay :leaders="country.leaders" />
                         </span>
                         <span v-else>
                             No current leaders

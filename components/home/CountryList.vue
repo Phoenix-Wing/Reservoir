@@ -24,8 +24,7 @@
             </template>
 
             <div v-if="country.leaders">
-                <!-- TODO: Consider making each leader name a link? -->
-                Lead by {{ country.leaders.map(x => x.name).join(", ") }}
+                Lead by <ULeadersDisplay :leaders="country.leaders" />
             </div>
             <NText v-else italic>
                 No current leaders
