@@ -86,6 +86,11 @@
 
                 <EditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
+                        <!-- TODO: Consider different title? -->
+                        <EditCard title="Country">
+                            <EditFieldText @input:required="x => editArgs.name = x" :default="country.name" label="Name" />
+                        </EditCard>
+
                         <EditCard title="Gold" inline>
                             <EditFieldNum @input:required="x => editArgs.gold_store = x" :default="country.gold_store" label="Total" />
                             <EditFieldNum @input:required="x => editArgs.gold_income = x" :default="country.gold_income" label="Income" />
