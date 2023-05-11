@@ -5,7 +5,6 @@
                 <NSpace>
                     <HomeIncomeDistributor />
                     <UButtonLink to="/new">Create new...</UButtonLink>
-                    <UButtonLink to="/backups" disabled>View backups</UButtonLink>
                 </NSpace>
             </NCard>
 
