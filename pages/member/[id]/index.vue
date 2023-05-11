@@ -49,16 +49,12 @@
                     </NGi>
                 </NGrid>
 
-                <EditDrawer v-model:show="editing" title="Editing">
+                <LazyEditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
                         <EditCard title="Character">
                             <EditFieldText @input:required="x => editArgs.name = x" :default="member.name" label="Name" />
                             <EditFieldText @input:optional="x => editArgs.ig_name = x" :default="member.ig_name" label="In-Game Name" optional />
                         </EditCard>
-
-                        <NCard title="Countries">
-                            <NTransfer v-model:value="selectedCountries" :options="countriesTransferOptions" source-filterable disabled />
-                        </NCard>
                     </NSpace>
 
                     <template #footer>
@@ -67,7 +63,7 @@
                             <NButton @click="editing = false" type="error" ghost>Discard</NButton>
                         </NSpace>
                     </template>
-                </EditDrawer>
+                </LazyEditDrawer>
             </template>
         </NSpin>
     </main>
@@ -114,16 +110,6 @@ const breadcrumbRoute: [string, string][] = [
 const editing = ref(false);
 const editArgs = reactive<UpdateMemberArgs>({});
 const updateMemberPending = ref(false);
-
-const { data: countries } = await useFetch("/api/countries");
-
-const countriesTransferOptions = computed(() => countries.value?.map(x => ({
-    label: x.name,
-    value: x.id,
-    disabled: x.leader ? x.leader.id != route.params.id : false,
-})));
-
-const selectedCountries = ref(member.value ? member.value.countries.map(x => x.id) : []);
 
 async function updateMember() {
     updateMemberPending.value = true;
