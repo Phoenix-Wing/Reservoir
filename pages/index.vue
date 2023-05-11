@@ -13,7 +13,7 @@
 
             <NGrid :cols="2" :x-gap="12">
                 <NGi>
-                    <HomeMemberList />
+                    <LazyHomeMemberList />
                 </NGi>
             </NGrid>
         </NSpace>

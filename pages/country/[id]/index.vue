@@ -84,7 +84,7 @@
                     </NGi>
                 </NGrid>
 
-                <EditDrawer v-model:show="editing" title="Editing">
+                <LazyEditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
                         <!-- TODO: Consider different title? -->
                         <EditCard title="Country">
@@ -120,7 +120,7 @@
                             <NButton @click="editing = false" type="error" ghost>Discard</NButton>
                         </NSpace>
                     </template>
-                </EditDrawer>
+                </LazyEditDrawer>
             </template>
         </NSpin>
     </main>
