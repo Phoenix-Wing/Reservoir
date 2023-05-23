@@ -122,6 +122,10 @@
                             <EditFieldNum @input:required="x => editArgs.population = x" :default="country.population" label="Total" />
                         </EditCard>
 
+                        <EditCard title="Army" inline>
+                            <EditFieldNum @input:required="x => editArgs.army_units = x" :default="country.army_units" label="Units" />
+                        </EditCard>
+
                         <EditCard title="Notes">
                             <EditFieldText @input:required="x => editArgs.notes = x" :default="country.notes" type="textarea" :maxlength="500" />
                         </EditCard>

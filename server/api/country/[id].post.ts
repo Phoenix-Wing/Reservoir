@@ -22,6 +22,8 @@ function createMutation(args: UpdateCountryArgs): string {
 
     if (args.population !== undefined) mutations += "population := <int32>$population,\n";
 
+    if (args.army_units !== undefined) mutations += "army_units := <int32>$army_units,\n";
+
     if (args.notes !== undefined) mutations += "notes := <str>$notes,\n";
 
     return `\
@@ -45,6 +47,8 @@ export interface UpdateCountryArgs {
     material_upkeep?: number,
 
     population?: number,
+
+    army_units?: number,
 
     notes?: string,
 }
