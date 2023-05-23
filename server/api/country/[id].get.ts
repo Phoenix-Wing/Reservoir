@@ -24,6 +24,8 @@ const query = e.params({ id: e.uuid }, (params) => e.select(e.Country, () => ({
 
     population: true,
 
+    army_units: true,
+
     notes: true,
 
     filter_single: { id: params.id },

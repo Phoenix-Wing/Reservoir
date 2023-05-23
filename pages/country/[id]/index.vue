@@ -71,6 +71,20 @@
                     </NGi>
 
                     <NGi>
+                        <NCard title="Army">
+                            <NSpace justify="center">
+                                <ViewStat :to="country.army_units" label="Units" suffix="units" />
+                            </NSpace>
+
+                            <template #action>
+                                <NText italic depth="3">
+                                    Army is used when fighting against other countries.
+                                </NText>
+                            </template>
+                        </NCard>
+                    </NGi>
+
+                    <NGi>
                         <NCard title="Notes">
                             <!-- pre-line makes HTML respect newlines -->
                             <NText :depth="2" style="white-space: pre-line">
