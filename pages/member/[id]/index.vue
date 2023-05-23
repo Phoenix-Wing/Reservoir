@@ -27,6 +27,7 @@
                         <NSpace justify="space-around">
                             <ViewStat :to="member.sum_gold" label="Available Gold" suffix="g" />
                             <ViewStat :to="member.sum_materials" label="Available Materials" suffix="mat" />
+                            <ViewStat :to="member.sum_units" label="Available Units" suffix="units" />
                         </NSpace>
                     </NCard>
                 </NPageHeader>
@@ -45,7 +46,7 @@
                     </NGi>
 
                     <NGi v-else v-for="country in member.countries">
-                        <ViewCountryCard :name="country.name" :id="country.id" :gold="country.gold_store" :materials="country.material_store" />
+                        <ViewCountryCard :name="country.name" :id="country.id" :gold="country.gold_store" :materials="country.material_store" :units="country.army_units" />
                     </NGi>
                 </NGrid>
 
