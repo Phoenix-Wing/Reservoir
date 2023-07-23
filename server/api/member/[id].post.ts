@@ -2,11 +2,16 @@ import * as edgedb from "edgedb";
 
 const client = edgedb.createClient();
 
+export interface UpdateMemberArgs {
+    name?: string,
+    ig_name?: string | null,
+}
+
 function createMutation(args: UpdateMemberArgs): string {
     let mutations = "";
 
-    if (args.name !== undefined) mutations += "name := <str>$name,\n";
-    if (args.ig_name !== undefined) mutations += "ig_name := <optional str>$ig_name,\n";
+    if (args.name !== undefined) { mutations += "name := <str>$name,\n"; }
+    if (args.ig_name !== undefined) { mutations += "ig_name := <optional str>$ig_name,\n"; }
 
     return `\
 update Member
@@ -14,11 +19,6 @@ filter .id = <uuid>$id
 set {
     ${mutations}
 };`;
-}
-
-export interface UpdateMemberArgs {
-    name?: string,
-    ig_name?: string | null,
 }
 
 export default defineEventHandler(async (event) => {

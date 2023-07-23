@@ -16,7 +16,7 @@ interface IncomeResponse {
 export default defineEventHandler<IncomeResponse>(async (event) => {
     const params = await readBody<IncomeParameters>(event);
 
-    if (params.target == "all") {
+    if (params.target === "all") {
         const included = await distributeIncome(client);
 
         return {
@@ -24,8 +24,6 @@ export default defineEventHandler<IncomeResponse>(async (event) => {
         };
     } else {
         const errorData = { target: params.target };
-
-        console.error("Malformed 'target' property.", errorData);
 
         throw createError({
             statusCode: 400,
