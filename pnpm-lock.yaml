@@ -9,8 +9,8 @@ devDependencies:
     specifier: ^0.0.8
     version: 0.0.8(edgedb@1.2.1)
   '@huntersofbook/naive-ui-nuxt':
-    specifier: ^0.7.1
-    version: 0.7.1(vue@3.3.4)
+    specifier: ^1.1.0
+    version: 1.1.0(vue@3.3.4)
   edgedb:
     specifier: 1.2.1
     version: 1.2.1
@@ -762,17 +762,20 @@ packages:
     dev: true
     optional: true
 
-  /@huntersofbook/naive-ui-nuxt@0.7.1(vue@3.3.4):
-    resolution: {integrity: sha512-GkS6TUo4RtDAwm+R2Xd/+PXuLcMoy1M878g+Y8S7ZT+Q8jj5kcXXCA0C9+XXD6E/81KMAtyp4CmZ7NCaZ6Jh4A==}
+  /@huntersofbook/naive-ui-nuxt@1.1.0(vue@3.3.4):
+    resolution: {integrity: sha512-lL17rDasmhSQQztK0L9f3LFmn1aKl4bZ6J+wxQh3+kAeudgGa7qZJq7obGBdBiVrkJP5jdiNSx14DMDsXqgJNg==}
+    engines: {node: '>=16', pnpm: '>=8'}
+    peerDependencies:
+      vue: '>=3.3.0'
     dependencies:
       '@css-render/vue3-ssr': 0.15.12(vue@3.3.4)
       '@nuxt/kit': 3.6.5
       defu: 6.1.2
       naive-ui: 2.34.4(vue@3.3.4)
+      vue: 3.3.4
     transitivePeerDependencies:
       - rollup
       - supports-color
-      - vue
     dev: true
 
   /@ioredis/commands@1.2.0:

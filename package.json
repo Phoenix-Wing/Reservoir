@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@edgedb/generate": "^0.0.8",
-    "@huntersofbook/naive-ui-nuxt": "^0.7.1",
+    "@huntersofbook/naive-ui-nuxt": "^1.1.0",
     "edgedb": "1.2.1",
     "nuxt": "^3.6.5"
   }
