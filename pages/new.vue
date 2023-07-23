@@ -14,23 +14,18 @@
 
         <NGrid :cols="2" :x-gap="12">
             <NGi>
-                <NewCountryForm ref="countryForm" />
+                <NewCountryForm />
             </NGi>
-
             <NGi>
-                <NewMemberForm @member-created="async () => await countryForm?.refresh()" />
+                <NewMemberForm />
             </NGi>
         </NGrid>
     </main>
 </template>
 
 <script setup lang="ts">
-import NewCountryForm from "~/components/new/CountryForm.vue";
-
 const breadcrumbRoutes: [string, string][] = [
     ["Reservoir", "/"],
     ["New", "new"],
 ];
-
-const countryForm = ref<InstanceType<typeof NewCountryForm> | null>(null);
 </script>

@@ -60,7 +60,7 @@ async function createCountry() {
             pick: ["res"],
         });
 
-        await navigateTo(`/country/${data.res.id}`)
+        await navigateTo(`/country/${data.res.id}`);
     } catch {
         message.error("Error creating country. Please see console for more information.");
     }

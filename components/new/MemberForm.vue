@@ -17,10 +17,6 @@
 <script setup lang="ts">
 const message = useMessage();
 
-const emit = defineEmits<{
-    (e: "memberCreated"): void,
-}>();
-
 const form = reactive<{
     name?: string,
     ig_name?: string,
@@ -42,18 +38,16 @@ async function createMember() {
 
     // Send post request, catching any errors
     try {
-        await $fetch("/api/new/member", {
+        const data = await $fetch("/api/new/member", {
             method: "post",
             body: form,
         });
 
-        message.info("Member created successfully!");
+        await navigateTo(`/member/${data.res.id}`);
     } catch {
         message.error("Error creating member. Please see console for more information.")
     }
 
     loading.value = false;
-
-    emit("memberCreated");
 }
 </script>
