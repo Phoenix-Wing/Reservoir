@@ -12,7 +12,7 @@ dist
 .DS_Store
 
 # EdgeDB
-queries/*.query.ts
+queries/*.edgeql.ts
 
 # Deployment build
 reservoir.tar.gz
