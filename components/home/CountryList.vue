@@ -9,7 +9,7 @@
             <ErrorDisplay v-if="error" description="Error fetching countries." :details="error" style="margin: 1rem 0" />
 
             <!-- Else if more than 0 countries -->
-            <NListItem v-else-if="data!.total > 0" v-for="country in data?.countries">
+            <NListItem v-for="country in data?.countries" v-else-if="data!.total > 0" :key="country.id">
                 <template #prefix>
                     <NText type="success" strong>{{ country.name }}</NText>
                 </template>

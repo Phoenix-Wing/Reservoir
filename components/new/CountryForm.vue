@@ -15,7 +15,7 @@
                 </NSelect>
             </NFormItem>
 
-            <NButton @click="async () => await createCountry()" :loading="loading">Create</NButton>
+            <NButton :loading="loading" @click="async () => await createCountry()">Create</NButton>
         </NForm>
     </NCard>
 </template>
@@ -28,6 +28,7 @@ const { data, pending, refresh, error } = await useLazyFetch("/api/members", {
 });
 
 // Export refresh function to be accessible from template refs
+// eslint-disable-next-line vue/no-expose-after-await
 defineExpose({
     refresh,
 });
@@ -39,10 +40,12 @@ const form = reactive<{
 
 const loading = ref(false);
 
-const membersOptions = computed(() => data.value ? data.value.members.map(x => ({
-    label: x.name,
-    value: x.id,
-})) : []);
+const membersOptions = computed(() => data.value
+    ? data.value.members.map(x => ({
+        label: x.name,
+        value: x.id,
+    }))
+    : []);
 
 async function createCountry() {
     loading.value = true;

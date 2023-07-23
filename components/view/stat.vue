@@ -1,15 +1,15 @@
 <template>
     <NStatistic :label="label">
-        <template #prefix v-if="prefix">{{ prefix }}</template>
+        <template v-if="prefix" #prefix>{{ prefix }}</template>
 
         <!-- Wrap animation in NText if type is defined -->
         <NText v-if="type" :type="type">
-            <NNumberAnimation :to="to" :duration="DURATION" showSeparator />
+            <NNumberAnimation :to="to" :duration="DURATION" show-separator />
         </NText>
 
-        <NNumberAnimation v-else :to="to" :duration="DURATION" showSeparator />
+        <NNumberAnimation v-else :to="to" :duration="DURATION" show-separator />
 
-        <template #suffix v-if="suffix">{{ suffix }}</template>
+        <template v-if="suffix" #suffix>{{ suffix }}</template>
     </NStatistic>
 </template>
 
