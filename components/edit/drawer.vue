@@ -1,5 +1,5 @@
 <template>
-    <NDrawer :show="show" @update:show="x => $emit('update:show', x)" :default-width="502" resizable>
+    <NDrawer :show="show" :default-width="502" resizable @update:show="x => $emit('update:show', x)">
         <NDrawerContent :title="title" closable>
             <slot />
 

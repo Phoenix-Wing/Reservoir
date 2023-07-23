@@ -32,9 +32,6 @@ async function distributeIncome() {
             duration: 5000,
             closable: true,
         });
-
-        // Purposefully not giving error.value, due to less readable output.
-        console.error("An error occured while distributing income.", error);
     } else {
         message.success(`Distributed income to ${data.value!.included.length} countries.`);
     }

@@ -1,7 +1,14 @@
 <template>
     <NFormItem :label="label" :show-label="label != undefined">
-        <NSelect v-model:value="value" :options="options" :loading="pending" multiple filterable clearable>
-            <template #action v-if="error">
+        <NSelect
+            v-model:value="value"
+            :options="options"
+            :loading="pending"
+            multiple
+            filterable
+            clearable
+        >
+            <template v-if="error" #action>
                 <NAlert title="Error fetching members" type="error">
                     <code>{{ error }}</code>
                 </NAlert>
@@ -40,8 +47,8 @@ watch(value, emitInput);
 
 function emitInput() {
     // Check that the lengths of both arrays are equal and that they contain the same values
-    const isEqual = value.value.length === default_.value.length
-        && value.value.every(i => default_.value.includes(i));
+    const isEqual = value.value.length === default_.value.length &&
+        value.value.every(i => default_.value.includes(i));
 
     if (isEqual) {
         // No change, emit undefined
