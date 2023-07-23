@@ -1,15 +1,10 @@
 import * as edgedb from "edgedb";
-import { createCountry } from "~/queries/createCountry.query";
+import { createCountry, CreateCountryArgs } from "~/queries/createCountry.query";
 
 const client = edgedb.createClient();
 
-interface NewCountryArgs {
-    name: string,
-    leader: string,
-}
-
 export default defineEventHandler(async (event) => {
-    const body = await readBody<NewCountryArgs>(event);
+    const body = await readBody<CreateCountryArgs>(event);
 
     const res = await createCountry(client, body);
 

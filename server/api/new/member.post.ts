@@ -1,15 +1,10 @@
 import * as edgedb from "edgedb";
-import { createMember } from "~/queries/createMember.query";
+import { createMember, CreateMemberArgs } from "~/queries/createMember.query";
 
 const client = edgedb.createClient();
 
-interface NewMemberArgs {
-    name: string,
-    ig_name?: string | null,
-}
-
 export default defineEventHandler(async (event) => {
-    const body = await readBody<NewMemberArgs>(event);
+    const body = await readBody<CreateMemberArgs>(event);
 
     const res = await createMember(client, body);
 
