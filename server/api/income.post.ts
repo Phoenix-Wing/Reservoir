@@ -1,14 +1,7 @@
 import * as edgedb from "edgedb";
-import e from "~/dbschema/edgeql-js";
+import { distributeIncome } from "~/queries/distributeIncome.query";
 
 const client = edgedb.createClient();
-const query = `\
-update Country
-filter .gold_profit != 0 or .material_profit != 0
-set {
-  gold_store := max({.gold_store + .gold_profit, 0}),
-  material_store := max({.material_store + .material_profit, 0}),
-};`;
 
 interface IncomeParameters {
     // Specify which countries to target.
@@ -24,11 +17,10 @@ export default defineEventHandler<IncomeResponse>(async (event) => {
     const params = await readBody<IncomeParameters>(event);
 
     if (params.target == "all") {
-        const included: { id: string }[] = await client.query(query);
+        const included = await distributeIncome(client);
 
         return {
-            // Extract { id: string[] } to string[].
-            included: await included.map(x => x.id),
+            included: included.map(x => x.id),
         };
     } else {
         const errorData = { target: params.target };

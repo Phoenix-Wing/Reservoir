@@ -1,17 +1,7 @@
 import * as edgedb from "edgedb";
-import e from "~/dbschema/edgeql-js";
+import { createMember } from "~/queries/createMember.query";
 
 const client = edgedb.createClient();
-const mutation = e.params(
-    {
-        name: e.str,
-        ig_name: e.optional(e.str),
-    },
-    params => e.insert(e.Member, {
-        name: params.name,
-        ig_name: params.ig_name,
-    }),
-);
 
 interface NewMemberArgs {
     name: string,
@@ -21,7 +11,7 @@ interface NewMemberArgs {
 export default defineEventHandler(async (event) => {
     const body = await readBody<NewMemberArgs>(event);
 
-    const res = await mutation.run(client, body);
+    const res = await createMember(client, body);
 
     return {
         status: "OK",
