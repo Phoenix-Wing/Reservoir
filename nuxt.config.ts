@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     ],
     modules: [
         "@huntersofbook/naive-ui-nuxt",
+        "@nuxtjs/eslint-module",
     ],
     typescript: {
         shim: false,
