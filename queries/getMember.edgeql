@@ -1,7 +1,5 @@
 select Member {
-    id,
-    name,
-    ig_name,
+    *,
 
     sum_gold := sum(.countries.gold_store),
     sum_materials := sum(.countries.material_store),
