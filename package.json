@@ -3,13 +3,12 @@
   "version": "1.3.0",
   "scripts": {
     "build": "npm run build:queryBuilder && nuxt build",
-    "build:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target esm",
-    "clean": "nuxi clean && rm -rf dbschema/edgeql-js/ reservoir.tar.gz",
+    "build:query": "pnpm dlx @edgedb/generate queries",
+    "clean": "nuxi clean && rm -rf queries/*.query.ts reservoir.tar.gz",
     "dev": "nuxt dev",
-    "dev:queryBuilder": "rm -rf dbschema/edgeql-js/ && echo n | npx @edgedb/generate edgeql-js --target ts",
     "generate": "nuxt generate",
     "preview": "npm run build:queryBuilder && nuxt preview",
-    "postinstall": "nuxt prepare && npm run dev:queryBuilder"
+    "postinstall": "nuxt prepare && npm run build:queryBuilder"
   },
   "devDependencies": {
     "@edgedb/generate": "^0.0.8",
