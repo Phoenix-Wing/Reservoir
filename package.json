@@ -7,6 +7,7 @@
     "clean": "nuxi clean && rm -rf queries/*.query.ts reservoir.tar.gz",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
+    "lint": "eslint .",
     "preview": "npm run build:query && nuxt preview",
     "postinstall": "nuxt prepare && npm run build:query"
   },

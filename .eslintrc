@@ -1,6 +1,7 @@
 {
   "root": true,
   "extends": ["@nuxtjs/eslint-config-typescript"],
+  "ignorePatterns": ["queries/*.query.ts"],
   "rules": {
     "indent": ["error", 4],
     "vue/html-indent": ["error", 4],
