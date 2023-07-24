@@ -4,6 +4,9 @@ export default defineNuxtConfig({
         { path: "~/components" },
         { path: "~/components/utils", prefix: "U" },
     ],
+    eslint: {
+        lintOnStart: false,
+    },
     modules: [
         "@huntersofbook/naive-ui-nuxt",
         "@nuxtjs/eslint-module",
