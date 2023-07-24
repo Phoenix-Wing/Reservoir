@@ -16,8 +16,8 @@ import { darkTheme } from "naive-ui";
 useHead({
     titleTemplate: (pageName) => {
         return pageName
-        ? `${pageName} - Reservoir`
-        : "Reservoir";
+            ? `${pageName} - Reservoir`
+            : "Reservoir";
     },
 });
 </script>

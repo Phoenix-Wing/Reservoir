@@ -102,40 +102,46 @@
                     <NSpace vertical :size="24">
                         <!-- TODO: Consider different title? -->
                         <EditCard title="Country">
-                            <EditFieldText @input:required="x => editArgs.name = x" :default="country.name" label="Name" />
-                            <EditFieldCountryLeaders @input="x => editArgs.leaders = x" :default="country.leaders" label="Leaders" />
+                            <EditFieldText :default="country.name" label="Name" @input:required="x => editArgs.name = x" />
+                            <EditFieldCountryLeaders :default="country.leaders" label="Leaders" @input="x => editArgs.leaders = x" />
                         </EditCard>
 
                         <EditCard title="Gold" inline>
-                            <EditFieldNum @input:required="x => editArgs.gold_store = x" :default="country.gold_store" label="Total" />
-                            <EditFieldNum @input:required="x => editArgs.gold_income = x" :default="country.gold_income" label="Income" />
-                            <EditFieldNum @input:required="x => editArgs.gold_upkeep = x" :default="country.gold_upkeep" label="Upkeep" />
+                            <EditFieldNum :default="country.gold_store" label="Total" @input:required="x => editArgs.gold_store = x" />
+                            <EditFieldNum :default="country.gold_income" label="Income" @input:required="x => editArgs.gold_income = x" />
+                            <EditFieldNum :default="country.gold_upkeep" label="Upkeep" @input:required="x => editArgs.gold_upkeep = x" />
                         </EditCard>
 
                         <EditCard title="Materials" inline>
-                            <EditFieldNum @input:required="x => editArgs.material_store = x" :default="country.material_store" label="Total" />
-                            <EditFieldNum @input:required="x => editArgs.material_income = x" :default="country.material_income" label="Income" />
-                            <EditFieldNum @input:required="x => editArgs.material_upkeep = x" :default="country.material_upkeep" label="Upkeep" />
+                            <EditFieldNum :default="country.material_store" label="Total" @input:required="x => editArgs.material_store = x" />
+                            <EditFieldNum :default="country.material_income" label="Income" @input:required="x => editArgs.material_income = x" />
+                            <EditFieldNum :default="country.material_upkeep" label="Upkeep" @input:required="x => editArgs.material_upkeep = x" />
                         </EditCard>
 
                         <EditCard title="Population" inline>
-                            <EditFieldNum @input:required="x => editArgs.population = x" :default="country.population" label="Total" />
+                            <EditFieldNum :default="country.population" label="Total" @input:required="x => editArgs.population = x" />
                         </EditCard>
 
                         <EditCard title="Army" inline>
-                            <EditFieldNum @input:required="x => editArgs.army_units = x" :default="country.army_units" label="Units" />
+                            <EditFieldNum :default="country.army_units" label="Units" @input:required="x => editArgs.army_units = x" />
                         </EditCard>
 
                         <EditCard title="Notes">
-                            <EditFieldText @input:required="x => editArgs.notes = x" :default="country.notes" type="textarea" :maxlength="500" />
+                            <EditFieldText :default="country.notes" type="textarea" :maxlength="500" @input:required="x => editArgs.notes = x" />
                         </EditCard>
                     </NSpace>
 
                     <template #footer>
                         <NSpace>
-                            <NButton @click="async () => { await updateCountry(); editing = false }"
-                                :loading="updateCountryPending" type="success" ghost>Save</NButton>
-                            <NButton @click="editing = false" type="error" ghost>Discard</NButton>
+                            <NButton
+                                :loading="updateCountryPending"
+                                type="success"
+                                ghost
+                                @click="async () => { await updateCountry(); editing = false }"
+                            >
+                                Save
+                            </NButton>
+                            <NButton type="error" ghost @click="editing = false">Discard</NButton>
                         </NSpace>
                     </template>
                 </LazyEditDrawer>
@@ -171,7 +177,7 @@ useHead({
 });
 
 definePageMeta({
-    validate: async (route) => validateUuid(route.params.id),
+    validate: route => validateUuid(route.params.id),
 });
 
 const breadcrumbRoute = computed<[string, string][]>(() => [

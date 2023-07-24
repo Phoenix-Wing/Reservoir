@@ -9,7 +9,7 @@
                 <NInput v-model:value="form.ig_name" clearable />
             </NFormItem>
 
-            <NButton @click="async () => await createMember()" :loading="loading">Create</NButton>
+            <NButton :loading="loading" @click="async () => await createMember()">Create</NButton>
         </NForm>
     </NCard>
 </template>
@@ -34,7 +34,7 @@ async function createMember() {
     }
 
     // Replace empty string with undefined
-    if (!form.ig_name) form.ig_name = undefined;
+    if (!form.ig_name) { form.ig_name = undefined; }
 
     // Send post request, catching any errors
     try {
@@ -45,7 +45,7 @@ async function createMember() {
 
         await navigateTo(`/member/${data.res.id}`);
     } catch {
-        message.error("Error creating member. Please see console for more information.")
+        message.error("Error creating member. Please see console for more information.");
     }
 
     loading.value = false;

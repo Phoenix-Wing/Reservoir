@@ -1,8 +1,8 @@
 <template>
     <NFormItem :label="label" :show-label="label != undefined" :required="!optional">
-        <NSwitch v-if="optional" v-model:value="enabled" @update:value="emitInput" style="margin-right: 1rem" />
+        <NSwitch v-if="optional" v-model:value="enabled" style="margin-right: 1rem" @update:value="emitInput" />
         <NInputNumber v-model:value="value" :default-value="default" :disabled="!enabled" :placeholder="defaultAsString" :precision="precision">
-            <template #suffix v-if="suffix">{{ suffix }}</template>
+            <template v-if="suffix" #suffix>{{ suffix }}</template>
         </NInputNumber>
     </NFormItem>
 </template>
@@ -53,15 +53,13 @@ function emitInput() {
             // Emit null, the switch is disabled
             emit("input:optional", null);
         }
+    // If the value is different from the default
+    } else if (value.value !== props.default) {
+        // Emit new value
+        emit("input:required", value.value);
     } else {
-        // If the value is different from the default
-        if (value.value !== props.default) {
-            // Emit new value
-            emit("input:required", value.value);
-        } else {
-            // Emit undefined, no change
-            emit("input:required", undefined);
-        }
+        // Emit undefined, no change
+        emit("input:required", undefined);
     }
 }
 </script>

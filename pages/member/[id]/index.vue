@@ -19,7 +19,7 @@
                         <NButton @click="editing = true">Edit</NButton>
                     </template>
 
-                    <template #subtitle v-if="member.ig_name">
+                    <template v-if="member.ig_name" #subtitle>
                         {{ member.ig_name }}
                     </template>
 
@@ -31,7 +31,7 @@
                         </NSpace>
                     </NCard>
                 </NPageHeader>
-                
+
                 <NDivider dashed />
 
                 <NGrid :cols="2" :x-gap="12" :y-gap="12">
@@ -45,23 +45,23 @@
                         </NCard>
                     </NGi>
 
-                    <NGi v-else v-for="country in member.countries">
-                        <ViewCountryCard :name="country.name" :id="country.id" :gold="country.gold_store" :materials="country.material_store" :units="country.army_units" />
+                    <NGi v-for="country in member.countries" v-else :key="country.id">
+                        <ViewCountryCard :id="country.id" :name="country.name" :gold="country.gold_store" :materials="country.material_store" :units="country.army_units" />
                     </NGi>
                 </NGrid>
 
                 <LazyEditDrawer v-model:show="editing" title="Editing">
                     <NSpace vertical :size="24">
                         <EditCard title="Character">
-                            <EditFieldText @input:required="x => editArgs.name = x" :default="member.name" label="Name" />
-                            <EditFieldText @input:optional="x => editArgs.ig_name = x" :default="member.ig_name" label="In-Game Name" optional />
+                            <EditFieldText :default="member.name" label="Name" @input:required="x => editArgs.name = x" />
+                            <EditFieldText :default="member.ig_name" label="In-Game Name" optional @input:optional="x => editArgs.ig_name = x" />
                         </EditCard>
                     </NSpace>
 
                     <template #footer>
                         <NSpace>
-                            <NButton @click="async () => { await updateMember(); editing = false }" :loading="updateMemberPending" type="success" ghost>Save</NButton>
-                            <NButton @click="editing = false" type="error" ghost>Discard</NButton>
+                            <NButton :loading="updateMemberPending" type="success" ghost @click="async () => { await updateMember(); editing = false }">Save</NButton>
+                            <NButton type="error" ghost @click="editing = false">Discard</NButton>
                         </NSpace>
                     </template>
                 </LazyEditDrawer>
@@ -91,11 +91,11 @@ useHead({
         } else {
             return member.value!.name;
         }
-    }
+    },
 });
 
 definePageMeta({
-    validate: async (route) => validateUuid(route.params.id),
+    validate: route => validateUuid(route.params.id),
 });
 
 const breadcrumbRoute: [string, string][] = [

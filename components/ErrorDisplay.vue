@@ -1,7 +1,7 @@
 <template>
     <NResult status="error" :title="title ? title : 'Error'" :description="description">
-        <template #footer v-if="details">
-            <NButton @click="viewDetails = !viewDetails" type="error" ghost>
+        <template v-if="details" #footer>
+            <NButton type="error" ghost @click="viewDetails = !viewDetails">
                 {{ viewDetails ? "Hide error details" : "Show error details" }}
             </NButton>
 

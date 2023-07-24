@@ -1,7 +1,7 @@
 <template>
     <NBreadcrumb>
         <!-- href combines the `hrefPart`s of current and previous routes -->
-        <NBreadcrumbItem v-for="partIdx in routes.length" :href="routes.slice(0, partIdx).map(x => x[1]).join('')">
+        <NBreadcrumbItem v-for="partIdx in routes.length" :key="partIdx" :href="routes.slice(0, partIdx).map(x => x[1]).join('')">
             {{ routes[partIdx - 1][0] }}
         </NBreadcrumbItem>
     </NBreadcrumb>

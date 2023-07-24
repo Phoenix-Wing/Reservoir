@@ -9,11 +9,11 @@ export default defineEventHandler(async (event) => {
     let offset = null;
     let limit = null;
 
-    if (typeof args.offset == "string") {
+    if (typeof args.offset === "string") {
         offset = parseInt(args.offset);
     }
 
-    if (typeof args.limit == "string") {
+    if (typeof args.limit === "string") {
         limit = parseInt(args.limit);
     }
 
