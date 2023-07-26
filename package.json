@@ -2,14 +2,14 @@
   "private": true,
   "version": "1.3.0",
   "scripts": {
-    "build": "npm run build:query && nuxt build",
+    "build": "pnpm build:query && nuxt build",
     "build:query": "pnpm exec generate queries --target ts",
     "clean": "nuxi clean && rm -rf queries/*.query.ts reservoir.tar.gz",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "generate": "pnpm build:query && nuxt generate",
     "lint": "eslint .",
-    "preview": "npm run build:query && nuxt preview",
-    "postinstall": "nuxt prepare && npm run build:query"
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare && pnpm build:query"
   },
   "devDependencies": {
     "@edgedb/generate": "^0.3.1",
