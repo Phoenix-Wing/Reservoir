@@ -5,6 +5,7 @@
                 <NSpace>
                     <HomeIncomeDistributor />
                     <UButtonLink to="/new">Create new...</UButtonLink>
+                    <HomeSearchBar />
                 </NSpace>
             </NCard>
 
