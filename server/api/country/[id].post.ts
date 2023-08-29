@@ -6,18 +6,6 @@ export interface UpdateCountryArgs {
     name?: string,
     leaders?: string[],
 
-    gold_store?: number,
-    gold_income?: number,
-    gold_upkeep?: number,
-
-    material_store?: number,
-    material_income?: number,
-    material_upkeep?: number,
-
-    population?: number,
-
-    army_units?: number,
-
     notes?: string,
 }
 
@@ -32,18 +20,6 @@ function createMutation(args: UpdateCountryArgs): string {
             select Member filter .id in array_unpack(<array<uuid>>$leaders)
         ),\n`;
     }
-
-    if (args.gold_store !== undefined) { mutations += "gold_store := <int64>$gold_store,\n"; }
-    if (args.gold_income !== undefined) { mutations += "gold_income := <int32>$gold_income,\n"; }
-    if (args.gold_upkeep !== undefined) { mutations += "gold_upkeep := <int32>$gold_upkeep,\n"; }
-
-    if (args.material_store !== undefined) { mutations += "material_store := <int64>$material_store,\n"; }
-    if (args.material_income !== undefined) { mutations += "material_income := <int32>$material_income,\n"; }
-    if (args.material_upkeep !== undefined) { mutations += "material_upkeep := <int32>$material_upkeep,\n"; }
-
-    if (args.population !== undefined) { mutations += "population := <int32>$population,\n"; }
-
-    if (args.army_units !== undefined) { mutations += "army_units := <int32>$army_units,\n"; }
 
     if (args.notes !== undefined) { mutations += "notes := <str>$notes,\n"; }
 
