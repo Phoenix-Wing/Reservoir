@@ -8,58 +8,70 @@ module default {
 
         multi leaders: Member;
 
-        # Positive number >= 0 && <= 9,223,372,036,854,775,807
-        required gold_store: int64 {
-            default := 0;
-            constraint min_value(0);
+        # The main currency system
+        required gold: material::Material {
+            default := (
+                insert material::Material {
+                    kind := material::MaterialKind.Gold,
+                }
+            );
+            constraint exclusive;
+            on source delete delete target;
         }
 
-        # Any number >= 0 && <= 2,147,483,648
-        required gold_income: int32 {
-            default := 0;
-            constraint min_value(0);
+        # Food required to feed your population
+        required foodstuffs: material::Material {
+            default := (
+                insert material::Material {
+                    kind := material::MaterialKind.Foodstuffs,
+                }
+            );
+            constraint exclusive;
+            on source delete delete target;
         }
 
-        # Any number >= 0 && <= 2,147,483,648
-        required gold_upkeep: int32 {
-            default := 0;
-            constraint min_value(0);
+        # Materials used for building structures and things
+        required construction: material::Material {
+            default := (
+                insert material::Material {
+                    kind := material::MaterialKind.Construction,
+                }
+            );
+            constraint exclusive;
+            on source delete delete target;
         }
 
-        # Any number >= -2,147,483,648 && <= 2,147,483,648
-        required property gold_profit := .gold_income - .gold_upkeep;
-
-        # Positive number >= 0 && <= 9,223,372,036,854,775,807
-        required material_store: int64 {
-            default := 0;
-            constraint min_value(0);
+        # Increases nobility happiness
+        required luxuries: material::Material {
+            default := (
+                insert material::Material {
+                    kind := material::MaterialKind.Luxuries,
+                }
+            );
+            constraint exclusive;
+            on source delete delete target;
         }
 
-        # Any number >= 0 && <= 2,147,483,648
-        required material_income: int32 {
-            default := 0;
-            constraint min_value(0);
+        # Popular Catalyst ingredients used by armies and infrastructure
+        required catalyst: material::Material {
+            default := (
+                insert material::Material {
+                    kind := material::MaterialKind.Catalyst,
+                }
+            );
+            constraint exclusive;
+            on source delete delete target;
         }
 
-        # Any number >= 0 && <= 2,147,483,648
-        required material_upkeep: int32 {
-            default := 0;
-            constraint min_value(0);
-        }
-
-        # Any number >= -2,147,483,648 && <= 2,147,483,648
-        required property material_profit := .material_income - .material_upkeep;
-
-        # Positive number >= 0 && <= 2,147,483,648
-        required population: int32 {
-            default := 0;
-            constraint min_value(0);
-        }
-
-        # Positive number >= 0 && <= 2,147,483,648
-        required army_units: int32 {
-            default := 0;
-            constraint min_value(0);
+        # The main fuel required for airships
+        required gonslate: material::Material {
+            default := (
+                insert material::Material {
+                    kind := material::MaterialKind.Gonslate,
+                }
+            );
+            constraint exclusive;
+            on source delete delete target;
         }
 
         # Country notes for dungeon masters
@@ -81,6 +93,7 @@ module default {
             constraint min_len_value(1);
         }
 
+        # Backlink to which countries this member has control of
         multi link countries := .<leaders[is Country];
     }
 }
