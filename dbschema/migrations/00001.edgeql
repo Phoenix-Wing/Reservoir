@@ -1,4 +1,4 @@
-CREATE MIGRATION m1dvgmlzzxjimxh7oxszeikdj7wiiyxtaz3p4odnxyd73cmvfv3xmq
+CREATE MIGRATION m1xpvikfcwaqh5gz77kjow7xlzsiplet3dvkmr7qhkobo67fmly2za
     ONTO initial
 {
   CREATE MODULE material IF NOT EXISTS;
@@ -76,9 +76,18 @@ CREATE MIGRATION m1dvgmlzzxjimxh7oxszeikdj7wiiyxtaz3p4odnxyd73cmvfv3xmq
           ON SOURCE DELETE DELETE TARGET;
           CREATE CONSTRAINT std::exclusive;
       };
+      CREATE REQUIRED LINK luxuries: material::Material {
+          SET default := (INSERT
+              material::Material
+              {
+                  kind := material::MaterialKind.Luxuries
+              });
+          ON SOURCE DELETE DELETE TARGET;
+          CREATE CONSTRAINT std::exclusive;
+      };
   };
   ALTER TYPE material::Material {
-      CREATE SINGLE LINK country := (.<gold[IS default::Country]);
+      CREATE SINGLE LINK country := ((.<gold[IS default::Country] ?? (.<foodstuffs[IS default::Country] ?? (.<construction[IS default::Country] ?? (.<luxuries[IS default::Country] ?? (.<catalyst[IS default::Country] ?? .<gonslate[IS default::Country]))))));
   };
   CREATE TYPE default::Member {
       CREATE PROPERTY ig_name: std::str {
@@ -91,15 +100,6 @@ CREATE MIGRATION m1dvgmlzzxjimxh7oxszeikdj7wiiyxtaz3p4odnxyd73cmvfv3xmq
   };
   ALTER TYPE default::Country {
       CREATE MULTI LINK leaders: default::Member;
-      CREATE REQUIRED LINK luxuries: material::Material {
-          SET default := (INSERT
-              material::Material
-              {
-                  kind := material::MaterialKind.Luxuries
-              });
-          ON SOURCE DELETE DELETE TARGET;
-          CREATE CONSTRAINT std::exclusive;
-      };
   };
   ALTER TYPE default::Member {
       CREATE MULTI LINK countries := (.<leaders[IS default::Country]);

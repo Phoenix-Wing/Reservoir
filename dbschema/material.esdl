@@ -28,6 +28,13 @@ module material {
         required property profit := .income - .upkeep;
 
         # Backlink to the country owning this material stat
-        single link country := .<gold[is default::Country];
+        single link country := (
+            .<gold[is default::Country] ??
+            .<foodstuffs[is default::Country] ??
+            .<construction[is default::Country] ??
+            .<luxuries[is default::Country] ??
+            .<catalyst[is default::Country] ??
+            .<gonslate[is default::Country]
+        );
     }
 }
