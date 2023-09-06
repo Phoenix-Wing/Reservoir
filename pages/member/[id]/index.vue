@@ -25,16 +25,19 @@
 
                     <NCard title="Quick facts">
                         <NSpace justify="space-around">
-                            <ViewStat :to="member.sum_gold" label="Available Gold" suffix="g" />
-                            <ViewStat :to="member.sum_materials" label="Available Materials" suffix="mat" />
-                            <ViewStat :to="member.sum_units" label="Available Units" suffix="units" />
+                            <ViewStat :to="member.gold_sum" label="Available Gold" suffix="g" />
+
+                            <!-- TODO: Remove eventually :P -->
+                            <NStatistic label="Nothing else here">
+                                :P
+                            </NStatistic>
                         </NSpace>
                     </NCard>
                 </NPageHeader>
 
                 <NDivider dashed />
 
-                <NGrid :cols="2" :x-gap="12" :y-gap="12">
+                <NGrid :cols="3" :x-gap="12" :y-gap="12">
                     <NGi v-if="member.countries.length == 0">
                         <NCard>
                             <NEmpty description="This member does not have any countries." size="large">
@@ -46,7 +49,7 @@
                     </NGi>
 
                     <NGi v-for="country in member.countries" v-else :key="country.id">
-                        <ViewCountryCard :id="country.id" :name="country.name" :gold="country.gold_store" :materials="country.material_store" :units="country.army_units" />
+                        <ViewCountryCard :id="country.id" :name="country.name" :gold="country.gold_quantity" />
                     </NGi>
                 </NGrid>
 

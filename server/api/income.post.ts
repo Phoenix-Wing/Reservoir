@@ -8,12 +8,7 @@ interface IncomeParameters {
     target: "all",
 }
 
-// List of ids (UUID) included and excluded from distribution.
-interface IncomeResponse {
-    included: string[],
-}
-
-export default defineEventHandler<IncomeResponse>(async (event) => {
+export default defineEventHandler(async (event) => {
     const params = await readBody<IncomeParameters>(event);
 
     if (params.target === "all") {

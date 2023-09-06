@@ -33,7 +33,7 @@ async function distributeIncome() {
             closable: true,
         });
     } else {
-        message.success(`Distributed income to ${data.value!.included.length} countries.`);
+        message.success(`Distributed income to ${data.value!.included.length} material groups.`);
     }
 
     confirmIncome.value = false;
