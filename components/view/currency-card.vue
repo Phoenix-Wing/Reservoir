@@ -2,7 +2,7 @@
     <NCard :title="title">
         <NGrid :cols="2">
             <NGi>
-                <ViewStat :to="data.store" label="Total" :suffix="suffix" />
+                <ViewStat :to="data.quantity" label="Total" :suffix="suffix" />
             </NGi>
             <NGi>
                 <NPopover>
@@ -21,7 +21,8 @@
             </NGi>
         </NGrid>
 
-        <template #action>
+        <!-- Thanks! https://stackoverflow.com/a/44077358 -->
+        <template v-if="$slots.description" #action>
             <NText italic depth="3"><slot name="description" /></NText>
         </template>
     </NCard>
@@ -31,7 +32,7 @@
 defineProps<{
     title: string,
     data: {
-        store?: number,
+        quantity?: number,
         profit?: number,
         income?: number,
         upkeep?: number,

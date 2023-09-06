@@ -30,18 +30,21 @@
 
                     <NCard title="Quick facts">
                         <NSpace justify="space-around">
-                            <ViewStat :to="country.gold_store" label="Total Gold" suffix="g" />
-                            <ViewStat :to="country.material_store" label="Total Materials" suffix="mat" />
-                            <ViewStat :to="country.population" label="Population" suffix="people" />
+                            <ViewStat :to="country.gold.quantity" label="Gold" suffix="g" />
+                            <ViewStat :to="country.foodstuffs.quantity" label="Foodstuffs" />
+                            <ViewStat :to="country.construction.quantity" label="Construction" />
+                            <ViewStat :to="country.luxuries.quantity" label="Luxuries" />
+                            <ViewStat :to="country.catalyst.quantity" label="Catalyst" />
+                            <ViewStat :to="country.gonslate.quantity" label="Gonslate" />
                         </NSpace>
                     </NCard>
                 </NPageHeader>
 
                 <NDivider dashed />
 
-                <NGrid :cols="2" :x-gap="12" :y-gap="12">
+                <NGrid :cols="3" :x-gap="12" :y-gap="12">
                     <NGi>
-                        <ViewCurrencyCard title="Gold" :data="goldData" suffix="g">
+                        <ViewCurrencyCard title="Gold" :data="country.gold" suffix="g">
                             <template #description>
                                 Gold is the universal currency in Phoenix Wing.
                             </template>
@@ -49,39 +52,43 @@
                     </NGi>
 
                     <NGi>
-                        <ViewCurrencyCard title="Materials" :data="materialData" suffix="mat">
+                        <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs">
                             <template #description>
-                                Materials are used to build new structures.
+                                Foodstuffs are necessary to feed your population.
                             </template>
                         </ViewCurrencyCard>
                     </NGi>
 
                     <NGi>
-                        <NCard title="Population">
-                            <NSpace justify="center">
-                                <ViewStat :to="country.population" label="Total" suffix="people" />
-                            </NSpace>
-
-                            <template #action>
-                                <NText italic depth="3">
-                                    Population affects how many people you can draft in your military.
-                                </NText>
+                        <ViewCurrencyCard title="Construction" :data="country.construction">
+                            <template #description>
+                                Construction is used to build things.
                             </template>
-                        </NCard>
+                        </ViewCurrencyCard>
                     </NGi>
 
                     <NGi>
-                        <NCard title="Army">
-                            <NSpace justify="center">
-                                <ViewStat :to="country.army_units" label="Units" suffix="units" />
-                            </NSpace>
-
-                            <template #action>
-                                <NText italic depth="3">
-                                    Army is used when fighting against other countries.
-                                </NText>
+                        <ViewCurrencyCard title="Luxuries" :data="country.luxuries">
+                            <template #description>
+                                Luxuries keep your nobility happy.
                             </template>
-                        </NCard>
+                        </ViewCurrencyCard>
+                    </NGi>
+
+                    <NGi>
+                        <ViewCurrencyCard title="Catalyst" :data="country.catalyst">
+                            <template #description>
+                                Common Catalyst resources used by mages.
+                            </template>
+                        </ViewCurrencyCard>
+                    </NGi>
+
+                    <NGi>
+                        <ViewCurrencyCard title="Gonslate" :data="country.gonslate">
+                            <template #description>
+                                A valuable Catalyst fuel used in airships.
+                            </template>
+                        </ViewCurrencyCard>
                     </NGi>
 
                     <NGi>
@@ -107,23 +114,39 @@
                         </EditCard>
 
                         <EditCard title="Gold" inline>
-                            <EditFieldNum :default="country.gold_store" label="Total" @input:required="x => editArgs.gold_store = x" />
-                            <EditFieldNum :default="country.gold_income" label="Income" @input:required="x => editArgs.gold_income = x" />
-                            <EditFieldNum :default="country.gold_upkeep" label="Upkeep" @input:required="x => editArgs.gold_upkeep = x" />
+                            <EditFieldNum :default="country.gold.quantity" label="Total" @input:required="x => editArgs.gold_quantity = x" />
+                            <EditFieldNum :default="country.gold.income" label="Income" @input:required="x => editArgs.gold_income = x" />
+                            <EditFieldNum :default="country.gold.upkeep" label="Upkeep" @input:required="x => editArgs.gold_upkeep = x" />
                         </EditCard>
 
-                        <EditCard title="Materials" inline>
-                            <EditFieldNum :default="country.material_store" label="Total" @input:required="x => editArgs.material_store = x" />
-                            <EditFieldNum :default="country.material_income" label="Income" @input:required="x => editArgs.material_income = x" />
-                            <EditFieldNum :default="country.material_upkeep" label="Upkeep" @input:required="x => editArgs.material_upkeep = x" />
+                        <EditCard title="Foodstuffs" inline>
+                            <EditFieldNum :default="country.foodstuffs.quantity" label="Total" @input:required="x => editArgs.foodstuffs_quantity = x" />
+                            <EditFieldNum :default="country.foodstuffs.income" label="Income" @input:required="x => editArgs.foodstuffs_income = x" />
+                            <EditFieldNum :default="country.foodstuffs.upkeep" label="Upkeep" @input:required="x => editArgs.foodstuffs_upkeep = x" />
                         </EditCard>
 
-                        <EditCard title="Population" inline>
-                            <EditFieldNum :default="country.population" label="Total" @input:required="x => editArgs.population = x" />
+                        <EditCard title="Construction" inline>
+                            <EditFieldNum :default="country.construction.quantity" label="Total" @input:required="x => editArgs.construction_quantity = x" />
+                            <EditFieldNum :default="country.construction.income" label="Income" @input:required="x => editArgs.construction_income = x" />
+                            <EditFieldNum :default="country.construction.upkeep" label="Upkeep" @input:required="x => editArgs.construction_upkeep = x" />
                         </EditCard>
 
-                        <EditCard title="Army" inline>
-                            <EditFieldNum :default="country.army_units" label="Units" @input:required="x => editArgs.army_units = x" />
+                        <EditCard title="Luxuries" inline>
+                            <EditFieldNum :default="country.luxuries.quantity" label="Total" @input:required="x => editArgs.luxuries_quantity = x" />
+                            <EditFieldNum :default="country.luxuries.income" label="Income" @input:required="x => editArgs.luxuries_income = x" />
+                            <EditFieldNum :default="country.luxuries.upkeep" label="Upkeep" @input:required="x => editArgs.luxuries_upkeep = x" />
+                        </EditCard>
+
+                        <EditCard title="Catalyst" inline>
+                            <EditFieldNum :default="country.catalyst.quantity" label="Total" @input:required="x => editArgs.catalyst_quantity = x" />
+                            <EditFieldNum :default="country.catalyst.income" label="Income" @input:required="x => editArgs.catalyst_income = x" />
+                            <EditFieldNum :default="country.catalyst.upkeep" label="Upkeep" @input:required="x => editArgs.catalyst_upkeep = x" />
+                        </EditCard>
+
+                        <EditCard title="Gonslate" inline>
+                            <EditFieldNum :default="country.gonslate.quantity" label="Total" @input:required="x => editArgs.gonslate_quantity = x" />
+                            <EditFieldNum :default="country.gonslate.income" label="Income" @input:required="x => editArgs.gonslate_income = x" />
+                            <EditFieldNum :default="country.gonslate.upkeep" label="Upkeep" @input:required="x => editArgs.gonslate_upkeep = x" />
                         </EditCard>
 
                         <EditCard title="Notes">
@@ -185,20 +208,6 @@ const breadcrumbRoute = computed<[string, string][]>(() => [
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
 ]);
-
-const goldData = computed(() => ({
-    store: country.value?.gold_store,
-    profit: country.value?.gold_profit,
-    income: country.value?.gold_income,
-    upkeep: country.value?.gold_upkeep,
-}));
-
-const materialData = computed(() => ({
-    store: country.value?.material_store,
-    profit: country.value?.material_profit,
-    income: country.value?.material_income,
-    upkeep: country.value?.material_upkeep,
-}));
 
 /*
  * EDITING
