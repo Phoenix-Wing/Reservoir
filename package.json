@@ -3,7 +3,7 @@
   "scripts": {
     "build": "pnpm build:query && nuxt build",
     "build:query": "pnpm exec generate queries --target ts",
-    "clean": "nuxi clean && rm -rf queries/*.query.ts reservoir.tar.gz",
+    "clean": "nuxi cleanup && rm -rf queries/*.query.ts reservoir.tar.gz",
     "dev": "nuxt dev",
     "generate": "pnpm build:query && nuxt generate",
     "lint": "eslint .",
@@ -12,11 +12,11 @@
   },
   "devDependencies": {
     "@edgedb/generate": "^0.3.3",
-    "@huntersofbook/naive-ui-nuxt": "^1.1.0",
-    "@nuxtjs/eslint-config-typescript": "^12.0.0",
+    "@huntersofbook/naive-ui-nuxt": "^1.2.0",
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "edgedb": "^1.3.4",
-    "eslint": "^8.46.0",
-    "nuxt": "^3.6.5"
+    "edgedb": "^1.3.5",
+    "eslint": "^8.48.0",
+    "nuxt": "^3.7.1"
   }
 }
