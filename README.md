@@ -4,8 +4,8 @@ Reservoir is a [Nuxt](https://nuxt.com) website using [Vue](https://vuejs.org) a
 
 ## Requirements
 
-- Node.js 19 (Should work on LTS 18, but untested)
-- EdgeDB 2.11 ([See installation page](https://www.edgedb.com/install))
+- Node.js 18
+- EdgeDB 3.4 ([See installation page](https://www.edgedb.com/install))
 
 ## Usage
 
@@ -14,8 +14,8 @@ You can download the latest stable-(ish) version of the code from the [releases]
 ```shell
 # Check that tools are installed
 $ node --version && edgedb --version
-v19.7.0
-EdgeDB CLI 2.3.1+5d93f42
+v18.17.1
+EdgeDB CLI 3.4.0+4d95a2c
 
 # Create and migrate new database
 $ edgedb project init
@@ -67,7 +67,7 @@ $ ./bins/xd.sh release
 >
 > ```shell
 > $ pnpm clean
-> $ pnpm dev:queryBuilder
+> $ pnpm build:query
 > $ pnpm dev
 > ```
 >
