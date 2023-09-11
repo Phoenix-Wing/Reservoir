@@ -1,7 +1,8 @@
-CREATE MIGRATION m1xpvikfcwaqh5gz77kjow7xlzsiplet3dvkmr7qhkobo67fmly2za
+CREATE MIGRATION m13csocm37q727cor36zhnuso2i35gqpn6qrvd6r7du42b4wtwc3ka
     ONTO initial
 {
   CREATE MODULE material IF NOT EXISTS;
+  CREATE MODULE trade IF NOT EXISTS;
   CREATE FUTURE nonrecursive_access_policies;
   CREATE SCALAR TYPE material::MaterialKind EXTENDING enum<Gold, Foodstuffs, Construction, Luxuries, Catalyst, Gonslate>;
   CREATE TYPE default::Country {
@@ -12,6 +13,25 @@ CREATE MIGRATION m1xpvikfcwaqh5gz77kjow7xlzsiplet3dvkmr7qhkobo67fmly2za
       CREATE REQUIRED PROPERTY notes: std::str {
           SET default := '';
           CREATE CONSTRAINT std::max_len_value(500);
+      };
+  };
+  CREATE TYPE trade::Trade {
+      CREATE REQUIRED SINGLE LINK country_a: default::Country;
+      CREATE REQUIRED SINGLE LINK country_b: default::Country;
+      CREATE CONSTRAINT std::expression ON ((.country_a != .country_b));
+      CREATE REQUIRED PROPERTY elapsed_weeks: std::int16 {
+          SET default := 0;
+      };
+      CREATE REQUIRED PROPERTY total_weeks: std::int16 {
+          CREATE CONSTRAINT std::min_value(1);
+      };
+      CREATE CONSTRAINT std::expression ON ((.elapsed_weeks <= .total_weeks));
+      CREATE REQUIRED PROPERTY material_a: material::MaterialKind;
+      CREATE REQUIRED PROPERTY material_b: material::MaterialKind;
+      CREATE REQUIRED PROPERTY quantity_a: std::int32;
+      CREATE REQUIRED PROPERTY quantity_b: std::int32;
+      CREATE REQUIRED PROPERTY repeating: std::bool {
+          SET default := false;
       };
   };
   CREATE TYPE material::Material {
