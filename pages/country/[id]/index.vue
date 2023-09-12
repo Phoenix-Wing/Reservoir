@@ -96,6 +96,88 @@
 
                 <NGrid :cols="2" :x-gap="12" :y-gap="12">
                     <NGi>
+                        <NList bordered hoverable>
+                            <template #header>
+                                <NH3>Trades</NH3>
+                            </template>
+
+                            <NListItem>
+                                <template #prefix>
+                                    <NText type="success" strong>Caturna</NText>
+                                </template>
+
+                                10 Gold for 13 Foodstuffs
+
+                                <template #suffix>
+                                    <NButton @click="tradeModalId = ''; showTradeModal = true">View</NButton>
+                                </template>
+                            </NListItem>
+
+                            <NModal
+                                v-model:show="showTradeModal"
+                                preset="card"
+                                size="large"
+                                closable
+                                style="width: 700px"
+                            >
+                                <template #header>
+                                    Trade with Caturna
+                                </template>
+
+                                <NSpace vertical size="large">
+                                    <NTag type="success">Repeating</NTag>
+
+                                    <NGrid :cols="2">
+                                        <NGi>
+                                            <NStatistic label="You Get" :value="10">
+                                                <template #suffix>
+                                                    Gold
+                                                </template>
+                                            </NStatistic>
+                                        </NGi>
+
+                                        <NGi>
+                                            <NStatistic label="They Get" :value="13">
+                                                <template #suffix>
+                                                    Foodstuffs
+                                                </template>
+                                            </NStatistic>
+                                        </NGi>
+
+                                        <NGi>
+                                            <NStatistic label="Elapsed" :value="1">
+                                                <template #suffix>
+                                                    meetings
+                                                </template>
+                                            </NStatistic>
+                                        </NGi>
+
+                                        <NGi>
+                                            <NStatistic label="Total" :value="2">
+                                                <template #suffix>
+                                                    meetings
+                                                </template>
+                                            </NStatistic>
+                                        </NGi>
+                                    </NGrid>
+
+                                    <NProgress type="line" status="success" indicator-placement="inside" :percentage="50" />
+
+                                    <NSpace justify="center">
+                                        <NPopconfirm>
+                                            <template #trigger>
+                                                <NButton type="error" size="medium" ghost>Cancel Trade</NButton>
+                                            </template>
+
+                                            Are you sure you want to cancel this trade? It will not complete!
+                                        </NPopconfirm>
+                                    </NSpace>
+                                </NSpace>
+                            </NModal>
+                        </NList>
+                    </NGi>
+
+                    <NGi>
                         <NCard title="Notes">
                             <!-- pre-line makes HTML respect newlines -->
                             <NText :depth="2" style="white-space: pre-line">
@@ -212,6 +294,9 @@ const breadcrumbRoute = computed<[string, string][]>(() => [
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
 ]);
+
+const showTradeModal = ref(false);
+const tradeModalId = ref("");
 
 /*
  * EDITING
