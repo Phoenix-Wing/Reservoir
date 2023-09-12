@@ -54,7 +54,7 @@
                     <NGi>
                         <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs">
                             <template #description>
-                                Foodstuffs are necessary to feed your population.
+                                Foodstuffs are used to feed your population.
                             </template>
                         </ViewCurrencyCard>
                     </NGi>
@@ -90,7 +90,11 @@
                             </template>
                         </ViewCurrencyCard>
                     </NGi>
+                </NGrid>
 
+                <NDivider dashed />
+
+                <NGrid :cols="2" :x-gap="12" :y-gap="12">
                     <NGi>
                         <NCard title="Notes">
                             <!-- pre-line makes HTML respect newlines -->
