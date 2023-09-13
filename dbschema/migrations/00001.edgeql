@@ -1,4 +1,4 @@
-CREATE MIGRATION m13csocm37q727cor36zhnuso2i35gqpn6qrvd6r7du42b4wtwc3ka
+CREATE MIGRATION m1vbshrqt6cvolalmyidqj7dxxfkohhtn33nmnibkblx2kl5fkir2a
     ONTO initial
 {
   CREATE MODULE material IF NOT EXISTS;
@@ -16,8 +16,12 @@ CREATE MIGRATION m13csocm37q727cor36zhnuso2i35gqpn6qrvd6r7du42b4wtwc3ka
       };
   };
   CREATE TYPE trade::Trade {
-      CREATE REQUIRED SINGLE LINK country_a: default::Country;
-      CREATE REQUIRED SINGLE LINK country_b: default::Country;
+      CREATE REQUIRED SINGLE LINK country_a: default::Country {
+          ON TARGET DELETE DELETE SOURCE;
+      };
+      CREATE REQUIRED SINGLE LINK country_b: default::Country {
+          ON TARGET DELETE DELETE SOURCE;
+      };
       CREATE CONSTRAINT std::expression ON ((.country_a != .country_b));
       CREATE REQUIRED PROPERTY elapsed_weeks: std::int16 {
           SET default := 0;
@@ -120,6 +124,7 @@ CREATE MIGRATION m13csocm37q727cor36zhnuso2i35gqpn6qrvd6r7du42b4wtwc3ka
   };
   ALTER TYPE default::Country {
       CREATE MULTI LINK leaders: default::Member;
+      CREATE MULTI LINK trades := (DISTINCT ((.<country_a[IS trade::Trade] UNION .<country_b[IS trade::Trade])));
   };
   ALTER TYPE default::Member {
       CREATE MULTI LINK countries := (.<leaders[IS default::Country]);

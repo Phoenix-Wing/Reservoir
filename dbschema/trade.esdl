@@ -1,11 +1,15 @@
 module trade {
     type Trade {
-        required single country_a: default::Country;
+        required single country_a: default::Country {
+            on target delete delete source;
+        }
 
         required material_a: material::MaterialKind;
         required quantity_a: int32;
 
-        required single country_b: default::Country;
+        required single country_b: default::Country {
+            on target delete delete source;
+        }
 
         required material_b: material::MaterialKind;
         required quantity_b: int32;

@@ -74,6 +74,8 @@ module default {
             on source delete delete target;
         }
 
+        multi link trades := distinct (.<country_a[is trade::Trade] union .<country_b[is trade::Trade]);
+
         # Country notes for dungeon masters
         required notes: str {
             default := "";
