@@ -1,4 +1,6 @@
 module default {
+    scalar type CountrySize extending enum<Small, Medium, Large>;
+
     type Country {
         # Any non-empty string
         required name: str {
@@ -7,6 +9,8 @@ module default {
         }
 
         multi leaders: Member;
+
+        required size: CountrySize;
 
         # The main currency system
         required gold: material::Material {

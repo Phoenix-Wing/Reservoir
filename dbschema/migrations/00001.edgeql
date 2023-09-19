@@ -1,8 +1,9 @@
-CREATE MIGRATION m1xpvikfcwaqh5gz77kjow7xlzsiplet3dvkmr7qhkobo67fmly2za
+CREATE MIGRATION m1ngka36f7il7oetrw7fh2e3objbimbspdaev6re7eolrn7u34vbda
     ONTO initial
 {
   CREATE MODULE material IF NOT EXISTS;
   CREATE FUTURE nonrecursive_access_policies;
+  CREATE SCALAR TYPE default::CountrySize EXTENDING enum<Small, Medium, Large>;
   CREATE SCALAR TYPE material::MaterialKind EXTENDING enum<Gold, Foodstuffs, Construction, Luxuries, Catalyst, Gonslate>;
   CREATE TYPE default::Country {
       CREATE REQUIRED PROPERTY name: std::str {
@@ -13,6 +14,7 @@ CREATE MIGRATION m1xpvikfcwaqh5gz77kjow7xlzsiplet3dvkmr7qhkobo67fmly2za
           SET default := '';
           CREATE CONSTRAINT std::max_len_value(500);
       };
+      CREATE REQUIRED PROPERTY size: default::CountrySize;
   };
   CREATE TYPE material::Material {
       CREATE REQUIRED PROPERTY kind: material::MaterialKind;

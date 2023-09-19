@@ -15,6 +15,16 @@
                 </NSelect>
             </NFormItem>
 
+            <NFormItem label="Size" required>
+                <NRadioGroup v-model:value="form.size">
+                    <NSpace>
+                        <NRadio value="Small" label="Small" />
+                        <NRadio value="Medium" label="Medium" />
+                        <NRadio value="Large" label="Large" />
+                    </NSpace>
+                </NRadioGroup>
+            </NFormItem>
+
             <NButton :loading="loading" @click="async () => await createCountry()">Create</NButton>
         </NForm>
     </NCard>
@@ -36,6 +46,7 @@ defineExpose({
 const form = reactive<{
     name?: string,
     leader?: string,
+    size?: string,
 }>({});
 
 const loading = ref(false);
@@ -50,8 +61,8 @@ const membersOptions = computed(() => data.value
 async function createCountry() {
     loading.value = true;
 
-    if (!form.leader || !form.name) {
-        message.warning("Please ensure that the country's name and leader are not empty!");
+    if (!form.leader || !form.name || !form.size) {
+        message.warning("Please ensure that none of the required fields are empty!");
         loading.value = false;
         return;
     }
