@@ -112,17 +112,17 @@ const breadcrumbRoute: [string, string][] = [
  */
 
 const editing = ref(false);
-const editArgs = reactive<UpdateMemberArgs>({});
+// Ref for overwriting capabilities, see #41
+const editArgs = ref<UpdateMemberArgs>({});
 const updateMemberPending = ref(false);
 
 async function updateMember() {
     updateMemberPending.value = true;
 
-    // TODO: $fetch
     try {
         await $fetch(`/api/member/${route.params.id}`, {
             method: "post",
-            body: editArgs,
+            body: editArgs.value,
         });
     } catch {
         message.error("There was an error updating member information. Please check console for more information.");
@@ -130,6 +130,8 @@ async function updateMember() {
 
     await refresh();
 
+    // Clear edit args so they don't persist, see #41
+    editArgs.value = {};
     updateMemberPending.value = false;
 }
 </script>
