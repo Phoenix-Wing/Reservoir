@@ -214,7 +214,8 @@ const breadcrumbRoute = computed<[string, string][]>(() => [
  */
 
 const editing = ref(false);
-const editArgs = reactive<UpdateCountryArgs>({});
+// Ref for overwriting capabilities, see #41
+const editArgs = ref<UpdateCountryArgs>({});
 const updateCountryPending = ref(false);
 
 async function updateCountry() {
@@ -223,7 +224,7 @@ async function updateCountry() {
     try {
         await $fetch(`/api/country/${route.params.id}`, {
             method: "post",
-            body: editArgs,
+            body: editArgs.value,
         });
     } catch {
         message.error("There was an error updating country information. Please check console for more information.");
@@ -231,6 +232,8 @@ async function updateCountry() {
 
     await refresh();
 
+    // Clear edit args so they don't persist, see #41
+    editArgs.value = {};
     updateCountryPending.value = false;
 }
 </script>
