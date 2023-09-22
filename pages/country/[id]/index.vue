@@ -28,7 +28,7 @@
                         </span>
                     </template>
 
-                    <NCard title="Quick facts">
+                    <NCard title="Quick Stats">
                         <NSpace justify="space-around">
                             <ViewStat :to="country.gold.quantity" label="Gold" suffix="g" />
                             <ViewStat :to="country.foodstuffs.quantity" label="Foodstuffs" />

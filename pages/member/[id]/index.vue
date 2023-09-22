@@ -23,7 +23,7 @@
                         {{ member.ig_name }}
                     </template>
 
-                    <NCard title="Quick facts">
+                    <NCard title="Quick Stats">
                         <NSpace justify="space-around">
                             <ViewStat :to="member.gold_sum" label="Available Gold" suffix="g" />
 
