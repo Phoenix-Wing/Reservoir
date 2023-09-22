@@ -32,10 +32,10 @@
                         <NSpace justify="space-around">
                             <ViewStat :to="country.gold.quantity" label="Gold" suffix="g" />
                             <ViewStat :to="country.foodstuffs.quantity" label="Foodstuffs" />
-                            <ViewStat :to="country.construction.quantity" label="Construction" />
-                            <ViewStat :to="country.luxuries.quantity" label="Luxuries" />
-                            <ViewStat :to="country.catalyst.quantity" label="Catalyst" />
                             <ViewStat :to="country.gonslate.quantity" label="Gonslate" />
+                            <NStatistic label="Size">
+                                {{ country.size }}
+                            </NStatistic>
                         </NSpace>
                     </NCard>
                 </NPageHeader>
