@@ -15,6 +15,9 @@
                 <NGi>
                     <LazyHomeMemberList />
                 </NGi>
+                <NGi>
+                    <LazyHomeQuickStats />
+                </NGi>
             </NGrid>
         </NSpace>
     </main>
