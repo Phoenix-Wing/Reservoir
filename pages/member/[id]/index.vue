@@ -49,7 +49,7 @@
                     </NGi>
 
                     <NGi v-for="country in member.countries" v-else :key="country.id">
-                        <ViewCountryCard :id="country.id" :name="country.name" :gold="country.gold_quantity" />
+                        <ViewCountryCard :id="country.id" :name="country.name" :gold="country.gold_quantity" :size="country.size" />
                     </NGi>
                 </NGrid>
 

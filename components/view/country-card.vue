@@ -4,9 +4,14 @@
             <UButtonLink :to="`/country/${id}`">View</UButtonLink>
         </template>
 
-        <NGrid :cols="3">
+        <NGrid :cols="2">
             <NGi>
                 <ViewStat :to="gold" label="Total Gold" suffix="g" />
+            </NGi>
+            <NGi>
+                <NStatistic label="Size">
+                    {{ size }}
+                </NStatistic>
             </NGi>
         </NGrid>
     </NCard>
@@ -17,5 +22,6 @@ defineProps<{
     name: string,
     id: string,
     gold: number,
+    size: string,
 }>();
 </script>

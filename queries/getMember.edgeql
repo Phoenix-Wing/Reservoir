@@ -6,6 +6,7 @@ select Member {
     countries: {
         id,
         name,
+        size,
         gold_quantity := .gold.quantity,
     },
 }
