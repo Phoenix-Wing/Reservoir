@@ -52,9 +52,19 @@
                     </NGi>
 
                     <NGi>
-                        <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs">
+                        <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs" :kind="country.foodstuffs.quantity === 0 ? 'error' : undefined">
                             <template #description>
                                 Foodstuffs are necessary to feed your population.
+                            </template>
+
+                            <template v-if="country.foodstuffs.quantity === 0" #header-extra>
+                                <NPopover trigger="hover">
+                                    <template #trigger>
+                                        <NIcon size="30" color="#e88080" :component="ErrorIcon" />
+                                    </template>
+
+                                    <span>You don't have enough food to feed your country!</span>
+                                </NPopover>
                             </template>
                         </ViewCurrencyCard>
                     </NGi>
@@ -174,6 +184,7 @@
 </template>
 
 <script setup lang="ts">
+import ErrorIcon from "naive-ui/lib/_internal/icons/Error";
 import { UpdateCountryArgs } from "~/server/api/country/[id].post";
 
 const route = useRoute();

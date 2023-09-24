@@ -1,5 +1,9 @@
 <template>
-    <NCard :title="title">
+    <NCard :title="title" :style="kind === 'error' ? 'border-color: rgb(208, 58, 82)' : {}">
+        <template #header-extra>
+            <slot name="header-extra" />
+        </template>
+
         <NGrid :cols="2">
             <NGi>
                 <ViewStat :to="data.quantity" label="Total" :suffix="suffix" />
@@ -38,5 +42,6 @@ defineProps<{
         upkeep?: number,
     },
     suffix?: string,
+    kind?: "default" | "error",
 }>();
 </script>
