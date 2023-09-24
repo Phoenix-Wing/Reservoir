@@ -1,6 +1,17 @@
 module default {
     scalar type CountrySize extending enum<Small, Medium, Large>;
 
+    function countryFoodConsumption(size: CountrySize) -> int32 {
+        # Function cannot modify database, returns same results given same input
+        volatility := "Stable";
+        using (
+            # Returns consumption amount, else 0
+            <int32>(
+                to_json('{"Small": 5, "Medium": 20, "Large": 30}')[<str>size]
+            ) ?? <int32>0
+        );
+    }
+
     type Country {
         # Any non-empty string
         required name: str {
