@@ -21,8 +21,6 @@ async function distributeIncome() {
 
     const { data, error } = await useFetch("/api/income", {
         method: "post",
-        // Distribute to all countries.
-        body: { target: "all" },
     });
 
     // If an error was returned from API endpoint.
