@@ -8,8 +8,10 @@ module default {
             constraint min_len_value(1);
         }
 
+        # All members who lead this country
         multi leaders: Member;
 
+        # The size of the country: small, medium, or large
         required size: CountrySize;
 
         # The main currency system
@@ -76,6 +78,11 @@ module default {
             );
             constraint exclusive;
             on source delete delete target;
+        }
+
+        # Whether to decrease foodstuffs every meeting or not.
+        required consumes_foodstuffs: bool {
+            default := true;
         }
 
         # Country notes for dungeon masters
