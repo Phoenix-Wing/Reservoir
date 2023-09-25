@@ -16,7 +16,10 @@
                     </template>
 
                     <template #extra>
-                        <NButton @click="editing = true">Edit</NButton>
+                        <NSpace>
+                            <NButton :loading="pending" @click="async () => await refresh()">Refresh</NButton>
+                            <NButton @click="editing = true">Edit</NButton>
+                        </NSpace>
                     </template>
 
                     <template #subtitle>
