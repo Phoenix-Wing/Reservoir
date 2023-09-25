@@ -6,6 +6,7 @@ export interface UpdateCountryArgs {
     name?: string,
     leaders?: string[],
 
+    consumes_foodstuffs?: boolean,
     notes?: string,
 
     // TODO(BD103): Nest these fields
@@ -46,6 +47,7 @@ function createMutation(args: UpdateCountryArgs): string {
         ),\n`;
     }
 
+    if (args.consumes_foodstuffs !== undefined) { countryProps += "consumes_foodstuffs := <bool>$consumes_foodstuffs"; }
     if (args.notes !== undefined) { countryProps += "notes := <str>$notes,\n"; }
 
     let goldProps = "";

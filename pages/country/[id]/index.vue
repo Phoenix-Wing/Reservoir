@@ -124,6 +124,10 @@
                         <EditCard title="Country">
                             <EditFieldText :default="country.name" label="Name" @input:required="x => editArgs.name = x" />
                             <EditFieldCountryLeaders :default="country.leaders" label="Leaders" @input="x => editArgs.leaders = x" />
+
+                            <NFormItem label="Consumes Foodstuffs" required>
+                                <NSwitch :default-value="country.consumes_foodstuffs" @update:value="x => editArgs.consumes_foodstuffs = x" />
+                            </NFormItem>
                         </EditCard>
 
                         <EditCard title="Gold" inline>
