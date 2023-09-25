@@ -4,6 +4,7 @@
             <NCard title="Quick actions">
                 <NSpace>
                     <HomeIncomeDistributor />
+                    <HomeFeedCountries />
                     <UButtonLink to="/new">Create new...</UButtonLink>
                     <HomeSearchBar />
                 </NSpace>
