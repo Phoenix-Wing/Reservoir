@@ -125,9 +125,19 @@
                             <EditFieldText :default="country.name" label="Name" @input:required="x => editArgs.name = x" />
                             <EditFieldCountryLeaders :default="country.leaders" label="Leaders" @input="x => editArgs.leaders = x" />
 
-                            <NFormItem label="Consumes Foodstuffs" required>
-                                <NSwitch :default-value="country.consumes_foodstuffs" @update:value="x => editArgs.consumes_foodstuffs = x" />
-                            </NFormItem>
+                            <NGrid :cols="2" :x-gap="12">
+                                <NGi>
+                                    <NFormItem label="Size" required>
+                                        <NSelect :default-value="country.size" :options="['Small', 'Medium', 'Large'].map(x => ({ label: x, value: x }))" @update:value="x => editArgs.size = x" />
+                                    </NFormItem>
+                                </NGi>
+
+                                <NGi>
+                                    <NFormItem label="Consumes Foodstuffs" required>
+                                        <NSwitch :default-value="country.consumes_foodstuffs" @update:value="x => editArgs.consumes_foodstuffs = x" />
+                                    </NFormItem>
+                                </NGi>
+                            </NGrid>
                         </EditCard>
 
                         <EditCard title="Gold" inline>
