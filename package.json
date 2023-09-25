@@ -17,6 +17,7 @@
     "@nuxtjs/eslint-module": "^4.1.0",
     "edgedb": "^1.3.6",
     "eslint": "^8.49.0",
+    "naive-ui": "^2.34.4",
     "nuxt": "^3.7.3"
   }
 }

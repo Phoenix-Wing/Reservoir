@@ -1,10 +1,10 @@
 import * as edgedb from "edgedb";
-import { distributeIncome } from "~/queries/distributeIncome.query";
+import { feedCountry } from "~/queries/feedCountry.query";
 
 const client = edgedb.createClient();
 
 export default defineEventHandler(async () => {
-    const included = await distributeIncome(client);
+    const included = await feedCountry(client);
 
     return {
         included: included.map(x => x.id),
