@@ -49,7 +49,7 @@ function createMutation(args: UpdateCountryArgs): string {
         ),\n`;
     }
 
-    if (args.size !== undefined) { countryProps += "size := <material::MaterialKind><str>$size,\n"; }
+    if (args.size !== undefined) { countryProps += "size := <CountrySize><str>$size,\n"; }
 
     if (args.consumes_foodstuffs !== undefined) { countryProps += "consumes_foodstuffs := <bool>$consumes_foodstuffs,\n"; }
     if (args.notes !== undefined) { countryProps += "notes := <str>$notes,\n"; }
