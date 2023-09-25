@@ -1,11 +1,11 @@
 <template>
-    <NButton v-if="!confirmIncome" @click="confirmIncome = true">
+    <NButton v-if="!confirm" @click="confirm = true">
         Distribute income
     </NButton>
     <NCard v-else title="Are you sure?" embedded>
         <NButtonGroup vertical>
-            <NButton type="success" ghost :loading="pendingDistribution" @click="async () => distributeIncome()">Yes, distribute income</NButton>
-            <NButton type="error" ghost @click="confirmIncome = false; pendingDistribution = false">No, don't do it</NButton>
+            <NButton type="success" ghost :loading="pending" @click="distributeIncome">Yes, distribute income</NButton>
+            <NButton type="error" ghost @click="confirm = false; pending = false">No, don't do it</NButton>
         </NButtonGroup>
     </NCard>
 </template>
@@ -13,11 +13,11 @@
 <script setup lang="ts">
 const message = useMessage();
 
-const confirmIncome = ref(false);
-const pendingDistribution = ref(false);
+const confirm = ref(false);
+const pending = ref(false);
 
 async function distributeIncome() {
-    pendingDistribution.value = true;
+    pending.value = true;
 
     const { data, error } = await useFetch("/api/income", {
         method: "post",
@@ -34,7 +34,7 @@ async function distributeIncome() {
         message.success(`Distributed income to ${data.value!.included.length} material groups.`);
     }
 
-    confirmIncome.value = false;
-    pendingDistribution.value = false;
+    confirm.value = false;
+    pending.value = false;
 }
 </script>
