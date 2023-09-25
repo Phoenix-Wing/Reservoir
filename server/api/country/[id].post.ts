@@ -6,6 +6,8 @@ export interface UpdateCountryArgs {
     name?: string,
     leaders?: string[],
 
+    size?: "Small" | "Medium" | "Large",
+
     consumes_foodstuffs?: boolean,
     notes?: string,
 
@@ -47,7 +49,9 @@ function createMutation(args: UpdateCountryArgs): string {
         ),\n`;
     }
 
-    if (args.consumes_foodstuffs !== undefined) { countryProps += "consumes_foodstuffs := <bool>$consumes_foodstuffs"; }
+    if (args.size !== undefined) { countryProps += "size := <material::MaterialKind><str>$size,\n"; }
+
+    if (args.consumes_foodstuffs !== undefined) { countryProps += "consumes_foodstuffs := <bool>$consumes_foodstuffs,\n"; }
     if (args.notes !== undefined) { countryProps += "notes := <str>$notes,\n"; }
 
     let goldProps = "";
