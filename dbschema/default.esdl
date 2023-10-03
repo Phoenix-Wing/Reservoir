@@ -96,6 +96,18 @@ module default {
             default := true;
         }
 
+        multi boats: ship::Boat {
+            constraint exclusive;
+            on source delete delete target if orphan;
+            on target delete allow;
+        }
+
+        multi airships: ship::Airship {
+            constraint exclusive;
+            on source delete delete target if orphan;
+            on target delete allow;
+        }
+
         # Country notes for dungeon masters
         required notes: str {
             default := "";

@@ -103,6 +103,34 @@
                             </template>
                         </ViewCurrencyCard>
                     </NGi>
+                </NGrid>
+
+                <NGrid :cols="2" :x-gap="12" :y-gap="12" style="margin-top: 12px">
+                    <NGi>
+                        <NCard title="Ships">
+                            <template #header-extra>
+                                <NButton disabled>Create</NButton>
+                            </template>
+
+                            <NList hoverable>
+                                <NListItem v-for="boat in country.boats" :key="boat.id">
+                                    Boat
+
+                                    <template #suffix>
+                                        <UButtonLink :to="`/ship/${boat.id}`">View</UButtonLink>
+                                    </template>
+                                </NListItem>
+
+                                <NListItem v-for="airship in country.airships" :key="airship.id">
+                                    Airship
+
+                                    <template #suffix>
+                                        <UButtonLink :to="`/ship/${airship.id}`">View</UButtonLink>
+                                    </template>
+                                </NListItem>
+                            </NList>
+                        </NCard>
+                    </NGi>
 
                     <NGi>
                         <NCard title="Notes">
