@@ -19,14 +19,21 @@
                         <NSpace>
                             <NButton :loading="pending" @click="async () => await refresh()">Refresh</NButton>
                             <NButton disabled>Edit</NButton>
+
+                            <NPopconfirm @positive-click="deleteShip">
+                                <template #trigger>
+                                    <NButton type="error" ghost :loading="pendingDeletion">Delete</NButton>
+                                </template>
+
+                                Are you sure you want to delete this ship?
+                            </NPopconfirm>
                         </NSpace>
                     </template>
 
                     <template #subtitle>
                         Owned by
 
-                        <NuxtLink v-if="ship.boat_owner" :to="`/country/${ship.boat_owner.id}`">{{ ship.boat_owner.name }}</NuxtLink>
-                        <NuxtLink v-else-if="ship.airship_owner" :to="`/country/${ship.airship_owner.id}`">{{ ship.airship_owner.name }}</NuxtLink>
+                        <NuxtLink v-if="shipOwner" :to="`/country/${shipOwner.id}`">{{ shipOwner.name }}</NuxtLink>
                         <template v-else>no one</template>
                     </template>
 
@@ -57,6 +64,8 @@ const route = useRoute();
 
 const { data: ship, pending, refresh, error } = await useFetch(`/api/ship/${route.params.id}`);
 
+const shipOwner = computed(() => ship.value?.boat_owner ? ship.value.boat_owner : ship.value?.airship_owner);
+
 useHead({
     title: () => {
         if (pending.value) {
@@ -78,4 +87,17 @@ const breadcrumbRoute = computed<[string, string][]>(() => [
     ["Ship", ""],
     [ship.value ? ship.value.kind : "Loading...", `ship/${route.params.id}`],
 ]);
+
+const pendingDeletion = ref(false);
+
+async function deleteShip() {
+    pendingDeletion.value = true;
+
+    await $fetch(`/api/ship/${route.params.id}`, {
+        method: "delete",
+    });
+
+    await navigateTo(`/country/${shipOwner.value!.id}`);
+    pendingDeletion.value = false;
+}
 </script>
