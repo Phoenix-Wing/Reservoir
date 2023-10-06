@@ -111,15 +111,15 @@
                             <template #header-extra>
                                 <NPopconfirm v-model:show="createShipPrompt" :show-icon="false">
                                     <template #trigger>
-                                        <NButton>Create</NButton>
+                                        <NButton :loading="createShipPending">Create</NButton>
                                     </template>
 
                                     What kind of ship would you like to create?
 
                                     <template #action>
                                         <NSpace>
-                                            <NButton :loading="createShipPending" size="small" @click="createShip('Boat')">Boat</NButton>
-                                            <NButton :loading="createShipPending" size="small" @click="createShip('Airship')">Airship</NButton>
+                                            <NButton size="small" @click="createShip('Boat')">Boat</NButton>
+                                            <NButton size="small" @click="createShip('Airship')">Airship</NButton>
                                             <NButton :disabled="createShipPending" size="small" type="error" ghost @click="createShipPrompt = false">Cancel</NButton>
                                         </NSpace>
                                     </template>
@@ -283,6 +283,7 @@ const createShipPrompt = ref(false);
 const createShipPending = ref(false);
 
 async function createShip(kind: "Boat" | "Airship") {
+    createShipPrompt.value = false;
     createShipPending.value = true;
 
     await $fetch("/api/new/ship", {
@@ -300,7 +301,6 @@ async function createShip(kind: "Boat" | "Airship") {
 
     await refresh();
 
-    createShipPrompt.value = false;
     createShipPending.value = false;
 }
 
