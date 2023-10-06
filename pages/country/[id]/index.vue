@@ -291,6 +291,11 @@ async function createShip(kind: "Boat" | "Airship") {
             owner: route.params.id,
             kind,
         },
+    }).catch((err) => {
+        message.error("An error occured while creating a new ship.");
+
+        // eslint-disable-next-line no-console
+        console.error("Error creating ship.", err);
     });
 
     await refresh();
