@@ -109,7 +109,21 @@
                     <NGi>
                         <NCard title="Ships">
                             <template #header-extra>
-                                <NButton disabled>Create</NButton>
+                                <NPopconfirm v-model:show="createShipPrompt" :show-icon="false">
+                                    <template #trigger>
+                                        <NButton>Create</NButton>
+                                    </template>
+
+                                    What kind of ship would you like to create?
+
+                                    <template #action>
+                                        <NSpace>
+                                            <NButton :loading="createShipPending" size="small" @click="createShip('Boat')">Boat</NButton>
+                                            <NButton :loading="createShipPending" size="small" @click="createShip('Airship')">Airship</NButton>
+                                            <NButton :disabled="createShipPending" size="small" type="error" ghost @click="createShipPrompt = false">Cancel</NButton>
+                                        </NSpace>
+                                    </template>
+                                </NPopconfirm>
                             </template>
 
                             <NList hoverable>
@@ -264,6 +278,26 @@ const breadcrumbRoute = computed<[string, string][]>(() => [
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
 ]);
+
+const createShipPrompt = ref(false);
+const createShipPending = ref(false);
+
+async function createShip(kind: "Boat" | "Airship") {
+    createShipPending.value = true;
+
+    await $fetch("/api/new/ship", {
+        method: "post",
+        body: {
+            owner: route.params.id,
+            kind,
+        },
+    });
+
+    await refresh();
+
+    createShipPrompt.value = false;
+    createShipPending.value = false;
+}
 
 /*
  * EDITING
