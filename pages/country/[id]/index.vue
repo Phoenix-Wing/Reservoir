@@ -126,7 +126,7 @@
                                 </NPopconfirm>
                             </template>
 
-                            <NList hoverable>
+                            <NList v-if="country.boats.length || country.airships.length" hoverable>
                                 <NListItem v-for="boat in country.boats" :key="boat.id">
                                     Boat
 
@@ -143,6 +143,8 @@
                                     </template>
                                 </NListItem>
                             </NList>
+
+                            <NEmpty v-else size="large" description="No ships yet..." />
                         </NCard>
                     </NGi>
 
