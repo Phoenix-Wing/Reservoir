@@ -3,7 +3,7 @@
   "extends": ["@nuxtjs/eslint-config-typescript"],
   "ignorePatterns": ["queries/*.query.ts"],
   "rules": {
-    "indent": ["error", 4],
+    "indent": ["error", 4, { "SwitchCase": 1 }],
     "vue/html-indent": ["error", 4],
   
     "quotes": ["error", "double"],
