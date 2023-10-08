@@ -128,7 +128,7 @@
 
                             <NList v-if="country.boats.length || country.airships.length" hoverable>
                                 <NListItem v-for="boat in country.boats" :key="boat.id">
-                                    Boat
+                                    <NThing title="Boat" :description="formatShipDescription(boat.status, boat.progress)" />
 
                                     <template #suffix>
                                         <UButtonLink :to="`/ship/${boat.id}`">View</UButtonLink>
@@ -145,6 +145,10 @@
                             </NList>
 
                             <NEmpty v-else size="large" description="No ships yet..." />
+
+                            <template #action>
+                                <NText italic depth="3">Ships are used for trade and transport.</NText>
+                            </template>
                         </NCard>
                     </NGi>
 
@@ -280,6 +284,16 @@ const breadcrumbRoute = computed<[string, string][]>(() => [
     ["Country", ""],
     [country.value ? country.value.name : "Loading...", `country/${route.params.id}`],
 ]);
+
+function formatShipDescription(status: string, progress: { current: number, total: number } | null): string {
+    function formatProgress(current: number, total: number): string {
+        return Math.round(current / total * 100) + "%";
+    }
+
+    return `\
+${status}, \
+Progress: ${progress ? formatProgress(progress.current, progress.total) : "N/A"}`;
+}
 
 const createShipPrompt = ref(false);
 const createShipPending = ref(false);
