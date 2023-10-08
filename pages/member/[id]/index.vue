@@ -77,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { UpdateMemberArgs } from "~/server/api/member/[id].post";
+import type { UpdateMemberArgs } from "~/server/api/member/[id].post";
 
 const route = useRoute();
 const message = useMessage();

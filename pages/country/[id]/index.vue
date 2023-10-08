@@ -250,7 +250,7 @@
 
 <script setup lang="ts">
 import ErrorIcon from "naive-ui/lib/_internal/icons/Error";
-import { UpdateCountryArgs } from "~/server/api/country/[id].post";
+import type { UpdateCountryArgs } from "~/server/api/country/[id].post";
 
 const route = useRoute();
 const message = useMessage();
