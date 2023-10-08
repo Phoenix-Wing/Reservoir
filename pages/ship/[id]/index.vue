@@ -33,7 +33,7 @@
                     <template #subtitle>
                         Owned by
 
-                        <NuxtLink v-if="shipOwner" :to="`/country/${shipOwner.id}`">{{ shipOwner.name }}</NuxtLink>
+                        <NuxtLink v-if="shipOwner" :to="`/country/${shipOwner.id}`" style="color: rgba(255, 255, 255, 0.82); text-decoration: none">{{ shipOwner.name }}</NuxtLink>
                         <template v-else>no one</template>
                     </template>
 
