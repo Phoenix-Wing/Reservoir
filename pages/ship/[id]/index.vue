@@ -18,7 +18,7 @@
                     <template #extra>
                         <NSpace>
                             <NButton :loading="pending" @click="async () => await refresh()">Refresh</NButton>
-                            <NButton disabled>Edit</NButton>
+                            <NButton @click="editing = true">Edit</NButton>
 
                             <NPopconfirm @positive-click="deleteShip">
                                 <template #trigger>
@@ -54,15 +54,40 @@
                         </NSpace>
                     </NCard>
                 </NPageHeader>
+
+                <LazyEditDrawer v-model:show="editing" title="Editing">
+                    <pre>{{ editArgs }}</pre>
+                    <NSpace vertical :size="24">
+                        <EditCard>
+                            <NFormItem label="Status" required>
+                                <NSelect :options="['Available', 'Busy', 'InRepair', 'Damaged', 'Destroyed'].map(x => ({ label: x, value: x }))" :default-value="ship.status" @update:value="x => editArgs.status = x" />
+                            </NFormItem>
+                        </EditCard>
+                    </NSpace>
+
+                    <template #footer>
+                        <NSpace>
+                            <NButton :loading="updateShipPending" type="success" ghost @click="async () => { await updateShip(); editing = false }">Save</NButton>
+                            <NButton type="error" ghost @click="editing = false">Discard</NButton>
+                        </NSpace>
+                    </template>
+                </LazyEditDrawer>
             </template>
         </NSpin>
     </main>
 </template>
 
 <script setup lang="ts">
+import type { UpdateShipArgs } from "~/server/api/ship/[id].post";
+
 const route = useRoute();
+const message = useMessage();
 
 const { data: ship, pending, refresh, error } = await useFetch(`/api/ship/${route.params.id}`);
+
+/*
+ * VIEWING
+ */
 
 const shipOwner = computed(() => ship.value?.boat_owner ? ship.value.boat_owner : ship.value?.airship_owner);
 
@@ -99,5 +124,32 @@ async function deleteShip() {
 
     await navigateTo(`/country/${shipOwner.value!.id}`);
     pendingDeletion.value = false;
+}
+
+/*
+ * EDITING
+ */
+
+const editing = ref(false);
+const editArgs = ref<UpdateShipArgs>({});
+const updateShipPending = ref(false);
+
+async function updateShip() {
+    updateShipPending.value = true;
+
+    try {
+        await $fetch(`/api/ship/${route.params.id}`, {
+            method: "post",
+            body: editArgs.value,
+        });
+    } catch {
+        message.error("There was an error updating ship information. Please check the console for more information.");
+    }
+
+    await refresh();
+
+    // Clear edit args so they don't persist
+    editArgs.value = {};
+    updateShipPending.value = false;
 }
 </script>
