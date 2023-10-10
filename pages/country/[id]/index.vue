@@ -166,7 +166,7 @@
                     </NGi>
                 </NGrid>
 
-                <LazyEditDrawer v-model:show="editing" title="Editing">
+                <LazyEditDrawer v-model:show="editing" title="Editing" @after-leave="editArgs = {}">
                     <NSpace vertical :size="24">
                         <!-- TODO: Consider different title? -->
                         <EditCard title="Country">
@@ -343,8 +343,6 @@ async function updateCountry() {
 
     await refresh();
 
-    // Clear edit args so they don't persist, see #41
-    editArgs.value = {};
     updateCountryPending.value = false;
 }
 </script>

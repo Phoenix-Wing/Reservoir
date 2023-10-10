@@ -55,7 +55,7 @@
                     </NCard>
                 </NPageHeader>
 
-                <LazyEditDrawer v-model:show="editing" title="Editing">
+                <LazyEditDrawer v-model:show="editing" title="Editing" @after-leave="editArgs = {}">
                     <NSpace vertical :size="24">
                         <EditCard title="Ship">
                             <NFormItem label="Status" required>
@@ -171,8 +171,6 @@ async function updateShip() {
 
     await refresh();
 
-    // Clear edit args so they don't persist
-    editArgs.value = {};
     updateShipPending.value = false;
 }
 </script>

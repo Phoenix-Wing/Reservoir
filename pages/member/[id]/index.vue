@@ -56,7 +56,7 @@
                     </NGi>
                 </NGrid>
 
-                <LazyEditDrawer v-model:show="editing" title="Editing">
+                <LazyEditDrawer v-model:show="editing" title="Editing" @after-leave="editArgs = {}">
                     <NSpace vertical :size="24">
                         <EditCard title="Character">
                             <EditFieldText :default="member.name" label="Name" @input:required="x => editArgs.name = x" />
@@ -133,8 +133,6 @@ async function updateMember() {
 
     await refresh();
 
-    // Clear edit args so they don't persist, see #41
-    editArgs.value = {};
     updateMemberPending.value = false;
 }
 </script>
