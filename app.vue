@@ -1,5 +1,5 @@
 <template>
-    <NConfigProvider :theme="darkTheme">
+    <NaiveConfig>
         <NGlobalStyle />
 
         <NMessageProvider>
@@ -7,12 +7,10 @@
                 <NuxtPage />
             </NuxtLayout>
         </NMessageProvider>
-    </NConfigProvider>
+    </NaiveConfig>
 </template>
 
 <script setup lang="ts">
-import { darkTheme } from "naive-ui";
-
 useHead({
     titleTemplate: (pageName) => {
         return pageName
