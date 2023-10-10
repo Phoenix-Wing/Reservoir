@@ -56,12 +56,16 @@
                 </NPageHeader>
 
                 <LazyEditDrawer v-model:show="editing" title="Editing">
-                    <pre>{{ editArgs }}</pre>
                     <NSpace vertical :size="24">
-                        <EditCard>
+                        <EditCard title="Ship">
                             <NFormItem label="Status" required>
                                 <NSelect :options="['Available', 'Busy', 'InRepair', 'Damaged', 'Destroyed'].map(x => ({ label: x, value: x }))" :default-value="ship.status" @update:value="x => editArgs.status = x" />
                             </NFormItem>
+                        </EditCard>
+
+                        <EditCard v-if="showStatus" title="Progress" inline>
+                            <EditFieldNum :default="ship.progress ? ship.progress.current : 0" label="Current" @input:required="x => editArgs.progress_current = x" />
+                            <EditFieldNum :default="ship.progress ? ship.progress.total : 1" label="Total" @input:required="x => editArgs.progress_total = x" />
                         </EditCard>
                     </NSpace>
 
@@ -133,6 +137,25 @@ async function deleteShip() {
 const editing = ref(false);
 const editArgs = ref<UpdateShipArgs>({});
 const updateShipPending = ref(false);
+
+const showStatus = computed(() => {
+    const possibleStatuses = ["Busy", "InRepair"];
+    return editArgs.value.status !== undefined
+        ? possibleStatuses.includes(editArgs.value.status)
+        : ship.value != null && possibleStatuses.includes(ship.value.status);
+});
+
+watch(showStatus, (value, _oldValue) => {
+    if (value) {
+        delete editArgs.value.progress;
+        editArgs.value.progress_current = 0;
+        editArgs.value.progress_total = 1;
+    } else {
+        editArgs.value.progress = null;
+        delete editArgs.value.progress_current;
+        delete editArgs.value.progress_total;
+    }
+});
 
 async function updateShip() {
     updateShipPending.value = true;
