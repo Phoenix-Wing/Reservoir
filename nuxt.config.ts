@@ -8,9 +8,12 @@ export default defineNuxtConfig({
         lintOnStart: false,
     },
     modules: [
-        "@huntersofbook/naive-ui-nuxt",
+        "@bg-dev/nuxt-naiveui",
         "@nuxtjs/eslint-module",
     ],
+    naiveui: {
+        colorModePreference: "dark",
+    },
     typescript: {
         shim: false,
     },
