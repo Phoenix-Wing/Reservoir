@@ -31,6 +31,19 @@ You can visit the deployed website at [localhost:3000](http://localhost:3000). Y
 $ ./xr.sh --help
 ```
 
+If you need to upgrade your project to a newer version of Reservoir, make sure that you are in the same directory as `xr.sh` and that the new Reservoir archive is somewhere else.
+
+> **Warning**
+>
+> Make sure you are in the same directory as `xr.sh`, `nitro.json`, etc. The new Reservoir archive should **not** be within this folder. The upgrade process stores the previous version in the `.previous/` folder, but it makes assumptions that could be destructive if not used correctly. Use this feature with caution.
+
+```shell
+$ cd reservoir
+$ ls
+README.md  dbschema  edgedb.toml  nitro.json  public  server  xr.sh
+$ ./xr.sh update ../reservoir-2.0.0.tar.gz
+```
+
 ## Contributing
 
 While Reservoir is scoped to the extent that it will be very difficult for new people to add features to it, I still greatly appreciate attempts to improve my code. Pull requests are welcome, but may be denied if they do not fit the scope of the project or are deemed unecessary. Thanks!
