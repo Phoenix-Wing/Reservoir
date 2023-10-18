@@ -2,5 +2,6 @@ with module material
 update Material
 filter .profit != 0
 set {
-    quantity := max({.quantity + .profit, 0}),
+    # Manually calculate profit, because .profit includes foodstuff costs
+    quantity := max({.quantity + .income - .upkeep, 0}),
 }
