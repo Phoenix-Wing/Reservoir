@@ -6,7 +6,7 @@
             <NEmpty v-else-if="!ship" />
 
             <template v-else>
-                <NPageHeader @back="navigateTo('/')">
+                <NPageHeader @back="navigateTo(`/country/${shipOwner!.id}`)">
                     <template #title>
                         <NText type="primary">{{ ship.kind }}</NText>
                     </template>
