@@ -14,7 +14,7 @@
                         <ViewStat :to="data.profit" label="Profit" :suffix="suffix" />
                     </template>
 
-                    <span>Calculated with <code>income - upkeep</code></span>
+                    <span><slot name="profitPopover">Calculated with <code>income - upkeep</code></slot></span>
                 </NPopover>
             </NGi>
             <NGi>

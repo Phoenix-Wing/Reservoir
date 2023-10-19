@@ -60,6 +60,10 @@
                                 Foodstuffs are necessary to feed your population.
                             </template>
 
+                            <template #profitPopover>
+                                Calculated with <code>income - upkeep - foodConsumption</code>
+                            </template>
+
                             <template v-if="country.foodstuffs.quantity === 0" #header-extra>
                                 <NPopover trigger="hover">
                                     <template #trigger>

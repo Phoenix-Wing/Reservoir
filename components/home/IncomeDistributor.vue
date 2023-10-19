@@ -1,7 +1,14 @@
 <template>
-    <NButton v-if="!confirm" @click="confirm = true">
-        Distribute income
-    </NButton>
+    <NPopover v-if="!confirm">
+        <template #trigger>
+            <NButton @click="confirm = true">
+                Distribute income
+            </NButton>
+        </template>
+
+        <span>This will add a countries profit to its quantity, but it will also feed the country.</span>
+    </NPopover>
+
     <NCard v-else title="Are you sure?" embedded>
         <NButtonGroup vertical>
             <NButton type="success" ghost :loading="pending" @click="distributeIncome">Yes, distribute income</NButton>
