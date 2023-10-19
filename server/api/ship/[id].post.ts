@@ -3,7 +3,7 @@ import * as edgedb from "edgedb";
 const client = edgedb.createClient();
 
 export interface UpdateShipArgs {
-    status?: "Available" | "Busy" | "InRepair" | "Damaged" | "Destroyed",
+    status?: "Available" | "InUse" | "Busy",
     progress?: null,
     progress_current?: number,
     progress_total?: number,

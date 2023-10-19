@@ -140,7 +140,7 @@
                                 </NListItem>
 
                                 <NListItem v-for="airship in country.airships" :key="airship.id">
-                                    Airship
+                                    <NThing title="Airship" :description="formatShipDescription(airship.status, airship.progress)" />
 
                                     <template #suffix>
                                         <UButtonLink :to="`/ship/${airship.id}`">View</UButtonLink>

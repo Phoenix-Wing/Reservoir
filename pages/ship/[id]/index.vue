@@ -6,7 +6,7 @@
             <NEmpty v-else-if="!ship" />
 
             <template v-else>
-                <NPageHeader @back="navigateTo('/')">
+                <NPageHeader @back="navigateTo(`/country/${shipOwner!.id}`)">
                     <template #title>
                         <NText type="primary">{{ ship.kind }}</NText>
                     </template>
@@ -59,7 +59,7 @@
                     <NSpace vertical :size="24">
                         <EditCard title="Ship">
                             <NFormItem label="Status" required>
-                                <NSelect :options="['Available', 'Busy', 'InRepair', 'Damaged', 'Destroyed'].map(x => ({ label: x, value: x }))" :default-value="ship.status" @update:value="x => editArgs.status = x" />
+                                <NSelect :options="['Available', 'InUse', 'Busy'].map(x => ({ label: x, value: x }))" :default-value="ship.status" @update:value="x => editArgs.status = x" />
                             </NFormItem>
                         </EditCard>
 
@@ -139,10 +139,9 @@ const editArgs = ref<UpdateShipArgs>({});
 const updateShipPending = ref(false);
 
 const showStatus = computed(() => {
-    const possibleStatuses = ["Busy", "InRepair"];
     return editArgs.value.status !== undefined
-        ? possibleStatuses.includes(editArgs.value.status)
-        : ship.value != null && possibleStatuses.includes(ship.value.status);
+        ? editArgs.value.status === "InUse"
+        : ship.value != null && ship.value.status === "InUse";
 });
 
 watch(showStatus, (value, _oldValue) => {
