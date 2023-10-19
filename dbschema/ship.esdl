@@ -1,5 +1,5 @@
 module ship {
-    scalar type ShipStatus extending enum<Available, Busy, InRepair, Damaged, Destroyed>;
+    scalar type ShipStatus extending enum<Available, InUse, Busy>;
 
     abstract type Ship {
         # What state the ship is in
@@ -14,8 +14,8 @@ module ship {
 
         # Disallow progress for certain statuses
         constraint expression on (
-            ((.status = ShipStatus.Available or .status = ShipStatus.Damaged or .status = ShipStatus.Destroyed) and not exists .progress) or
-            ((.status = ShipStatus.Busy or .status = ShipStatus.InRepair) and exists .progress)
+            ((.status = ShipStatus.Available or .status = ShipStatus.Busy) and not exists .progress) or
+            ((.status = ShipStatus.InUse) and exists .progress)
         );
     }
 
