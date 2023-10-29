@@ -67,21 +67,9 @@ You can learn more about developing Nuxt websites with their [guide](https://nux
 
 ### Building locally
 
-Run the steps stated previously (except `npm run dev`), then do the following:
+Run the steps stated previously (except `pnpm dev`), then do the following:
 
 ```shell
 # Packages all necessary files into reservoir.tar.gz
-$ ./bins/xd.sh release
+$ pnpm build
 ```
-
-> **Warning**
->
-> If you want to continue developing after building for production, you will need to do the following:
->
-> ```shell
-> $ pnpm clean
-> $ pnpm build:query
-> $ pnpm dev
-> ```
->
-> This is due to incompatibilities with [EdgeDB's generator](https://www.edgedb.com/docs/clients/js/generation) using different JS flavors and build variants.
