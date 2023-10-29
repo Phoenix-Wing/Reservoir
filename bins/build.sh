@@ -16,7 +16,7 @@ pnpm run clean
 pnpm run build:partial
 
 # Copy update script
-cp bins/xr.sh .output/
+cp bins/update.sh .output/
 
 # Copy over README
 cp README.md .output/README.md
