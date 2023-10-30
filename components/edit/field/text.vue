@@ -3,7 +3,7 @@
         <NSwitch v-if="optional" v-model:value="enabled" style="margin-right: 1rem" @update:value="emitInput" />
         <NInput
             v-model:value="value"
-            :default-value="default"
+            :default-value="props.default"
             :disabled="!enabled"
             :type="type"
             :maxlength="maxlength"

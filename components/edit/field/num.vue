@@ -1,7 +1,7 @@
 <template>
     <NFormItem :label="label" :show-label="label != undefined" :required="!optional">
         <NSwitch v-if="optional" v-model:value="enabled" style="margin-right: 1rem" @update:value="emitInput" />
-        <NInputNumber v-model:value="value" :default-value="default" :disabled="!enabled" :placeholder="defaultAsString" :precision="precision">
+        <NInputNumber v-model:value="value" :default-value="props.default" :disabled="!enabled" :placeholder="defaultAsString" :precision="precision">
             <template v-if="suffix" #suffix>{{ suffix }}</template>
         </NInputNumber>
     </NFormItem>

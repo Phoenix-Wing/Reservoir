@@ -24,9 +24,6 @@
     // TODO: Only disable for `<NuxtLink />`
     "vue/singleline-html-element-content-newline": ["off"],
 
-    // TODO: Fix `default` prop usage
-    "vue/no-parsing-error": ["off"],
-
     // TODO: Fix rule in typescript generics
     "func-call-spacing": ["off"]
   }
