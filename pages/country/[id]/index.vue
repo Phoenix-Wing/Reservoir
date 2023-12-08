@@ -55,7 +55,7 @@
                     </NGi>
 
                     <NGi>
-                        <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs" :kind="country.foodstuffs.quantity === 0 ? 'error' : undefined">
+                        <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs" :kind="country.foodstuffs.quantity === 0 && country.consumes_foodstuffs ? 'error' : undefined">
                             <template #description>
                                 Foodstuffs are necessary to feed your population.
                             </template>
@@ -64,7 +64,7 @@
                                 Calculated with <code>income - upkeep - foodConsumption</code>
                             </template>
 
-                            <template v-if="country.foodstuffs.quantity === 0" #header-extra>
+                            <template v-if="country.foodstuffs.quantity === 0 && country.consumes_foodstuffs" #header-extra>
                                 <NPopover trigger="hover">
                                     <template #trigger>
                                         <NIcon size="30" color="#e88080" :component="ErrorIcon" />
