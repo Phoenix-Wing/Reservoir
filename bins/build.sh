@@ -23,8 +23,9 @@ cp README.md .output/README.md
 
 # Copy EdgeDB config and migrations
 cp edgedb.toml .output/edgedb.toml
-mkdir -p .output/dbschema/migrations
+mkdir -p .output/dbschema/{migrations,fixups}
 cp -R dbschema/migrations/*.edgeql .output/dbschema/migrations/
+cp -R dbschema/fixups/*.edgeql .output/dbschema/fixups/
 
 # Bundle output into a tar file
 tar -czf reservoir.tar.gz .output/*
