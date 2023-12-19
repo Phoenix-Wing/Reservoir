@@ -20,7 +20,9 @@ module default {
         }
 
         # All members who lead this country
-        multi leaders: Member;
+        multi leaders: Member {
+            on target delete allow;
+        }
 
         # The size of the country: small, medium, or large
         required size: CountrySize;
