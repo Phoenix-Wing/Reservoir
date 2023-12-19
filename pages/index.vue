@@ -22,14 +22,16 @@
 
             <HomeCountryList />
 
-            <NGrid :cols="2" :x-gap="12">
-                <NGi>
-                    <LazyHomeMemberList />
-                </NGi>
-                <NGi>
-                    <LazyHomeQuickStats />
-                </NGi>
-            </NGrid>
+            <ClientOnly>
+                <NGrid cols="1 m:2" :x-gap="12" responsive="screen">
+                    <NGi>
+                        <LazyHomeMemberList />
+                    </NGi>
+                    <NGi>
+                        <LazyHomeQuickStats />
+                    </NGi>
+                </NGrid>
+            </ClientOnly>
         </NSpace>
     </main>
 </template>

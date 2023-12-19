@@ -45,130 +45,134 @@
 
                 <NDivider dashed />
 
-                <NGrid :cols="3" :x-gap="12" :y-gap="12">
-                    <NGi>
-                        <ViewCurrencyCard title="Gold" :data="country.gold" suffix="g">
-                            <template #description>
-                                Gold is the universal currency in Phoenix Wing.
-                            </template>
-                        </ViewCurrencyCard>
-                    </NGi>
+                <ClientOnly>
+                    <NGrid cols="1 m:2 l:3" :x-gap="12" :y-gap="12" responsive="screen">
+                        <NGi>
+                            <ViewCurrencyCard title="Gold" :data="country.gold" suffix="g">
+                                <template #description>
+                                    Gold is the universal currency in Phoenix Wing.
+                                </template>
+                            </ViewCurrencyCard>
+                        </NGi>
 
-                    <NGi>
-                        <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs" :kind="country.foodstuffs.quantity === 0 && country.consumes_foodstuffs ? 'error' : undefined">
-                            <template #description>
-                                Foodstuffs are necessary to feed your population.
-                            </template>
+                        <NGi>
+                            <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs" :kind="country.foodstuffs.quantity === 0 && country.consumes_foodstuffs ? 'error' : undefined">
+                                <template #description>
+                                    Foodstuffs are necessary to feed your population.
+                                </template>
 
-                            <template #profitPopover>
-                                Calculated with <code>income - upkeep - foodConsumption</code>
-                            </template>
+                                <template #profitPopover>
+                                    Calculated with <code>income - upkeep - foodConsumption</code>
+                                </template>
 
-                            <template v-if="country.foodstuffs.quantity === 0 && country.consumes_foodstuffs" #header-extra>
-                                <NPopover trigger="hover">
-                                    <template #trigger>
-                                        <NIcon size="30" color="#e88080" :component="ErrorIcon" />
-                                    </template>
+                                <template v-if="country.foodstuffs.quantity === 0 && country.consumes_foodstuffs" #header-extra>
+                                    <NPopover trigger="hover">
+                                        <template #trigger>
+                                            <NIcon size="30" color="#e88080" :component="ErrorIcon" />
+                                        </template>
 
-                                    <span>You don't have enough food to feed your country!</span>
-                                </NPopover>
-                            </template>
-                        </ViewCurrencyCard>
-                    </NGi>
+                                        <span>You don't have enough food to feed your country!</span>
+                                    </NPopover>
+                                </template>
+                            </ViewCurrencyCard>
+                        </NGi>
 
-                    <NGi>
-                        <ViewCurrencyCard title="Construction" :data="country.construction">
-                            <template #description>
-                                Construction is used to build things.
-                            </template>
-                        </ViewCurrencyCard>
-                    </NGi>
+                        <NGi>
+                            <ViewCurrencyCard title="Construction" :data="country.construction">
+                                <template #description>
+                                    Construction is used to build things.
+                                </template>
+                            </ViewCurrencyCard>
+                        </NGi>
 
-                    <NGi>
-                        <ViewCurrencyCard title="Luxuries" :data="country.luxuries">
-                            <template #description>
-                                Luxuries keep your nobility happy.
-                            </template>
-                        </ViewCurrencyCard>
-                    </NGi>
+                        <NGi>
+                            <ViewCurrencyCard title="Luxuries" :data="country.luxuries">
+                                <template #description>
+                                    Luxuries keep your nobility happy.
+                                </template>
+                            </ViewCurrencyCard>
+                        </NGi>
 
-                    <NGi>
-                        <ViewCurrencyCard title="Catalyst" :data="country.catalyst">
-                            <template #description>
-                                Common Catalyst resources used by mages.
-                            </template>
-                        </ViewCurrencyCard>
-                    </NGi>
+                        <NGi>
+                            <ViewCurrencyCard title="Catalyst" :data="country.catalyst">
+                                <template #description>
+                                    Common Catalyst resources used by mages.
+                                </template>
+                            </ViewCurrencyCard>
+                        </NGi>
 
-                    <NGi>
-                        <ViewCurrencyCard title="Gonslate" :data="country.gonslate">
-                            <template #description>
-                                A valuable Catalyst fuel used in airships.
-                            </template>
-                        </ViewCurrencyCard>
-                    </NGi>
-                </NGrid>
+                        <NGi>
+                            <ViewCurrencyCard title="Gonslate" :data="country.gonslate">
+                                <template #description>
+                                    A valuable Catalyst fuel used in airships.
+                                </template>
+                            </ViewCurrencyCard>
+                        </NGi>
+                    </NGrid>
+                </ClientOnly>
 
-                <NGrid :cols="2" :x-gap="12" :y-gap="12" style="margin-top: 12px">
-                    <NGi>
-                        <NCard title="Ships">
-                            <template #header-extra>
-                                <NPopconfirm v-model:show="createShipPrompt" :show-icon="false">
-                                    <template #trigger>
-                                        <NButton :loading="createShipPending">Create</NButton>
-                                    </template>
+                <ClientOnly>
+                    <NGrid cols="1 m:2" :x-gap="12" :y-gap="12" style="margin-top: 12px" responsive="screen">
+                        <NGi>
+                            <NCard title="Ships">
+                                <template #header-extra>
+                                    <NPopconfirm v-model:show="createShipPrompt" :show-icon="false">
+                                        <template #trigger>
+                                            <NButton :loading="createShipPending">Create</NButton>
+                                        </template>
 
-                                    What kind of ship would you like to create?
+                                        What kind of ship would you like to create?
 
-                                    <template #action>
-                                        <NSpace>
-                                            <NButton size="small" @click="createShip('Boat')">Boat</NButton>
-                                            <NButton size="small" @click="createShip('Airship')">Airship</NButton>
-                                            <NButton :disabled="createShipPending" size="small" type="error" ghost @click="createShipPrompt = false">Cancel</NButton>
-                                        </NSpace>
-                                    </template>
-                                </NPopconfirm>
-                            </template>
+                                        <template #action>
+                                            <NSpace>
+                                                <NButton size="small" @click="createShip('Boat')">Boat</NButton>
+                                                <NButton size="small" @click="createShip('Airship')">Airship</NButton>
+                                                <NButton :disabled="createShipPending" size="small" type="error" ghost @click="createShipPrompt = false">Cancel</NButton>
+                                            </NSpace>
+                                        </template>
+                                    </NPopconfirm>
+                                </template>
 
-                            <NList v-if="country.boats.length || country.airships.length" hoverable>
-                                <NListItem v-for="boat in country.boats" :key="boat.id">
-                                    <NThing title="Boat" :description="formatShipDescription(boat.status, boat.progress)" />
+                                <NList v-if="country.boats.length || country.airships.length" hoverable>
+                                    <NListItem v-for="boat in country.boats" :key="boat.id">
+                                        <NThing title="Boat" :description="formatShipDescription(boat.status, boat.progress)" />
 
-                                    <template #suffix>
-                                        <UButtonLink :to="`/ship/${boat.id}`">View</UButtonLink>
-                                    </template>
-                                </NListItem>
+                                        <template #suffix>
+                                            <UButtonLink :to="`/ship/${boat.id}`">View</UButtonLink>
+                                        </template>
+                                    </NListItem>
 
-                                <NListItem v-for="airship in country.airships" :key="airship.id">
-                                    <NThing title="Airship" :description="formatShipDescription(airship.status, airship.progress)" />
+                                    <NListItem v-for="airship in country.airships" :key="airship.id">
+                                        <NThing title="Airship" :description="formatShipDescription(airship.status, airship.progress)" />
 
-                                    <template #suffix>
-                                        <UButtonLink :to="`/ship/${airship.id}`">View</UButtonLink>
-                                    </template>
-                                </NListItem>
-                            </NList>
+                                        <template #suffix>
+                                            <UButtonLink :to="`/ship/${airship.id}`">View</UButtonLink>
+                                        </template>
+                                    </NListItem>
+                                </NList>
 
-                            <NEmpty v-else size="large" description="No ships yet..." />
+                                <NEmpty v-else size="large" description="No ships yet..." />
 
-                            <template #action>
-                                <NText italic depth="3">Ships are used for trade and transport.</NText>
-                            </template>
-                        </NCard>
-                    </NGi>
+                                <template #action>
+                                    <NText italic depth="3">Ships are used for trade and transport.</NText>
+                                </template>
+                            </NCard>
+                        </NGi>
 
-                    <NGi>
-                        <NCard title="Notes">
-                            <!-- pre-line makes HTML respect newlines -->
-                            <NText :depth="2" style="white-space: pre-line">
-                                {{ country.notes || "No current notes..." }}
-                            </NText>
+                        <NGi>
+                            <NCard title="Notes">
+                                <!-- pre-line makes HTML respect newlines -->
+                                <NText :depth="2" style="white-space: pre-line">
+                                    {{ country.notes || "No current notes..." }}
+                                </NText>
 
-                            <template #action>
-                                <NText italic depth="3">Notes can be anything that you need to remember for a while.</NText>
-                            </template>
-                        </NCard>
-                    </NGi>
-                </NGrid>
+                                <template #action>
+                                    <NText italic depth="3">Notes can be anything that you need to remember for a while.</NText>
+                                </template>
+                            </NCard>
+                        </NGi>
+                    </NGrid>
+                </ClientOnly>
 
                 <LazyEditDrawer v-model:show="editing" title="Editing" @after-leave="editArgs = {}">
                     <NSpace vertical :size="24">

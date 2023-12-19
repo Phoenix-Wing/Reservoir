@@ -40,21 +40,23 @@
 
                 <NDivider dashed />
 
-                <NGrid :cols="3" :x-gap="12" :y-gap="12">
-                    <NGi v-if="member.countries.length == 0">
-                        <NCard>
-                            <NEmpty description="This member does not have any countries." size="large">
-                                <template #extra>
-                                    <UButtonLink to="/new">Create a new country</UButtonLink>
-                                </template>
-                            </NEmpty>
-                        </NCard>
-                    </NGi>
+                <ClientOnly>
+                    <NGrid cols="1 m:2 l:3" :x-gap="12" :y-gap="12" responsive="screen">
+                        <NGi v-if="member.countries.length == 0">
+                            <NCard>
+                                <NEmpty description="This member does not have any countries." size="large">
+                                    <template #extra>
+                                        <UButtonLink to="/new">Create a new country</UButtonLink>
+                                    </template>
+                                </NEmpty>
+                            </NCard>
+                        </NGi>
 
-                    <NGi v-for="country in member.countries" v-else :key="country.id">
-                        <ViewCountryCard :id="country.id" :name="country.name" :gold="country.gold_quantity" :size="country.size" />
-                    </NGi>
-                </NGrid>
+                        <NGi v-for="country in member.countries" v-else :key="country.id">
+                            <ViewCountryCard :id="country.id" :name="country.name" :gold="country.gold_quantity" :size="country.size" />
+                        </NGi>
+                    </NGrid>
+                </ClientOnly>
 
                 <LazyEditDrawer v-model:show="editing" title="Editing" @after-leave="editArgs = {}">
                     <NSpace vertical :size="24">
