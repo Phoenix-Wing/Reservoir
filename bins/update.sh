@@ -33,8 +33,8 @@ cd ../
 
 # Backup current deloyment
 mkdir -p .previous/
-mv * .previous/
 edgedb dump .previous/reservoir.dump
+mv * .previous/
 
 # Move new instance into current directory
 mv .temp/* .
