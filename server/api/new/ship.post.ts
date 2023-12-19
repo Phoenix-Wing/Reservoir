@@ -1,6 +1,6 @@
 import * as edgedb from "edgedb";
-import { createBoat } from "~/queries/createBoat.query";
-import { createAirship } from "~/queries/createAirship.query";
+import { createBoat } from "~/queries/ship/createBoat.query";
+import { createAirship } from "~/queries/ship/createAirship.query";
 
 const client = edgedb.createClient();
 

@@ -1,5 +1,5 @@
 import * as edgedb from "edgedb";
-import { getShip } from "~/queries/getShip.query";
+import { getShip } from "~/queries/ship/getShip.query";
 
 const client = edgedb.createClient();
 

@@ -1,5 +1,5 @@
 import * as edgedb from "edgedb";
-import { deleteShip } from "~/queries/deleteShip.query";
+import { deleteShip } from "~/queries/ship/deleteShip.query";
 
 const client = edgedb.createClient();
 

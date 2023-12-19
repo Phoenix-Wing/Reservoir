@@ -1,5 +1,5 @@
 import * as edgedb from "edgedb";
-import { progressShips } from "~/queries/progressShips.query";
+import { progressShips } from "~/queries/ship/progressShips.query";
 
 const client = edgedb.createClient();
 

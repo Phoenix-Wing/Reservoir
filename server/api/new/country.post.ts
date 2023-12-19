@@ -1,5 +1,5 @@
 import * as edgedb from "edgedb";
-import { createCountry, CreateCountryArgs } from "~/queries/createCountry.query";
+import { createCountry, CreateCountryArgs } from "~/queries/country/createCountry.query";
 
 const client = edgedb.createClient();
 
