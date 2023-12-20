@@ -1,10 +1,14 @@
 <template>
     <NaiveConfig>
-        <NMessageProvider>
-            <NuxtLayout style="background-image: var(--blueprint-bg-dark);">
-                <NuxtPage />
-            </NuxtLayout>
-        </NMessageProvider>
+        <NLoadingBarProvider>
+            <NaiveLoadingBar navigation />
+
+            <NMessageProvider>
+                <NuxtLayout style="background-image: var(--blueprint-bg-dark);">
+                    <NuxtPage />
+                </NuxtLayout>
+            </NMessageProvider>
+        </NLoadingBarProvider>
     </NaiveConfig>
 </template>
 
