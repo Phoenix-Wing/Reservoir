@@ -8,4 +8,8 @@
 .n-link {
     color: v-bind("useThemeVars().value.primaryColor");
 }
+
+.n-link:hover {
+    color: v-bind("useThemeVars().value.primaryColorHover");
+}
 </style>
