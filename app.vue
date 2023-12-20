@@ -1,7 +1,5 @@
 <template>
     <NaiveConfig>
-        <NGlobalStyle />
-
         <NMessageProvider>
             <NuxtLayout style="background-image: var(--blueprint-bg-dark);">
                 <NuxtPage />
