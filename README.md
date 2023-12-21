@@ -5,17 +5,17 @@ Reservoir is a [Nuxt](https://nuxt.com) website using [Vue](https://vuejs.org) a
 ## Requirements
 
 - Node.js 18
-- EdgeDB 3.4 ([See installation page](https://www.edgedb.com/install))
+- EdgeDB 4 ([See installation page](https://www.edgedb.com/install))
 
 ## Usage
 
-You can download the latest stable-(ish) version of the code from the [releases](https://github.com/Phoenix-Wing/Reservoir/releases) page. Extract the tar file into a new directory, then run the following commands.
+You can download the latest stable-(ish) version of the code from the [releases](https://github.com/Phoenix-Wing/Reservoir/releases/latest) page. Extract the tar file into a new directory, then run the following commands.
 
 ```shell
 # Check that tools are installed
 $ node --version && edgedb --version
-v18.17.1
-EdgeDB CLI 3.4.0+4d95a2c
+v18.19.0
+EdgeDB CLI 4.0.2+500be79
 
 # Create and migrate new database
 $ edgedb project init
@@ -28,7 +28,7 @@ Listening http://[::]:3000
 You can visit the deployed website at [localhost:3000](http://localhost:3000). You can also update your installation with `update.sh`.
 
 ```shell
-$ ./update.sh ../reservoir-2.0.0.tar.gz
+$ ./update.sh ../reservoir-2.x.x.tar.gz
 ```
 
 ## Contributing
