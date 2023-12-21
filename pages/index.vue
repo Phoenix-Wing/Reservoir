@@ -1,11 +1,9 @@
 <template>
     <main>
-        <NSpace justify="center" style="padding: 1rem 0">
+        <NSpace justify="center">
             <NH1>
-                <NuxtLink to="/" style="text-decoration: none">
-                    <NGradientText type="primary" size="40pt">
-                        Reservoir
-                    </NGradientText>
+                <NuxtLink to="/">
+                    <img src="~/assets/logo-text.svg" alt="Reservoir" class="title">
                 </NuxtLink>
             </NH1>
         </NSpace>
@@ -35,3 +33,17 @@
         </NSpace>
     </main>
 </template>
+
+<style scoped>
+@media (max-width: 700px) {
+    .title {
+        height: 150px;
+    }
+}
+
+@media (min-width: 700px) {
+    .title {
+        height: 200px;
+    }
+}
+</style>
