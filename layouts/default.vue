@@ -6,6 +6,12 @@
 
         <footer class="footer">
             <NSpace justify="center">
+                <LazyHomeSearchBar />
+            </NSpace>
+
+            <NDivider dashed />
+
+            <NSpace justify="center">
                 <div>
                     <NText tertiary>A website by </NText>
                     <NLink to="https://bd103.github.io" target="_blank">BD103</NLink>
