@@ -26,7 +26,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-    (event: "input", val: string[] | undefined): void,
+    "input": [val: string[] | undefined],
 }>();
 
 const { data: rawOptions, pending, error } = useFetch("/api/members", {

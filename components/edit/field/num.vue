@@ -17,8 +17,8 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-    (event: "input:required", val: number | undefined): void,
-    (event: "input:optional", val: number | null | undefined): void,
+    "input:required": [val: number | undefined],
+    "input:optional": [val: number | null | undefined],
 }>();
 
 // Coerce undefined + null to 0

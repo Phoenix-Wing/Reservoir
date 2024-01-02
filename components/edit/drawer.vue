@@ -17,6 +17,6 @@ defineProps<{
 }>();
 
 defineEmits<{
-    (event: "update:show", value: boolean): void,
+    "update:show": [value: boolean],
 }>();
 </script>
