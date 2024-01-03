@@ -14,6 +14,7 @@
   "devDependencies": {
     "@bg-dev/nuxt-naiveui": "^1.8.0",
     "@edgedb/generate": "^0.3.4",
+    "@nuxt/devtools": "^1.0.6",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "edgedb": "^1.4.1",

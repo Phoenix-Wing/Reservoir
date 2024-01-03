@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     modules: [
         "@bg-dev/nuxt-naiveui",
         "@nuxtjs/eslint-module",
+        "@nuxt/devtools",
     ],
     naiveui: {
         colorModePreference: "dark",
