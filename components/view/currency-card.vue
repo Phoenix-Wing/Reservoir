@@ -1,5 +1,5 @@
 <template>
-    <NCard :title="title" :style="kind === 'error' ? 'border-color: rgb(208, 58, 82)' : {}">
+    <UCard :title="title" :style="kind === 'error' ? 'border-color: rgb(208, 58, 82)' : {}">
         <template #header-extra>
             <slot name="header-extra" />
         </template>
@@ -29,7 +29,7 @@
         <template v-if="$slots.description" #action>
             <NText italic depth="3"><slot name="description" /></NText>
         </template>
-    </NCard>
+    </UCard>
 </template>
 
 <script setup lang="ts">
