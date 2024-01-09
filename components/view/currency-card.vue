@@ -1,5 +1,5 @@
 <template>
-    <UCard :title="title" :style="kind === 'error' ? 'border-color: rgb(208, 58, 82)' : {}">
+    <UCard :title="title">
         <template #header-extra>
             <slot name="header-extra" />
         </template>
@@ -42,6 +42,5 @@ defineProps<{
         upkeep?: number,
     },
     suffix?: string,
-    kind?: "default" | "error",
 }>();
 </script>
