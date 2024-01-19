@@ -59,6 +59,7 @@
                             <ViewCurrencyCard title="Foodstuffs" :data="country.foodstuffs" :kind="country.foodstuffs.quantity === 0 && country.consumes_foodstuffs ? 'error' : undefined">
                                 <template #description>
                                     Foodstuffs are necessary to feed your population.
+                                    <NButton text @click="showFoodstuffsModal = true">More Info</NButton>
                                 </template>
 
                                 <template #profitPopover>
@@ -110,6 +111,38 @@
                         </NGi>
                     </NGrid>
                 </ClientOnly>
+
+                <NModal v-model:show="showFoodstuffsModal">
+                    <NCard title="Foodstuffs Information" style="width: 600px" closable @close="showFoodstuffsModal = false">
+                        <p>
+                            The amount of food your country consumes is dependent on the size of your country.
+                            (It doesn't matter if your country doesn't consume foodstuffs, though.)
+                        </p>
+
+                        <NTable>
+                            <thead>
+                                <tr>
+                                    <th>Size</th>
+                                    <th>Foodstuffs</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Small</td>
+                                    <td>5</td>
+                                </tr>
+                                <tr>
+                                    <td>Medium</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>Large</td>
+                                    <td>30</td>
+                                </tr>
+                            </tbody>
+                        </NTable>
+                    </NCard>
+                </NModal>
 
                 <ClientOnly>
                     <NGrid cols="1 m:2" :x-gap="12" :y-gap="12" style="margin-top: 12px" responsive="screen">
@@ -327,6 +360,8 @@ async function createShip(kind: "Boat" | "Airship") {
 
     createShipPending.value = false;
 }
+
+const showFoodstuffsModal = ref(false);
 
 /*
  * EDITING
