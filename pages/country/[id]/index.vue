@@ -209,7 +209,6 @@
 
                 <LazyEditDrawer v-model:show="editing" title="Editing" @after-leave="editArgs = {}">
                     <NSpace vertical :size="24">
-                        <!-- TODO: Consider different title? -->
                         <EditCard title="Country">
                             <EditFieldText :default="country.name" label="Name" @input:required="x => editArgs.name = x" />
                             <EditFieldCountryLeaders :default="country.leaders" label="Leaders" @input="x => editArgs.leaders = x" />

@@ -60,10 +60,14 @@
 
                 <LazyEditDrawer v-model:show="editing" title="Editing" @after-leave="editArgs = {}">
                     <NSpace vertical :size="24">
-                        <EditCard title="Character">
+                        <EditCard title="Member">
                             <EditFieldText :default="member.name" label="Name" @input:required="x => editArgs.name = x" />
                             <EditFieldText :default="member.ig_name" label="In-Game Name" optional @input:optional="x => editArgs.ig_name = x" />
                         </EditCard>
+
+                        <NCard title="Countries">
+                            <NText depth="2" italic>Edit individual countries to change their leaders.</NText>
+                        </NCard>
                     </NSpace>
 
                     <template #footer>
