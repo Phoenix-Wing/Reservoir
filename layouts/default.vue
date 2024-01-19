@@ -11,7 +11,7 @@
 
             <NDivider dashed />
 
-            <NSpace justify="center">
+            <NSpace justify="center" class="footer-links">
                 <div>
                     <NText tertiary>A website by </NText>
                     <NLink to="https://bd103.github.io" target="_blank">BD103</NLink>
@@ -57,5 +57,9 @@
 
 .footer {
     padding: 2em 0;
+}
+
+.footer-links div {
+    margin: 0 1em;
 }
 </style>
