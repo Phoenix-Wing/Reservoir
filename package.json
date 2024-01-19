@@ -12,14 +12,14 @@
     "postinstall": "nuxt prepare && pnpm build:query"
   },
   "devDependencies": {
-    "@bg-dev/nuxt-naiveui": "^1.8.0",
+    "@bg-dev/nuxt-naiveui": "^1.9.0",
     "@edgedb/generate": "^0.3.4",
-    "@nuxt/devtools": "^1.0.6",
+    "@nuxt/devtools": "^1.0.8",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
     "edgedb": "^1.4.1",
     "eslint": "^8.56.0",
-    "naive-ui": "^2.36.0",
-    "nuxt": "^3.9.0"
+    "naive-ui": "^2.37.3",
+    "nuxt": "^3.9.3"
   }
 }
