@@ -27,7 +27,7 @@ module material {
         # The net profit of the resource
         required property profit := (
             (.income - .upkeep - default::countryFoodConsumption(.country.size))
-            if .kind = MaterialKind.Foodstuffs else (.income - .upkeep)
+            if .kind = MaterialKind.Foodstuffs and .country.consumes_foodstuffs else (.income - .upkeep)
         ) ?? 0;
 
         # Backlink to the country owning this material stat
