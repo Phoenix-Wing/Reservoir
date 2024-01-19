@@ -7,6 +7,7 @@
 <style scoped>
 .n-link {
     color: v-bind("useThemeVars().value.primaryColor");
+    text-decoration: none;
 }
 
 .n-link:hover {
