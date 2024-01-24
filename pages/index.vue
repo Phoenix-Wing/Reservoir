@@ -8,7 +8,7 @@
             </NH1>
         </NSpace>
 
-        <NSpace :size="24" vertical>
+        <NSpace :size="12" vertical>
             <NCard title="Quick actions">
                 <NSpace>
                     <HomeIncomeDistributor />
@@ -23,10 +23,10 @@
             <ClientOnly>
                 <NGrid cols="1 m:2" :x-gap="12" responsive="screen">
                     <NGi>
-                        <LazyHomeMemberList />
+                        <HomeMemberList />
                     </NGi>
                     <NGi>
-                        <LazyHomeQuickStats />
+                        <HomeQuickStats />
                     </NGi>
                 </NGrid>
             </ClientOnly>
