@@ -7,6 +7,7 @@
         <footer class="footer">
             <NSpace justify="center">
                 <LazyHomeSearchBar />
+                <LazyHomeQRCode />
             </NSpace>
 
             <NDivider dashed />
